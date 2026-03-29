@@ -1,0 +1,316 @@
+/* =========================
+RESET / BASE
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+:root {
+  --bg: #f2f2f2;
+  --text: #222;
+  --card: #ffffff;
+  --primary: #003893;
+  --hover: rgba(255, 255, 255, 0.15);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: linear-gradient(180deg, #003893, #002b6f);
+  color: white;
+  padding: 25px 20px;
+  overflow-y: auto;
+  transition: 0.3s ease;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+
+/* LOGO */
+.brand {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-img {
+  width: 70px;
+  margin-bottom: 12px;
+}
+
+.brand h1 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* =========================
+NAV
+========================= */
+
+.nav ul {
+  list-style: none;
+  margin-top: 25px;
+}
+
+.nav li {
+  margin-bottom: 14px;
+}
+
+.nav a,
+.sub-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* ÍCONE + TEXTO */
+.nav a span,
+.sub-toggle span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.nav a i,
+.sub-toggle span i {
+  font-size: 20px;
+  min-width: 22px;
+}
+
+/* SETA */
+.arrow {
+  margin-left: auto;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* HOVER */
+.nav a:hover,
+.sub-toggle:hover {
+  background: var(--hover);
+  transform: translateX(6px);
+}
+
+/* =========================
+SUBMENU
+========================= */
+
+.sub {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 10px;
+}
+
+.sub.open {
+  max-height: 320px;
+}
+
+.sub li a {
+  font-size: 15px;
+  padding: 10px 18px;
+  margin-top: 6px;
+}
+
+/* =========================
+MENU MOBILE
+========================= */
+
+.menu-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(135deg, #003893, #0052cc);
+  color: white;
+  border: none;
+  font-size: 22px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  display: none;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  height: 100vh;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-section {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.hero-content h2 {
+  color: white;
+  font-size: 60px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* =========================
+CONTENT
+========================= */
+
+.content {
+  margin-left: 240px;
+  padding: 40px;
+}
+
+.content h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+/* CARDS */
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* =========================
+FOOTER
+========================= */
+
+.footer {
+  margin-left: 240px;
+  background: var(--primary);
+  color: white;
+  padding: 40px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* =========================
+RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    left: -100%;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .hero,
+  .content,
+  .footer {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .hero {
+    height: 65vh;
+  }
+
+  .hero-content h2 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .content {
+    padding: 20px;
+  }
+}

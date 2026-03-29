@@ -3,157 +3,188 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Biblioteca Estácio São Luís</title>
 
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/inicio.css" />
+    <link rel="stylesheet" href="../../assets/css/pages/inicio.css" />
 </head>
 
 <body>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="brand">
-            <i class="ri-book-3-line logo-icon"></i>
-            <h1>Biblioteca<br>Estácio São<br>Luís</h1>
+<!-- BOTÃO MOBILE -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+    <i class="ri-menu-line"></i>
+</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <img src="../../assets/img/logo-estacio-biblioteca.png" alt="Logo Biblioteca" class="logo-img">
+        <h1>Biblioteca<br>Estácio São<br>Luís</h1>
+    </div>
+
+    <nav class="nav">
+        <ul>
+
+            <li>
+                <a href="#">
+                    <i class="ri-home-4-line"></i>
+                    <span>Início</span>
+                </a>
+            </li>
+
+            <!-- Informativo -->
+            <li class="has-sub">
+                <button class="sub-toggle">
+                    <span>
+                        <i class="ri-file-list-3-line"></i>
+                        Informativo
+                    </span>
+                    <i class="ri-arrow-down-s-line arrow"></i>
+                </button>
+
+                <ul class="sub">
+                    <li><a href="#">Atraso de livros</a></li>
+                    <li><a href="#">Normas</a></li>
+                </ul>
+            </li>
+
+            <!-- Acessibilidade -->
+            <li class="has-sub">
+                <button class="sub-toggle">
+                    <span>
+                        <i class="ri-wheelchair-line"></i>
+                        Acessibilidade
+                    </span>
+                    <i class="ri-arrow-down-s-line arrow"></i>
+                </button>
+
+                <ul class="sub">
+                    <li><a href="#">Cartilha de Libras</a></li>
+                    <li><a href="#">VLibras</a></li>
+                    <li><a href="#">NVDA</a></li>
+                    <li><a href="#">DOSVOX</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="ri-contacts-line"></i>
+                    <span>Contato</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="ri-wifi-line"></i>
+                    <span>Wi-Fi</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="ri-file-paper-line"></i>
+                    <span>Regulamento</span>
+                </a>
+            </li>
+
+            <!-- TCC -->
+            <li class="has-sub">
+                <button class="sub-toggle">
+                    <span>
+                        <i class="ri-graduation-cap-line"></i>
+                        TCC Estácio
+                    </span>
+                    <i class="ri-arrow-down-s-line arrow"></i>
+                </button>
+
+                <ul class="sub">
+                    <li><a href="#">Manual TCC</a></li>
+                    <li><a href="#">Repositório</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+
+</aside>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>Biblioteca Estácio<br>São Luís</h2>
+        </div>
+    </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+    <section class="section-destaques">
+        <h2>Destaques da Biblioteca</h2>
+
+        <div class="cards-container">
+            <div class="card">
+                <h3>Livros Recentes</h3>
+                <p>Confira os últimos lançamentos disponíveis.</p>
+            </div>
+
+            <div class="card">
+                <h3>Multimídia</h3>
+                <p>Explore vídeos e conteúdos interativos.</p>
+            </div>
+
+            <div class="card">
+                <h3>Artigos</h3>
+                <p>Acesse pesquisas acadêmicas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-info">
+        <h2>Informações</h2>
+        <p>A biblioteca oferece empréstimos, acesso digital e suporte acadêmico.</p>
+    </section>
+
+</main>
+
+<!-- RODAPÉ -->
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-column">
+            <h4>Biblioteca</h4>
+            <p>Estácio São Luís</p>
         </div>
 
-        <nav class="nav">
-            <ul>
-
-                <li><a href="#"><i class="ri-home-4-line"></i> Início</a></li>
-
-                <!-- Informativo -->
-                <li class="has-sub">
-                    <button class="sub-toggle" aria-controls="sub-informativo">
-                        <i class="ri-file-list-3-line"></i> Informativo
-                    </button>
-
-                    <ul id="sub-informativo" class="sub">
-                        <li><a href="#">Atraso de livros</a></li>
-                        <li><a href="#">Normas</a></li>
-                    </ul>
-                </li>
-
-                <!-- Acessibilidade -->
-                <li class="has-sub">
-
-                    <div class="sub-header">
-                        <a href="html/Acessibilidade.html" class="main-link">
-                            <i class="ri-wheelchair-line"></i> Acessibilidade
-                        </a>
-
-                        <button class="sub-toggle" aria-controls="sub-acess">
-                            <i class="ri-arrow-down-s-line"></i>
-                        </button>
-                    </div>
-
-                    <ul id="sub-acess" class="sub">
-                        <li><a href="#">Cartilha de Libras</a></li>
-                        <li><a href="#">VLibras</a></li>
-                        <li><a href="#">NVDA</a></li>
-                        <li><a href="#">DOSVOX</a></li>
-                    </ul>
-
-                </li>
-
-                <li><a href="#"><i class="ri-contacts-line"></i> Contato</a></li>
-                <li><a href="#"><i class="ri-wifi-line"></i> Wi-Fi</a></li>
-                <li><a href="#"><i class="ri-file-paper-line"></i> Regulamento</a></li>
-
-                <!-- TCC -->
-                <li class="has-sub">
-                    <button class="sub-toggle" aria-controls="sub-tcc">
-                        <i class="ri-graduation-cap-line"></i> TCC Estácio
-                    </button>
-
-                    <ul id="sub-tcc" class="sub">
-                        <li><a href="#">Manual TCC</a></li>
-                        <li><a href="#">Repositório</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Hero -->
-    <main class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-
-        <section class="hero-section">
-            <div class="hero-content">
-                <h2>Biblioteca Estácio<br>São Luís</h2>
-            </div>
-        </section>
-    </main>
-
-    <!-- Conteúdo -->
-    <main class="content">
-
-        <section class="section-destaques">
-            <h2>Destaques da Biblioteca</h2>
-
-            <div class="cards-container">
-                <div class="card">
-                    <h3>Livros Recentes</h3>
-                    <p>Confira os últimos lançamentos disponíveis.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Multimídia</h3>
-                    <p>Explore vídeos e conteúdos interativos.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Artigos</h3>
-                    <p>Acesse pesquisas acadêmicas.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-info">
-            <h2>Informações</h2>
-            <p>A biblioteca oferece empréstimos, acesso digital e suporte acadêmico.</p>
-        </section>
-
-    </main>
-
-    <!-- Rodapé -->
-    <footer class="footer">
-
-        <div class="footer-container">
-
-            <div>
-                <h4>Biblioteca</h4>
-                <p>Estácio São Luís</p>
-            </div>
-
-            <div>
-                <h4>Contato</h4>
-                <p>(98) 99150-0375</p>
-            </div>
-
+        <div class="footer-column">
+            <h4>Contato</h4>
+            <p>(98) 99150-0375</p>
         </div>
 
-        <div class="footer-bottom">
-            © 2025
-        </div>
+    </div>
 
-    </footer>
+    <div class="footer-bottom">
+        © 2026 Biblioteca Estácio São Luís
+    </div>
 
-    <!-- Botão topo -->
-    <button class="btn-top">
-        <i class="ri-arrow-up-line"></i>
-    </button>
+</footer>
 
-    <!-- JS -->
-    <script src="js/inicio.js"></script>
+<!-- JS -->
+<script src="../../assets/js/pages/inicio.js"></script>
 
 </body>
 </html>
