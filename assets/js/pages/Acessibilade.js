@@ -1,85 +1,110 @@
 // ===============================
-// SIDEBAR – SUBMENUS COM SETA INDEPENDENTE
+// ELEMENTOS
 // ===============================
 
-// Seleciona todas as setas que abrem submenus
+const sidebar = document.getElementById("sidebar");
+const toggle = document.getElementById("menuToggle");
+const overlay = document.getElementById("overlay");
 const subToggles = document.querySelectorAll(".sub-toggle");
 
+
+// ===============================
+// SUBMENUS
+// ===============================
+
 subToggles.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
 
-    // Botão tem atributo aria-controls com ID do submenu
-    const submenuId = btn.getAttribute("aria-controls");
-    const subMenu = document.getElementById(submenuId);
-    const arrow = btn.querySelector(".arrow");
+    const parent = btn.closest(".has-sub");
+    const isOpen = parent.classList.contains("open");
 
-    btn.addEventListener("click", () => {
-        const isOpen = subMenu.style.display === "block";
-
-        // Abrir / Fechar submenu
-        subMenu.style.display = isOpen ? "none" : "block";
-
-        // Rotacionar seta
-        arrow.classList.toggle("rotate", !isOpen);
-
-        // Atualiza acessibilidade ARIA
-        btn.setAttribute("aria-expanded", !isOpen);
+    // fecha outros
+    document.querySelectorAll(".has-sub.open").forEach(item => {
+      if (item !== parent) {
+        item.classList.remove("open");
+        item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
+      }
     });
+
+    // toggle atual
+    parent.classList.toggle("open");
+    btn.setAttribute("aria-expanded", !isOpen);
+  });
 });
 
 
 // ===============================
-// SIDEBAR TOGGLE (Versão Mobile)
+// MENU TOGGLE (UNIFICADO)
 // ===============================
 
-const sidebar = document.querySelector(".sidebar");
-const hamburger = document.querySelector(".hamburger");
+if (toggle && sidebar && overlay) {
 
-if (hamburger) {
-    hamburger.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
-    });
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const isActive = sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+
+    // acessibilidade
+    toggle.setAttribute("aria-expanded", isActive);
+
+    // fecha submenus ao fechar sidebar
+    if (!isActive) {
+      closeAllSubmenus();
+    }
+  });
+
+  // clique no overlay
+  overlay.addEventListener("click", () => {
+    closeSidebar();
+  });
+
+  // clique fora (melhorado 🔥)
+  document.addEventListener("click", (e) => {
+    const clickedOutside =
+      !sidebar.contains(e.target) &&
+      !toggle.contains(e.target);
+
+    if (clickedOutside && sidebar.classList.contains("active")) {
+      closeSidebar();
+    }
+  });
 }
 
 
 // ===============================
-// BOTÃO VOLTAR AO TOPO
+// FUNÇÕES AUXILIARES
 // ===============================
 
-const btnTop = document.querySelector(".btn-top");
+function closeSidebar() {
+  sidebar.classList.remove("active");
+  overlay.classList.remove("active");
+  toggle.setAttribute("aria-expanded", "false");
+  closeAllSubmenus();
+}
 
-window.addEventListener("scroll", () => {
-    btnTop.style.display = window.scrollY > 300 ? "flex" : "none";
+function closeAllSubmenus() {
+  document.querySelectorAll(".has-sub.open").forEach(item => {
+    item.classList.remove("open");
+    item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
+  });
+}
+
+
+// ===============================
+// MELHORIA UX (ESC fecha menu)
+// ===============================
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeSidebar();
+  }
 });
-
-btnTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-
-// ===============================
-// SCROLL REVEAL (Animação ao aparecer)
-// ===============================
-
-const revealElements = document.querySelectorAll(".card, .hero, .content");
-
-const revealOnScroll = () => {
-    const windowHeight = window.innerHeight;
-
-    revealElements.forEach(el => {
-        const elementTop = el.getBoundingClientRect().top;
-
-        if (elementTop < windowHeight - 100) {
-            el.classList.add("visible");
-        }
-    });
-};
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
 
 
 // ===============================
 // DEBUG
 // ===============================
 
-console.log("JS carregado com sucesso - Biblioteca Estácio 2025");
+console.log("🚀 Sidebar profissional 100%");

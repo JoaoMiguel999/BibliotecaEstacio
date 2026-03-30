@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Acessibilidade - Biblioteca Estácio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biblioteca Estácio São Luís</title>
 
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
@@ -15,125 +15,196 @@
 
 <body>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
+<button class="menu-toggle" id="menuToggle">
+    <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- 🔥 NOVO CONTAINER PRINCIPAL -->
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
         <div class="brand">
-            <i class="ri-book-3-line logo-icon"></i>
+            <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img">
             <h1>Biblioteca<br>Estácio São<br>Luís</h1>
         </div>
 
         <nav class="nav">
             <ul>
 
-                <li><a href="../index.html"><i class="ri-home-4-line"></i> Início</a></li>
+                <li>
+                    <a href="../../index.html">
+                        <span>
+                            <i class="ri-home-4-line"></i>
+                            Início
+                        </span>
+                    </a>
+                </li>
 
-                <!-- Informativo -->
                 <li class="has-sub">
-                    <button class="sub-toggle" aria-controls="sub-informativo">
-                        Informativo
+                    <button class="sub-toggle">
+                        <span>
+                            <i class="ri-file-list-3-line"></i>
+                            Informativo
+                        </span>
+                        <i class="ri-arrow-down-s-line arrow"></i>
                     </button>
-
-                    <ul id="sub-informativo" class="sub">
+                    <ul class="sub">
                         <li><a href="#">Atraso de livros</a></li>
                         <li><a href="#">Normas</a></li>
                     </ul>
                 </li>
 
-                <!-- Acessibilidade -->
-                <li class="has-sub">
+               <li class="has-sub">
 
-                    <div class="sub-header">
-                        <a href="Acessibilidade.html" class="main-link">
-                            <i class="ri-wheelchair-line"></i> Acessibilidade
-                        </a>
+ <li class="has-sub">
+  <button class="sub-toggle">
+    <span>
+      <i class="ri-wheelchair-line"></i>
+      Acessibilidade
+    </span>
+    <i class="ri-arrow-down-s-line arrow"></i>
+  </button>
 
-                        <button class="sub-toggle" aria-controls="sub-acess">
-                            <i class="ri-arrow-down-s-line"></i>
-                        </button>
-                    </div>
+  <ul class="sub">
+    <li><a href="#">Cartilha de Libras</a></li>
+    <li><a href="#">VLibras</a></li>
+    <li><a href="#">NVDA</a></li>
+    <li><a href="#">DOSVOX</a></li>
+  </ul>
+</li>
 
-                    <ul id="sub-acess" class="sub">
-                        <li><a href="#">Cartilha de Libras</a></li>
-                        <li><a href="#">VLibras</a></li>
-                    </ul>
-
+                <li>
+                    <a href="#">
+                        <span>
+                            <i class="ri-contacts-line"></i>
+                            Contato
+                        </span>
+                    </a>
                 </li>
 
-                <!-- TCC -->
-                <li class="has-sub">
-                    <button class="sub-toggle" aria-controls="sub-tcc">
-                        TCC Estácio
-                    </button>
+                <li>
+                    <a href="#">
+                        <span>
+                            <i class="ri-wifi-line"></i>
+                            Wi-Fi
+                        </span>
+                    </a>
+                </li>
 
-                    <ul id="sub-tcc" class="sub">
-                        <li><a href="#">Manual</a></li>
+                <li>
+                    <a href="#">
+                        <span>
+                            <i class="ri-file-paper-line"></i>
+                            Regulamento
+                        </span>
+                    </a>
+                </li>
+
+                <li class="has-sub">
+                    <button class="sub-toggle">
+                        <span>
+                            <i class="ri-graduation-cap-line"></i>
+                            TCC Estácio
+                        </span>
+                        <i class="ri-arrow-down-s-line arrow"></i>
+                    </button>
+                    <ul class="sub">
+                        <li><a href="#">Manual TCC</a></li>
                         <li><a href="#">Repositório</a></li>
                     </ul>
                 </li>
 
             </ul>
         </nav>
+
     </aside>
 
-    <!-- Hero -->
-    <main class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
+    <!-- 🔥 CONTEÚDO PRINCIPAL -->
+    <div class="main">
 
-        <section class="hero-section">
-            <div class="hero-content">
-                <h2>Acessibilidade</h2>
+        <!-- HERO -->
+        <header class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h2>Acessibilidade</h2>
+                </div>
+            </section>
+        </header>
+
+        <!-- CONTEÚDO -->
+        <main class="content">
+
+            <section class="section-destaques">
+                <h2>Recursos de Acessibilidade da Biblioteca</h2>
+
+                <div class="cards-container">
+
+                    <div class="card">
+                        <h3>Softwares de Acessibilidade</h3>
+                        <p>NVDA, DOSVOX e VLibras auxiliam na leitura de tela e tradução para Libras.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Equipamentos Inclusivos</h3>
+                        <p>Fones, teclado braile, lupa, reglete, sorobã e teclado acessível.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Plataformas Digitais</h3>
+                        <p>BV Pearson, Minha Biblioteca e EBSCO com leitura em voz alta.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Cartilha de Libras</h3>
+                        <p>Conteúdo com conceito, legislação e alfabeto em LIBRAS.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="section-info">
+                <h2>Informações</h2>
+                <p>
+                    A biblioteca oferece recursos como NVDA, DOSVOX, VLibras, equipamentos acessíveis 
+                    e plataformas digitais com leitura em voz alta, garantindo inclusão e acessibilidade.
+                </p>
+            </section>
+
+        </main>
+
+        <!-- RODAPÉ -->
+        <footer class="footer">
+
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4>Biblioteca</h4>
+                    <p>Estácio São Luís</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <p>(98) 99150-0375</p>
+                </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Conteúdo -->
-    <main class="content">
-
-        <section class="section-destaques">
-            <h2>Recursos de Acessibilidade</h2>
-
-            <div class="cards-container">
-
-                <div class="card">
-                    <h3>Cartilha de Libras</h3>
-                    <p>Material educativo para comunicação inclusiva.</p>
-                </div>
-
-                <div class="card">
-                    <h3>VLibras</h3>
-                    <p>Tradução automática para Libras.</p>
-                </div>
-
-                <div class="card">
-                    <h3>NVDA</h3>
-                    <p>Leitor de tela gratuito.</p>
-                </div>
-
-                <div class="card">
-                    <h3>DOSVOX</h3>
-                    <p>Sistema para pessoas com deficiência visual.</p>
-                </div>
-
+            <div class="footer-bottom">
+                © 2026 Biblioteca Estácio São Luís
             </div>
-        </section>
 
-    </main>
+        </footer>
 
-    <!-- Rodapé -->
-    <footer class="footer">
-        <div class="footer-bottom">
-            © 2025 Biblioteca Estácio
-        </div>
-    </footer>
+    </div>
 
-    <!-- Botão topo -->
-    <button class="btn-top">
-        <i class="ri-arrow-up-line"></i>
-    </button>
+</div>
 
-    <!-- JS -->
-    <script src="../../assets/js/pages/Acessibilade.js"></script>
+<script src="../../assets/js/pages/Acessibilade.js"></script>
 
 </body>
 </html>
