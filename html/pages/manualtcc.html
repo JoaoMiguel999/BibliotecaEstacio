@@ -17,21 +17,20 @@
 
 <body>
 
-<!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle">
     <i class="ri-menu-line"></i>
 </button>
 
-<!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
 <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar">
 
-        <div class="brand">
-            <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img">
-            <h1>Biblioteca<br>Estácio São<br>Luís</h1>
-        </div>
+    <div class="brand">
+        <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img">
+        <h1>Biblioteca<br>Estácio São<br>Luís</h1>
+    </div>
 
     <nav class="nav">
         <ul>
@@ -46,7 +45,7 @@
             </li>
 
             <li class="has-sub">
-                <button class="sub-toggle" aria-expanded="false">
+                <button class="sub-toggle">
                     <span class="menu-left">
                         <i class="ri-file-list-3-line"></i>
                         Informativo
@@ -60,28 +59,13 @@
                 </ul>
             </li>
 
-            <li class="has-sub">
-                <div class="menu-item">
-
-                    <a href="../pages/Acessibilidade.html" class="menu-link">
-                        <span class="menu-left">
-                            <i class="ri-wheelchair-line"></i>
-                            Acessibilidade
-                        </span>
-                    </a>
-
-                    <button class="sub-toggle" aria-expanded="false">
-                        <i class="ri-arrow-down-s-line arrow"></i>
-                    </button>
-
-                </div>
-
-                <ul class="sub">
-                    <li><a href="#">Cartilha de Libras</a></li>
-                    <li><a href="#">VLibras</a></li>
-                    <li><a href="#">NVDA</a></li>
-                    <li><a href="#">DOSVOX</a></li>
-                </ul>
+            <li>
+                <a href="../pages/Acessibilidade.html">
+                    <span class="menu-left">
+                        <i class="ri-wheelchair-line"></i>
+                        Acessibilidade
+                    </span>
+                </a>
             </li>
 
             <li>
@@ -102,6 +86,7 @@
                 </a>
             </li>
 
+                <!-- REGULAMENTO -->
             <li>
                 <a href="#">
                     <span class="menu-left">
@@ -112,7 +97,7 @@
             </li>
 
             <li class="has-sub">
-                <button class="sub-toggle" aria-expanded="false">
+                <button class="sub-toggle">
                     <span class="menu-left">
                         <i class="ri-graduation-cap-line"></i>
                         TCC Estácio
@@ -121,8 +106,8 @@
                 </button>
 
                 <ul class="sub">
-                    <li><a href="../pages/manualtcc.html">Manual TCC</a></li>
-                    <li><a href="../pages/repositorio.html">Repositório</a></li>
+                    <li><a href="manualtcc.html">Manual TCC</a></li>
+                    <li><a href="repositorio.html">Repositório</a></li>
                 </ul>
             </li>
 
@@ -150,24 +135,43 @@
 
         <h2>Manual de Normalização de Trabalhos Acadêmicos</h2>
 
-        <p>
-            Acesse o manual completo com as normas da ABNT para elaboração de TCC.
-        </p>
+        <p>Acesse o manual completo com as normas da ABNT.</p>
 
-        <!-- 🔥 PDF CORRIGIDO -->
+        <!-- PDF.JS -->
         <div class="pdf-wrapper">
-            <iframe 
-                src="/assets/docs/manual-estacio.pdf#toolbar=0"
-                class="pdf-viewer"
-                title="Manual de Normalização de TCC"
-                loading="lazy">
-            </iframe>
+
+            <div class="pdf-toolbar">
+                <button id="btn-prev" disabled>
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+
+                <span>
+                    Página <span id="pg-atual">1</span> de <span id="pg-total">?</span>
+                </span>
+
+                <button id="btn-next" disabled>
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+
+                <button id="btn-zoom-out">
+                    <i class="ri-subtract-line"></i>
+                </button>
+
+                <button id="btn-zoom-in">
+                    <i class="ri-add-line"></i>
+                </button>
+            </div>
+
+            <div class="pdf-canvas-wrap">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
+
         </div>
 
         <!-- BOTÕES -->
         <div class="acoes">
             <button class="btn-visualizar" id="abrirModal">
-                Visualizar em tela cheia
+                Tela cheia
             </button>
 
             <a href="/assets/docs/manual-estacio.pdf" download class="btn-download">
@@ -184,32 +188,17 @@
     <div class="modal-content">
         <span class="close-modal" id="fecharModal">&times;</span>
 
-        <iframe 
-            src="/assets/docs/manual-estacio.pdf"
-            class="pdf-viewer"
-            title="Manual em tela cheia">
-        </iframe>
+        <iframe src="/assets/docs/manual-estacio.pdf" class="pdf-viewer"></iframe>
     </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-container">
-        <div>
-            <h4>Biblioteca</h4>
-            <p>Estácio São Luís</p>
-        </div>
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
 
-        <div>
-            <h4>Contato</h4>
-            <p>(98) 99150-0375</p>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        © 2026 Biblioteca Estácio São Luís
-    </div>
-</footer>
 <!-- JS -->
 <script src="../../assets/js/pages/manualtcc.js" defer></script>
 

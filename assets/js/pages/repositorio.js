@@ -113,7 +113,6 @@ if (modal && abrirModalBtn && fecharModalBtn) {
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
 
-    // delay pra suavizar foco
     setTimeout(() => {
       fecharModalBtn.focus();
     }, 100);
@@ -128,23 +127,88 @@ if (modal && abrirModalBtn && fecharModalBtn) {
     }
   };
 
-  // abrir
   abrirModalBtn.addEventListener("click", abrirModal);
-
-  // fechar botão
   fecharModalBtn.addEventListener("click", fecharModal);
 
-  // clicar fora
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
       fecharModal();
     }
   });
 
-  // ESC fecha modal
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("active")) {
       fecharModal();
     }
+  });
+}
+
+
+// ===============================
+// PDF.JS VIEWER
+// ===============================
+const PDF_URL = '/assets/docs/repositorioTCC.pdf';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let pdfDoc = null;
+let paginaAtual = 1;
+let zoom = 1.2;
+
+const canvas  = document.getElementById('pdf-canvas');
+const ctx     = canvas?.getContext('2d');
+
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+const btnZoomIn = document.getElementById('btn-zoom-in');
+const btnZoomOut = document.getElementById('btn-zoom-out');
+
+function renderPagina(num) {
+  pdfDoc.getPage(num).then(page => {
+    const viewport = page.getViewport({ scale: zoom });
+
+    canvas.height = viewport.height;
+    canvas.width  = viewport.width;
+
+    page.render({
+      canvasContext: ctx,
+      viewport
+    });
+
+    document.getElementById('pg-atual').textContent = num;
+    btnPrev.disabled = num <= 1;
+    btnNext.disabled = num >= pdfDoc.numPages;
+  });
+}
+
+if (window.pdfjsLib && canvas) {
+  pdfjsLib.getDocument(PDF_URL).promise.then(pdf => {
+    pdfDoc = pdf;
+
+    document.getElementById('pg-total').textContent = pdf.numPages;
+
+    btnPrev.disabled = false;
+    btnNext.disabled = false;
+
+    renderPagina(paginaAtual);
+  });
+
+  btnPrev?.addEventListener('click', () => {
+    if (paginaAtual > 1) renderPagina(--paginaAtual);
+  });
+
+  btnNext?.addEventListener('click', () => {
+    if (paginaAtual < pdfDoc.numPages) renderPagina(++paginaAtual);
+  });
+
+  btnZoomIn?.addEventListener('click', () => {
+    zoom = Math.min(zoom + 0.2, 3);
+    renderPagina(paginaAtual);
+  });
+
+  btnZoomOut?.addEventListener('click', () => {
+    zoom = Math.max(zoom - 0.2, 0.6);
+    renderPagina(paginaAtual);
   });
 }

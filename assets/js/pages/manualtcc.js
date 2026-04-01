@@ -1,145 +1,150 @@
 // ===============================
-// ELEMENTOS
+// SIDEBAR (MENU HAMBÚRGUER)
 // ===============================
-
+const menuToggle = document.getElementById("menuToggle");
 const sidebar = document.getElementById("sidebar");
-const toggle = document.getElementById("menuToggle");
 const overlay = document.getElementById("overlay");
-const subToggles = document.querySelectorAll(".sub-toggle");
 
-// MODAL PDF
-const modal = document.getElementById("modalPDF");
-const abrirModalBtn = document.getElementById("abrirModal");
-const fecharModalBtn = document.getElementById("fecharModal");
-
-
-// ===============================
-// SUBMENUS (🔥 MELHORADO)
-// ===============================
-
-subToggles.forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    const parent = btn.closest(".has-sub");
-    if (!parent) return;
-
-    const isOpen = parent.classList.contains("open");
-
-    // fecha outros menus
-    document.querySelectorAll(".has-sub.open").forEach(item => {
-      if (item !== parent) {
-        item.classList.remove("open");
-        item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
-      }
+if (menuToggle && sidebar && overlay) {
+    menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
     });
 
-    // toggle atual
-    parent.classList.toggle("open");
-    btn.setAttribute("aria-expanded", String(!isOpen));
-  });
-});
-
-
-// ===============================
-// MENU SIDEBAR (🔥 PROFISSIONAL)
-// ===============================
-
-if (toggle && sidebar && overlay) {
-
-  const fecharSidebar = () => {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-    toggle.setAttribute("aria-expanded", "false");
-  };
-
-  const abrirSidebar = () => {
-    sidebar.classList.add("active");
-    overlay.classList.add("active");
-    toggle.setAttribute("aria-expanded", "true");
-  };
-
-  toggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    const isActive = sidebar.classList.contains("active");
-
-    if (isActive) {
-      fecharSidebar();
-    } else {
-      abrirSidebar();
-    }
-
-    // fecha submenus ao fechar
-    if (!sidebar.classList.contains("active")) {
-      document.querySelectorAll(".has-sub.open").forEach(item => {
-        item.classList.remove("open");
-        item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
-      });
-    }
-  });
-
-  // clique no overlay
-  overlay.addEventListener("click", fecharSidebar);
-
-  // clique fora
-  document.addEventListener("click", (e) => {
-    if (
-      sidebar.classList.contains("active") &&
-      !sidebar.contains(e.target) &&
-      !toggle.contains(e.target)
-    ) {
-      fecharSidebar();
-    }
-  });
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+    });
 }
 
 
 // ===============================
-// MODAL PDF (🔥 MELHORADO)
+// SUBMENU
 // ===============================
+const subToggles = document.querySelectorAll(".sub-toggle");
 
-if (modal && abrirModalBtn && fecharModalBtn) {
+subToggles.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation();
 
-  let lastFocusedElement = null;
+        const parent = btn.closest(".has-sub");
+        parent.classList.toggle("open");
+    });
+});
 
-  const abrirModal = () => {
-    lastFocusedElement = document.activeElement;
 
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
+// ===============================
+// MODAL (TELA CHEIA)
+// ===============================
+const abrirModal = document.getElementById("abrirModal");
+const fecharModal = document.getElementById("fecharModal");
+const modal = document.getElementById("modalPDF");
 
-    // foco acessível
-    fecharModalBtn.focus();
-  };
+if (abrirModal && modal && fecharModal) {
+    abrirModal.addEventListener("click", () => {
+        modal.classList.add("active");
+    });
 
-  const fecharModal = () => {
-    modal.classList.remove("active");
-    document.body.style.overflow = "";
+    fecharModal.addEventListener("click", () => {
+        modal.classList.remove("active");
+    });
 
-    // volta foco
-    if (lastFocusedElement) {
-      lastFocusedElement.focus();
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("active");
+        }
+    });
+}
+
+
+// ===============================
+// PDF.JS CONFIG
+// ===============================
+if (typeof pdfjsLib !== "undefined") {
+
+    const url = "/assets/docs/manual-estacio.pdf";
+
+    let pdfDoc = null;
+    let paginaAtual = 1;
+    let escala = 1.2;
+
+    const canvas = document.getElementById("pdf-canvas");
+    const ctx = canvas.getContext("2d");
+
+    const btnPrev = document.getElementById("btn-prev");
+    const btnNext = document.getElementById("btn-next");
+    const btnZoomIn = document.getElementById("btn-zoom-in");
+    const btnZoomOut = document.getElementById("btn-zoom-out");
+
+    const pgAtualEl = document.getElementById("pg-atual");
+    const pgTotalEl = document.getElementById("pg-total");
+
+    // Carregar PDF
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        pgTotalEl.textContent = pdf.numPages;
+
+        renderPage(paginaAtual);
+    }).catch(err => {
+        console.error("Erro ao carregar PDF:", err);
+    });
+
+    // Renderizar página
+    function renderPage(num) {
+        pdfDoc.getPage(num).then(page => {
+
+            const viewport = page.getViewport({ scale: escala });
+
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+
+            page.render(renderContext);
+
+            pgAtualEl.textContent = num;
+
+            btnPrev.disabled = num <= 1;
+            btnNext.disabled = num >= pdfDoc.numPages;
+        });
     }
-  };
 
-  // abrir
-  abrirModalBtn.addEventListener("click", abrirModal);
-
-  // fechar botão
-  fecharModalBtn.addEventListener("click", fecharModal);
-
-  // fechar clicando fora
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      fecharModal();
+    // Navegação
+    if (btnPrev) {
+        btnPrev.addEventListener("click", () => {
+            if (paginaAtual <= 1) return;
+            paginaAtual--;
+            renderPage(paginaAtual);
+        });
     }
-  });
 
-  // fechar com ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("active")) {
-      fecharModal();
+    if (btnNext) {
+        btnNext.addEventListener("click", () => {
+            if (paginaAtual >= pdfDoc.numPages) return;
+            paginaAtual++;
+            renderPage(paginaAtual);
+        });
     }
-  });
+
+    // Zoom
+    if (btnZoomIn) {
+        btnZoomIn.addEventListener("click", () => {
+            escala += 0.2;
+            renderPage(paginaAtual);
+        });
+    }
+
+    if (btnZoomOut) {
+        btnZoomOut.addEventListener("click", () => {
+            if (escala <= 0.6) return;
+            escala -= 0.2;
+            renderPage(paginaAtual);
+        });
+    }
+
+} else {
+    console.error("pdfjsLib não foi carregado corretamente.");
 }

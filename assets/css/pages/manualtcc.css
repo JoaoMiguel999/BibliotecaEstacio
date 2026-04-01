@@ -99,7 +99,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* LINKS PADRÃO */
 .nav a,
 .sub-toggle {
   display: flex;
@@ -117,7 +116,6 @@ body {
   transition: 0.25s;
 }
 
-/* TEXTO + ÍCONE */
 .menu-left {
   display: flex;
   align-items: center;
@@ -129,7 +127,6 @@ body {
   font-size: 20px;
 }
 
-/* HOVER */
 .nav a:hover,
 .sub-toggle:hover {
   background: rgba(255,255,255,0.15);
@@ -137,7 +134,7 @@ body {
 }
 
 /* =========================
-   🔥 FIX MENU COM SUBMENU (IMPORTANTE)
+   MENU SUBMENU
 ========================= */
 .menu-item {
   display: flex;
@@ -157,7 +154,6 @@ body {
   font-weight: 600;
 }
 
-/* BOTÃO SETA */
 .menu-item .sub-toggle {
   width: auto;
   padding: 14px;
@@ -166,7 +162,6 @@ body {
   justify-content: center;
 }
 
-/* HOVER UNIFICADO */
 .menu-item:hover {
   background: rgba(255,255,255,0.15);
   transform: translateX(5px);
@@ -296,27 +291,85 @@ body {
 }
 
 /* =========================
-   PDF
+   PDF WRAPPER
 ========================= */
 .pdf-wrapper {
   width: 100%;
-  height: 75vh;
   margin-top: 20px;
   border-radius: 20px;
   overflow: hidden;
   background: #1e1e1e;
   border: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-
-.pdf-viewer {
-  width: 100%;
-  height: 100%;
-  border: none;
+  display: flex;
+  flex-direction: column;
 }
 
 /* =========================
-   BOTÕES
+   PDF TOOLBAR
+========================= */
+.pdf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #111;
+  flex-wrap: wrap;
+}
+
+.pdf-toolbar button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 18px;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.pdf-toolbar button:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.pdf-toolbar button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+#pdf-info {
+  color: #ccc;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* =========================
+   PDF CANVAS
+========================= */
+.pdf-canvas-wrap {
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  min-height: 60vh;
+  max-height: 70vh;
+}
+
+#pdf-canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* =========================
+   BOTÕES (ATUALIZADO)
 ========================= */
 .acoes {
   margin-top: 20px;
@@ -334,24 +387,42 @@ body {
   cursor: pointer;
   color: #fff;
   font-weight: 600;
-  transition: 0.2s;
+  transition: all 0.25s ease;
   min-width: 180px;
   text-align: center;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
+/* VISUALIZAR (TELA CHEIA) */
 .btn-visualizar {
-  background: #198754;
+  background: linear-gradient(135deg, #198754, #20c997);
 }
 
+/* DOWNLOAD */
 .btn-download {
-  background: #0d6efd;
+  background: linear-gradient(135deg, #0d6efd, #3b82f6);
   text-decoration: none;
 }
 
+/* HOVER */
 .btn-visualizar:hover,
 .btn-download:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
+  transform: translateY(-2px) scale(1.02);
+  opacity: 0.95;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ACTIVE */
+.btn-visualizar:active,
+.btn-download:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* =========================
@@ -400,8 +471,9 @@ body {
   cursor: pointer;
   z-index: 10;
 }
+
 /* =========================
-   FOOTER (CORRIGIDO)
+   FOOTER
 ========================= */
 .footer {
   background: var(--primary);
@@ -410,17 +482,18 @@ body {
   text-align: center;
   margin-top: 60px;
 }
+
 /* =========================
    RESPONSIVO
 ========================= */
 @media (max-width: 768px) {
 
   .hero {
-    height: 55vh;
+    height: clamp(40vh, 55vh, 480px);
   }
 
   .hero-content h2 {
-    font-size: 28px;
+    font-size: clamp(22px, 6vw, 28px);
   }
 
   .content {
@@ -433,15 +506,32 @@ body {
   }
 
   .pdf-wrapper {
-    height: 55vh;
+    border-radius: 12px;
   }
 
-  .modal-content {
-    width: 95%;
-    height: 85%;
+  .pdf-canvas-wrap {
+    min-height: 55vh;
+    max-height: 60vh;
+    padding: 8px;
   }
 
   .acoes {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes > * {
+    width: 100%;
+  }
+
+  .modal-content {
+    width: min(95%, 480px);
+    height: min(85vh, 90%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    background-attachment: scroll;
   }
 }

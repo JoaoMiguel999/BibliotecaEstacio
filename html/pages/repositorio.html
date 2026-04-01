@@ -157,12 +157,27 @@
 
         <!-- PDF -->
         <div class="pdf-wrapper">
-            <iframe 
-                src="/assets/docs/repositorioTCC.pdf"
-                class="pdf-viewer"
-                title="Documento do repositório de TCC"
-                loading="lazy">
-            </iframe>
+            <div class="pdf-toolbar">
+                <button id="btn-prev" disabled aria-label="Página anterior">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <span id="pdf-info">
+                    Página <span id="pg-atual">1</span> de <span id="pg-total">?</span>
+                </span>
+                <button id="btn-next" disabled aria-label="Próxima página">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+                <button id="btn-zoom-out" aria-label="Diminuir zoom">
+                    <i class="ri-subtract-line"></i>
+                </button>
+                <button id="btn-zoom-in" aria-label="Aumentar zoom">
+                    <i class="ri-add-line"></i>
+                </button>
+            </div>
+
+            <div class="pdf-canvas-wrap">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
         </div>
 
         <!-- BOTÕES -->
@@ -216,8 +231,11 @@
     </div>
 </footer>
 
-<!-- JS -->
+<!-- JS EXTERNO -->
 <script src="../../assets/js/pages/repositorio.js" defer></script>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 </body>
 </html>
