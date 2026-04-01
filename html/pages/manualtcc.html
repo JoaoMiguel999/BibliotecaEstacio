@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Biblioteca Estácio São Luís</title>
 
+    <meta name="description" content="Manual de Normalização de TCC - Biblioteca Estácio São Luís">
+
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../../assets/css/pages/inicio.css" />
+    <link rel="stylesheet" href="../../assets/css/pages/manualtcc.css" />
 </head>
 
 <body>
 
 <!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle">
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
     <i class="ri-menu-line"></i>
 </button>
 
@@ -34,9 +36,8 @@
     <nav class="nav">
         <ul>
 
-            <!-- INÍCIO -->
             <li>
-                <a href="./index.html">
+                <a href="../../index.html">
                     <span class="menu-left">
                         <i class="ri-home-4-line"></i>
                         Início
@@ -44,9 +45,8 @@
                 </a>
             </li>
 
-            <!-- INFORMATIVO -->
             <li class="has-sub">
-                <button class="sub-toggle">
+                <button class="sub-toggle" aria-expanded="false">
                     <span class="menu-left">
                         <i class="ri-file-list-3-line"></i>
                         Informativo
@@ -60,32 +60,30 @@
                 </ul>
             </li>
 
-            <!-- ACESSIBILIDADE -->
             <li class="has-sub">
                 <div class="menu-item">
 
-                    <a href="./html/pages/Acessibilidade.html" class="menu-link">
+                    <a href="../pages/Acessibilidade.html" class="menu-link">
                         <span class="menu-left">
                             <i class="ri-wheelchair-line"></i>
                             Acessibilidade
                         </span>
                     </a>
 
-                    <button class="sub-toggle">
+                    <button class="sub-toggle" aria-expanded="false">
                         <i class="ri-arrow-down-s-line arrow"></i>
                     </button>
 
                 </div>
 
                 <ul class="sub">
-                    <li><a href="cartilha-libras.html">Cartilha de Libras</a></li>
-                    <li><a href="vlibras.html">VLibras</a></li>
-                    <li><a href="nvda.html">NVDA</a></li>
-                    <li><a href="dosvox.html">DOSVOX</a></li>
+                    <li><a href="#">Cartilha de Libras</a></li>
+                    <li><a href="#">VLibras</a></li>
+                    <li><a href="#">NVDA</a></li>
+                    <li><a href="#">DOSVOX</a></li>
                 </ul>
             </li>
 
-            <!-- CONTATO -->
             <li>
                 <a href="#">
                     <span class="menu-left">
@@ -95,7 +93,6 @@
                 </a>
             </li>
 
-            <!-- WIFI -->
             <li>
                 <a href="#">
                     <span class="menu-left">
@@ -105,7 +102,6 @@
                 </a>
             </li>
 
-            <!-- REGULAMENTO -->
             <li>
                 <a href="#">
                     <span class="menu-left">
@@ -115,9 +111,8 @@
                 </a>
             </li>
 
-            <!-- TCC -->
             <li class="has-sub">
-                <button class="sub-toggle">
+                <button class="sub-toggle" aria-expanded="false">
                     <span class="menu-left">
                         <i class="ri-graduation-cap-line"></i>
                         TCC Estácio
@@ -126,8 +121,8 @@
                 </button>
 
                 <ul class="sub">
-                    <li><a href="./html/pages/manualtcc.html">Manual TCC</a></li>
-                    <li><a href="./html/pages/repositorio.html">Repositório</a></li>
+                    <li><a href="../pages/manualtcc.html">Manual TCC</a></li>
+                    <li><a href="../pages/repositorio.html">Repositório</a></li>
                 </ul>
             </li>
 
@@ -143,7 +138,7 @@
 
     <section class="hero-section">
         <div class="hero-content">
-            <h2>Biblioteca Estácio<br>São Luís</h2>
+            <h2>Manual de Normalização <br>de TCC</h2>
         </div>
     </section>
 </header>
@@ -152,44 +147,60 @@
 <main class="content">
 
     <section class="section-destaques">
-        <h2>Destaques da Biblioteca</h2>
 
-        <div class="cards-container">
-            <div class="card">
-                <h3>Livros Recentes</h3>
-                <p>Confira os últimos lançamentos disponíveis.</p>
-            </div>
+        <h2>Manual de Normalização de Trabalhos Acadêmicos</h2>
 
-            <div class="card">
-                <h3>Multimídia</h3>
-                <p>Explore vídeos e conteúdos interativos.</p>
-            </div>
-
-            <div class="card">
-                <h3>Artigos</h3>
-                <p>Acesse pesquisas acadêmicas.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-info">
-        <h2>Informações</h2>
         <p>
-            A Biblioteca do Centro Universitário Estácio São Luís tem como missão atender demandas informacionais com qualidade e eficiência.
+            Acesse o manual completo com as normas da ABNT para elaboração de TCC.
         </p>
+
+        <!-- 🔥 PDF CORRIGIDO -->
+        <div class="pdf-wrapper">
+            <iframe 
+                src="/assets/docs/manual-estacio.pdf#toolbar=0"
+                class="pdf-viewer"
+                title="Manual de Normalização de TCC"
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- BOTÕES -->
+        <div class="acoes">
+            <button class="btn-visualizar" id="abrirModal">
+                Visualizar em tela cheia
+            </button>
+
+            <a href="/assets/docs/manual-estacio.pdf" download class="btn-download">
+                Baixar PDF
+            </a>
+        </div>
+
     </section>
 
 </main>
 
+<!-- MODAL -->
+<div class="modal" id="modalPDF">
+    <div class="modal-content">
+        <span class="close-modal" id="fecharModal">&times;</span>
+
+        <iframe 
+            src="/assets/docs/manual-estacio.pdf"
+            class="pdf-viewer"
+            title="Manual em tela cheia">
+        </iframe>
+    </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer">
     <div class="footer-container">
-        <div class="footer-column">
+        <div>
             <h4>Biblioteca</h4>
             <p>Estácio São Luís</p>
         </div>
 
-        <div class="footer-column">
+        <div>
             <h4>Contato</h4>
             <p>(98) 99150-0375</p>
         </div>
@@ -199,9 +210,8 @@
         © 2026 Biblioteca Estácio São Luís
     </div>
 </footer>
-
 <!-- JS -->
-<script src="../../assets/js/pages/inicio.js"></script>
+<script src="../../assets/js/pages/manualtcc.js" defer></script>
 
 </body>
 </html>
