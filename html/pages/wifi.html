@@ -4,21 +4,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Biblioteca Estácio São Luís</title>
+    <title>Wi-Fi | Biblioteca Estácio São Luís</title>
 
-    <meta name="description" content="Manual de Normalização de TCC - Biblioteca Estácio São Luís">
+    <meta name="description" content="Acesso ao Wi-Fi da Biblioteca Estácio São Luís">
 
     <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../../assets/css/pages/manualtcc.css" />
+    <link rel="stylesheet" href="../../assets/css/pages/wifi.css" />
 </head>
 
 <body>
 
 <!-- MENU -->
-<button class="menu-toggle" id="menuToggle">
+<button class="menu-toggle" id="menuToggle" type="button">
     <i class="ri-menu-line"></i>
 </button>
 
@@ -44,8 +44,9 @@
                 </a>
             </li>
 
+            <!-- INFORMÁTIVO -->
             <li class="has-sub">
-                <button class="sub-toggle">
+                <button type="button" class="sub-toggle">
                     <span class="menu-left">
                         <i class="ri-file-list-3-line"></i>
                         Informativo
@@ -59,18 +60,15 @@
                 </ul>
             </li>
 
-           <li class="has-sub">
-                <div class="menu-item">
-                    <a href="./Acessibilidade.html" class="menu-link">
-                        <span class="menu-left">
-                            <i class="ri-wheelchair-line"></i>
-                            Acessibilidade
-                        </span>
-                    </a>
-                    <button class="sub-toggle">
-                        <i class="ri-arrow-down-s-line arrow"></i>
-                    </button>
-                </div>
+            <!-- ACESSIBILIDADE -->
+            <li class="has-sub">
+                <button type="button" class="sub-toggle">
+                    <span class="menu-left">
+                        <i class="ri-wheelchair-line"></i>
+                        Acessibilidade
+                    </span>
+                    <i class="ri-arrow-down-s-line arrow"></i>
+                </button>
 
                 <ul class="sub">
                     <li><a href="cartilha-libras.html">Cartilha de Libras</a></li>
@@ -79,7 +77,6 @@
                     <li><a href="dosvox.html">DOSVOX</a></li>
                 </ul>
             </li>
-
 
             <li>
                 <a href="#">
@@ -91,7 +88,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="wifi.html" class="active">
                     <span class="menu-left">
                         <i class="ri-wifi-line"></i>
                         Wi-Fi
@@ -99,7 +96,6 @@
                 </a>
             </li>
 
-                <!-- REGULAMENTO -->
             <li>
                 <a href="#">
                     <span class="menu-left">
@@ -109,8 +105,9 @@
                 </a>
             </li>
 
+            <!-- TCC -->
             <li class="has-sub">
-                <button class="sub-toggle">
+                <button type="button" class="sub-toggle">
                     <span class="menu-left">
                         <i class="ri-graduation-cap-line"></i>
                         TCC Estácio
@@ -136,7 +133,7 @@
 
     <section class="hero-section">
         <div class="hero-content">
-            <h2>Manual de Normalização <br>de TCC</h2>
+            <h2>Wi-Fi<br>Biblioteca</h2>
         </div>
     </section>
 </header>
@@ -146,74 +143,57 @@
 
     <section class="section-destaques">
 
-        <h2>Manual de Normalização de Trabalhos Acadêmicos</h2>
+        <h2>Acesso ao Wi-Fi</h2>
 
-        <p>Acesse o manual completo com as normas da ABNT.</p>
+        <p>
+            Utilize o Wi-Fi da biblioteca para estudos e acesso a conteúdos acadêmicos.
+        </p>
 
-        <!-- PDF.JS -->
+        <!-- BLOCO ESTILO PDF -->
         <div class="pdf-wrapper">
 
             <div class="pdf-toolbar">
-                <button id="btn-prev" disabled>
-                    <i class="ri-arrow-left-s-line"></i>
-                </button>
-
-                <span>
-                    Página <span id="pg-atual">1</span> de <span id="pg-total">?</span>
-                </span>
-
-                <button id="btn-next" disabled>
-                    <i class="ri-arrow-right-s-line"></i>
-                </button>
-
-                <button id="btn-zoom-out">
-                    <i class="ri-subtract-line"></i>
-                </button>
-
-                <button id="btn-zoom-in">
-                    <i class="ri-add-line"></i>
-                </button>
+                <span>Informações de acesso ao Wi-Fi</span>
             </div>
 
             <div class="pdf-canvas-wrap">
-                <canvas id="pdf-canvas"></canvas>
+
+                <!-- IMAGEM DO WIFI -->
+                <img 
+                    src="../../assets/img/rede-wifi.jpg" 
+                    alt="Informações do Wi-Fi"
+                    class="wifi-img"
+                >
+
             </div>
 
-        </div>
-
-        <!-- BOTÕES -->
-        <div class="acoes">
-            <button class="btn-visualizar" id="abrirModal">
-                Tela cheia
-            </button>
-
-            <a href="/assets/docs/manual-estacio.pdf" download class="btn-download">
-                Baixar PDF
-            </a>
         </div>
 
     </section>
 
 </main>
 
-<!-- MODAL -->
-<div class="modal" id="modalPDF">
-    <div class="modal-content">
-        <span class="close-modal" id="fecharModal">&times;</span>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+        <div>
+            <h4>Biblioteca</h4>
+            <p>Estácio São Luís</p>
+        </div>
 
-        <iframe src="/assets/docs/manual-estacio.pdf" class="pdf-viewer"></iframe>
+        <div>
+            <h4>Contato</h4>
+            <p>(98) 99150-0375</p>
+        </div>
     </div>
-</div>
 
-<!-- PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-</script>
+    <div class="footer-bottom">
+        © 2026 Biblioteca Estácio São Luís
+    </div>
+</footer>
 
 <!-- JS -->
-<script src="../../assets/js/pages/manualtcc.js" defer></script>
+<script src="../../assets/js/pages/wifi.js" defer></script>
 
 </body>
 </html>
