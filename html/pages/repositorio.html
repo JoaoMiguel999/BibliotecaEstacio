@@ -1,241 +1,258 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Repositório de TCC | Biblioteca Estácio São Luís</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name="description" content="Repositório de TCC da Biblioteca Estácio São Luís. Acesse, visualize e envie trabalhos acadêmicos.">
+  <title>Repositório de TCC | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="Repositório de TCC da Biblioteca Estácio São Luís.">
 
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- Ícones -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../assets/css/pages/repositorio.css" />
+  <!-- CSS (SOMENTE UM, com @import dentro) -->
+  <link rel="stylesheet" href="../../assets/css/pages/repositorio.css">
 </head>
 
 <body>
 
-<!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
-    <i class="ri-menu-line"></i>
+<!-- MENU TOGGLE -->
+<button class="menu-toggle" id="menuToggle">
+  <i class="ri-menu-line"></i>
 </button>
 
 <!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+<aside class="sidebar" id="sidebar">
 
-    <div class="brand">
-        <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img" alt="Logo Biblioteca Estácio">
-        <h1>Biblioteca<br>Estácio São<br>Luís</h1>
-    </div>
+  <div class="brand">
+    <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img" alt="Logo Estácio" />
+    <h1>Biblioteca<br>Estácio São Luís</h1>
+    <div class="brand-divider"></div>
+  </div>
 
-    <nav class="nav">
-        <ul>
+  <nav class="nav">
+    <ul>
 
-            <li>
-                <a href="../../index.html">
-                    <span class="menu-left">
-                        <i class="ri-home-4-line"></i>
-                        Início
-                    </span>
-                </a>
-            </li>
+      <li>
+        <a href="../../index.html">
+          <span class="menu-left">
+            <i class="ri-home-4-line"></i>
+            Início
+          </span>
+        </a>
+      </li>
 
-            <li class="has-sub">
-                <button class="sub-toggle" aria-expanded="false">
-                    <span class="menu-left">
-                        <i class="ri-file-list-3-line"></i>
-                        Informativo
-                    </span>
-                    <i class="ri-arrow-down-s-line arrow"></i>
-                </button>
+      <p class="nav-label">Informações</p>
 
-                <ul class="sub">
-                    <li><a href="#">Atraso de livros</a></li>
-                    <li><a href="#">Normas</a></li>
-                </ul>
-            </li>
-
-            <li class="has-sub">
-                <div class="menu-item">
-                    <a href="../pages/Acessibilidade.html" class="menu-link">
-                        <span class="menu-left">
-                            <i class="ri-wheelchair-line"></i>
-                            Acessibilidade
-                        </span>
-                    </a>
-
-                    <button class="sub-toggle" aria-expanded="false">
-                        <i class="ri-arrow-down-s-line arrow"></i>
-                    </button>
-                </div>
-
-                <ul class="sub">
-                    <li><a href="#">Cartilha de Libras</a></li>
-                    <li><a href="#">VLibras</a></li>
-                    <li><a href="#">NVDA</a></li>
-                    <li><a href="#">DOSVOX</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#">
-                    <span class="menu-left">
-                        <i class="ri-contacts-line"></i>
-                        Contato
-                    </span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <span class="menu-left">
-                        <i class="ri-wifi-line"></i>
-                        Wi-Fi
-                    </span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <span class="menu-left">
-                        <i class="ri-file-paper-line"></i>
-                        Regulamento
-                    </span>
-                </a>
-            </li>
-
-            <li class="has-sub">
-                <button class="sub-toggle" aria-expanded="false">
-                    <span class="menu-left">
-                        <i class="ri-graduation-cap-line"></i>
-                        TCC Estácio
-                    </span>
-                    <i class="ri-arrow-down-s-line arrow"></i>
-                </button>
-
-                <ul class="sub">
-                    <li><a href="../pages/manualtcc.html">Manual TCC</a></li>
-                    <li><a href="../pages/repositorio.html" class="active">Repositório</a></li>
-                </ul>
-            </li>
-
+      <li class="has-sub">
+        <button type="button" class="sub-toggle">
+          <span class="menu-left">
+            <i class="ri-file-list-3-line"></i>
+            Informativo
+          </span>
+          <i class="ri-arrow-down-s-line arrow"></i>
+        </button>
+        <ul class="sub">
+          <li><a href="#"><i class="ri-time-line"></i> Atraso de livros</a></li>
+          <li><a href="#"><i class="ri-article-line"></i> Normas</a></li>
         </ul>
-    </nav>
+      </li>
+
+      <li class="has-sub">
+        <div class="menu-item">
+          <a href="./Acessibilidade.html" class="menu-link">
+            <span class="menu-left">
+              <i class="ri-wheelchair-line"></i>
+              Acessibilidade
+            </span>
+          </a>
+          <button type="button" class="sub-toggle">
+            <i class="ri-arrow-down-s-line arrow"></i>
+          </button>
+        </div>
+        <ul class="sub">
+          <li><a href="#"><i class="ri-hand-coin-line"></i> Cartilha de Libras</a></li>
+          <li><a href="#"><i class="ri-translate-2"></i> VLibras</a></li>
+          <li><a href="#"><i class="ri-volume-up-line"></i> NVDA</a></li>
+          <li><a href="#"><i class="ri-speak-line"></i> DOSVOX</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="./wifi.html" aria-current="page">
+          <span class="menu-left">
+            <i class="ri-wifi-line"></i>
+            Wi-Fi
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="menu-left">
+            <i class="ri-file-paper-line"></i>
+            Regulamento
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="menu-left">
+            <i class="ri-contacts-line"></i>
+            Contato
+          </span>
+        </a>
+      </li>
+
+      <p class="nav-label">Acadêmico</p>
+
+      <li class="has-sub">
+        <button type="button" class="sub-toggle">
+          <span class="menu-left">
+            <i class="ri-graduation-cap-line"></i>
+            TCC Estácio
+          </span>
+          <i class="ri-arrow-down-s-line arrow"></i>
+        </button>
+        <ul class="sub">
+          <li><a href="./manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
+          <li><a href="./repositorio.html"><i class="ri-archive-line"></i> Repositório</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">© 2026 Estácio São Luís</div>
 
 </aside>
 
 <!-- HERO -->
 <header class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h2>Repositório <br>de TCC</h2>
-        </div>
-    </section>
+  <section class="hero-section">
+    <div class="hero-content">
+      <h2 class="reveal">Repositório <br>de TCC</h2>
+    </div>
+  </section>
 </header>
 
 <!-- CONTEÚDO -->
 <main class="content">
 
-    <section class="section-destaques">
+  <section class="section-destaques reveal">
 
-        <h2>Repositório de TCC</h2>
-        <p class="subtitulo">Acesso, consulta e envio de trabalhos acadêmicos</p>
+    <h2 class="reveal">Repositório de TCC</h2>
+    <p class="subtitulo reveal">Acesso e consulta de trabalhos acadêmicos</p>
 
-        <p>
-            O Repositório de Trabalhos de Conclusão de Curso (TCC) da Biblioteca Estácio São Luís tem como objetivo
-            armazenar, preservar e disponibilizar os trabalhos acadêmicos produzidos pelos alunos da instituição,
-            promovendo o acesso ao conhecimento e incentivando a pesquisa científica.
-        </p>
+    <p class="reveal">
+      Consulte os trabalhos de conclusão de curso disponíveis na biblioteca digital.
+    </p>
 
-        <!-- PDF -->
-        <div class="pdf-wrapper">
-            <div class="pdf-toolbar">
-                <button id="btn-prev" disabled aria-label="Página anterior">
-                    <i class="ri-arrow-left-s-line"></i>
-                </button>
-                <span id="pdf-info">
-                    Página <span id="pg-atual">1</span> de <span id="pg-total">?</span>
-                </span>
-                <button id="btn-next" disabled aria-label="Próxima página">
-                    <i class="ri-arrow-right-s-line"></i>
-                </button>
-                <button id="btn-zoom-out" aria-label="Diminuir zoom">
-                    <i class="ri-subtract-line"></i>
-                </button>
-                <button id="btn-zoom-in" aria-label="Aumentar zoom">
-                    <i class="ri-add-line"></i>
-                </button>
-            </div>
+    <!-- PDF -->
+    <div class="pdf-wrapper reveal">
 
-            <div class="pdf-canvas-wrap">
-                <canvas id="pdf-canvas"></canvas>
-            </div>
-        </div>
+      <div class="pdf-toolbar">
+        <button id="btn-prev"><i class="ri-arrow-left-s-line"></i></button>
 
-        <!-- BOTÕES -->
-        <div class="acoes">
-            <button class="btn-visualizar" id="abrirModal">
-                <i class="ri-fullscreen-line"></i> Tela cheia
-            </button>
+        <span id="pdf-info">
+          Página <span id="pg-atual">1</span> de <span id="pg-total">?</span>
+        </span>
 
-            <a href="/assets/docs/repositorioTCC.pdf" download class="btn-download">
-                <i class="ri-download-line"></i> Baixar PDF
-            </a>
+        <button id="btn-next"><i class="ri-arrow-right-s-line"></i></button>
 
-            <a href="#" class="btn-download">
-                <i class="ri-upload-cloud-line"></i> Enviar TCC
-            </a>
-        </div>
+        <button id="btn-zoom-out"><i class="ri-subtract-line"></i></button>
+        <button id="btn-zoom-in"><i class="ri-add-line"></i></button>
+      </div>
 
-    </section>
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes reveal">
+
+      <button class="btn-visualizar" id="abrirModal">
+        <i class="ri-fullscreen-line"></i> Tela cheia
+      </button>
+
+      <a href="../../assets/docs/repositorioTCC.pdf" download class="btn-download">
+        <i class="ri-download-line"></i> Baixar
+      </a>
+
+    </div>
+
+  </section>
 
 </main>
 
 <!-- MODAL -->
-<div class="modal" id="modalPDF" role="dialog" aria-modal="true">
-    <div class="modal-content">
-        <span class="close-modal" id="fecharModal">&times;</span>
+<div class="modal" id="modalPDF">
+  <div class="modal-content">
 
-        <iframe 
-            src="/assets/docs/repositorioTCC.pdf"
-            class="pdf-viewer"
-            title="Visualização completa do documento">
-        </iframe>
-    </div>
+    <button class="close-modal" id="fecharModal">&times;</button>
+
+    <iframe src="../../assets/docs/repositorioTCC.pdf"></iframe>
+
+  </div>
 </div>
-
 <!-- FOOTER -->
 <footer class="footer">
-    <div class="footer-container">
-        <div>
-            <h4>Biblioteca</h4>
-            <p>Estácio São Luís</p>
-        </div>
+  <div class="footer-inner">
 
-        <div>
-            <h4>Contato</h4>
-            <p>(98) 99150-0375</p>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo-row">
+          <div class="footer-logo-icon"><i class="ri-book-2-line"></i></div>
+          <span class="footer-logo-name">Biblioteca<br>Estácio São Luís</span>
         </div>
+        <p class="footer-desc">
+          Espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento intelectual da comunidade acadêmica.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="../../index.html">Início</a></li>
+          <li><a href="#">Regulamento</a></li>
+          <li><a href="./wifi.html">Wi-Fi</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Acadêmico</h4>
+        <ul>
+          <li><a href="./manualtcc.html">Manual TCC</a></li>
+          <li><a href="./repositorio.html">Repositório</a></li>
+          <li><a href="#">Normas ABNT</a></li>
+          <li><a href="./Acessibilidade.html">Acessibilidade</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="footer-bottom">
-        © 2026 Biblioteca Estácio São Luís
+    <div class="footer-bottom-row">
+      <span>© 2026 Biblioteca Estácio São Luís. Todos os direitos reservados.</span>
+      <span>Estácio São Luís — Maranhão</span>
     </div>
+
+  </div>
 </footer>
-
-<!-- JS EXTERNO -->
-<script src="../../assets/js/pages/repositorio.js" defer></script>
 
 <!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- JS -->
+<script src="../../assets/js/pages/repositorio.js"></script>
 
 </body>
 </html>

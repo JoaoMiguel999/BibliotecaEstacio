@@ -13,7 +13,7 @@ const fecharModalBtn = document.getElementById("fecharModal");
 
 
 // ===============================
-// SUBMENUS (🔥 MAIS SUAVE)
+// SUBMENUS
 // ===============================
 subToggles.forEach(btn => {
   btn.setAttribute("aria-expanded", "false");
@@ -26,7 +26,7 @@ subToggles.forEach(btn => {
 
     const isOpen = parent.classList.contains("open");
 
-    // fecha outros com animação suave
+    // fecha outros
     document.querySelectorAll(".has-sub.open").forEach(item => {
       if (item !== parent) {
         item.classList.remove("open");
@@ -42,7 +42,7 @@ subToggles.forEach(btn => {
 
 
 // ===============================
-// SIDEBAR MENU (🔥 UX MELHORADA)
+// SIDEBAR MENU
 // ===============================
 if (toggle && sidebar && overlay) {
 
@@ -65,22 +65,18 @@ if (toggle && sidebar && overlay) {
     overlay.classList.add("active");
     toggle.setAttribute("aria-expanded", "true");
 
-    // trava scroll no mobile
     document.body.style.overflow = "hidden";
   };
 
   toggle.addEventListener("click", (e) => {
     e.stopPropagation();
-
     sidebar.classList.contains("active")
       ? fecharSidebar()
       : abrirSidebar();
   });
 
-  // overlay fecha
   overlay.addEventListener("click", fecharSidebar);
 
-  // clique fora
   document.addEventListener("click", (e) => {
     if (
       sidebar.classList.contains("active") &&
@@ -91,7 +87,6 @@ if (toggle && sidebar && overlay) {
     }
   });
 
-  // ESC fecha sidebar
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && sidebar.classList.contains("active")) {
       fecharSidebar();
@@ -101,7 +96,7 @@ if (toggle && sidebar && overlay) {
 
 
 // ===============================
-// MODAL PDF (🔥 PROFISSIONAL)
+// MODAL PDF
 // ===============================
 if (modal && abrirModalBtn && fecharModalBtn) {
 
@@ -131,9 +126,7 @@ if (modal && abrirModalBtn && fecharModalBtn) {
   fecharModalBtn.addEventListener("click", fecharModal);
 
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      fecharModal();
-    }
+    if (e.target === modal) fecharModal();
   });
 
   document.addEventListener("keydown", (e) => {
@@ -147,7 +140,7 @@ if (modal && abrirModalBtn && fecharModalBtn) {
 // ===============================
 // PDF.JS VIEWER
 // ===============================
-const PDF_URL = '/assets/docs/repositorioTCC.pdf';
+const PDF_URL = '../../assets/docs/repositorioTCC.pdf';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -183,16 +176,20 @@ function renderPagina(num) {
 }
 
 if (window.pdfjsLib && canvas) {
-  pdfjsLib.getDocument(PDF_URL).promise.then(pdf => {
-    pdfDoc = pdf;
+  pdfjsLib.getDocument(PDF_URL).promise
+    .then(pdf => {
+      pdfDoc = pdf;
 
-    document.getElementById('pg-total').textContent = pdf.numPages;
+      document.getElementById('pg-total').textContent = pdf.numPages;
 
-    btnPrev.disabled = false;
-    btnNext.disabled = false;
+      btnPrev.disabled = false;
+      btnNext.disabled = false;
 
-    renderPagina(paginaAtual);
-  });
+      renderPagina(paginaAtual);
+    })
+    .catch(err => {
+      console.error("Erro ao carregar PDF:", err);
+    });
 
   btnPrev?.addEventListener('click', () => {
     if (paginaAtual > 1) renderPagina(--paginaAtual);
@@ -212,3 +209,31 @@ if (window.pdfjsLib && canvas) {
     renderPagina(paginaAtual);
   });
 }
+
+
+// ===============================
+// REVEAL SCROLL 🔥
+// ===============================
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  const windowHeight = window.innerHeight;
+
+  reveals.forEach(el => {
+    const elementTop = el.getBoundingClientRect().top;
+    const visiblePoint = 100;
+
+    if (elementTop < windowHeight - visiblePoint) {
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+
+// ===============================
+// DEBUG
+// ===============================
+console.log("🚀 Sistema Repositório TCC carregado com sucesso!");

@@ -35,7 +35,7 @@ subToggles.forEach(btn => {
 
 
 // ===============================
-// MENU TOGGLE (UNIFICADO)
+// MENU TOGGLE
 // ===============================
 
 if (toggle && sidebar && overlay) {
@@ -46,21 +46,13 @@ if (toggle && sidebar && overlay) {
     const isActive = sidebar.classList.toggle("active");
     overlay.classList.toggle("active");
 
-    // acessibilidade
     toggle.setAttribute("aria-expanded", isActive);
 
-    // fecha submenus ao fechar sidebar
-    if (!isActive) {
-      closeAllSubmenus();
-    }
+    if (!isActive) closeAllSubmenus();
   });
 
-  // clique no overlay
-  overlay.addEventListener("click", () => {
-    closeSidebar();
-  });
+  overlay.addEventListener("click", closeSidebar);
 
-  // clique fora (melhorado 🔥)
   document.addEventListener("click", (e) => {
     const clickedOutside =
       !sidebar.contains(e.target) &&
@@ -104,7 +96,35 @@ document.addEventListener("keydown", (e) => {
 
 
 // ===============================
+// REVEAL (ANIMAÇÃO AO SCROLL) 🔥
+// ===============================
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  const windowHeight = window.innerHeight;
+
+  reveals.forEach((el, index) => {
+    const elementTop = el.getBoundingClientRect().top;
+
+    if (elementTop < windowHeight - 100) {
+      // delay suave nos elementos (efeito premium)
+      setTimeout(() => {
+        el.classList.add("active");
+      }, index * 100);
+    }
+  });
+}
+
+// executa ao carregar
+window.addEventListener("load", revealOnScroll);
+
+// executa ao rolar
+window.addEventListener("scroll", revealOnScroll);
+
+
+// ===============================
 // DEBUG
 // ===============================
 
-console.log("🚀 Sidebar profissional 100%");
+console.log("🚀 Sistema completo carregado (menu + reveal)");

@@ -2,197 +2,236 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Wi-Fi | Biblioteca Estácio São Luís</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wi-Fi | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="Acesso ao Wi-Fi da Biblioteca Estácio São Luís">
 
-    <meta name="description" content="Acesso ao Wi-Fi da Biblioteca Estácio São Luís">
-
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../assets/css/pages/wifi.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/pages/wifi.css" />
 </head>
 
 <body>
 
-<!-- MENU -->
-<button class="menu-toggle" id="menuToggle" type="button">
-    <i class="ri-menu-line"></i>
+<!-- BOTÃO MENU -->
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu">
+  <i class="ri-menu-line"></i>
 </button>
 
+<!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
 
-    <div class="brand">
-        <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img">
-        <h1>Biblioteca<br>Estácio São<br>Luís</h1>
-    </div>
+  <div class="brand">
+    <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img" alt="Logo Estácio" />
+    <h1>Biblioteca<br>Estácio São Luís</h1>
+    <div class="brand-divider"></div>
+  </div>
 
-    <nav class="nav">
-        <ul>
+  <nav class="nav">
+    <ul>
 
-            <li>
-                <a href="../../index.html">
-                    <span class="menu-left">
-                        <i class="ri-home-4-line"></i>
-                        Início
-                    </span>
-                </a>
-            </li>
+      <li>
+        <a href="../../index.html">
+          <span class="menu-left">
+            <i class="ri-home-4-line"></i>
+            Início
+          </span>
+        </a>
+      </li>
 
-            <!-- INFORMÁTIVO -->
-            <li class="has-sub">
-                <button type="button" class="sub-toggle">
-                    <span class="menu-left">
-                        <i class="ri-file-list-3-line"></i>
-                        Informativo
-                    </span>
-                    <i class="ri-arrow-down-s-line arrow"></i>
-                </button>
+      <p class="nav-label">Informações</p>
 
-                <ul class="sub">
-                    <li><a href="#">Atraso de livros</a></li>
-                    <li><a href="#">Normas</a></li>
-                </ul>
-            </li>
-
-            <!-- ACESSIBILIDADE -->
-            <li class="has-sub">
-                <button type="button" class="sub-toggle">
-                    <span class="menu-left">
-                        <i class="ri-wheelchair-line"></i>
-                        Acessibilidade
-                    </span>
-                    <i class="ri-arrow-down-s-line arrow"></i>
-                </button>
-
-                <ul class="sub">
-                    <li><a href="cartilha-libras.html">Cartilha de Libras</a></li>
-                    <li><a href="vlibras.html">VLibras</a></li>
-                    <li><a href="nvda.html">NVDA</a></li>
-                    <li><a href="dosvox.html">DOSVOX</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#">
-                    <span class="menu-left">
-                        <i class="ri-contacts-line"></i>
-                        Contato
-                    </span>
-                </a>
-            </li>
-
-            <li>
-                <a href="wifi.html" class="active">
-                    <span class="menu-left">
-                        <i class="ri-wifi-line"></i>
-                        Wi-Fi
-                    </span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <span class="menu-left">
-                        <i class="ri-file-paper-line"></i>
-                        Regulamento
-                    </span>
-                </a>
-            </li>
-
-            <!-- TCC -->
-            <li class="has-sub">
-                <button type="button" class="sub-toggle">
-                    <span class="menu-left">
-                        <i class="ri-graduation-cap-line"></i>
-                        TCC Estácio
-                    </span>
-                    <i class="ri-arrow-down-s-line arrow"></i>
-                </button>
-
-                <ul class="sub">
-                    <li><a href="manualtcc.html">Manual TCC</a></li>
-                    <li><a href="repositorio.html">Repositório</a></li>
-                </ul>
-            </li>
-
+      <li class="has-sub">
+        <button type="button" class="sub-toggle">
+          <span class="menu-left">
+            <i class="ri-file-list-3-line"></i>
+            Informativo
+          </span>
+          <i class="ri-arrow-down-s-line arrow"></i>
+        </button>
+        <ul class="sub">
+          <li><a href="#"><i class="ri-time-line"></i> Atraso de livros</a></li>
+          <li><a href="#"><i class="ri-article-line"></i> Normas</a></li>
         </ul>
-    </nav>
+      </li>
+
+      <li class="has-sub">
+        <div class="menu-item">
+          <a href="./Acessibilidade.html" class="menu-link">
+            <span class="menu-left">
+              <i class="ri-wheelchair-line"></i>
+              Acessibilidade
+            </span>
+          </a>
+          <button type="button" class="sub-toggle">
+            <i class="ri-arrow-down-s-line arrow"></i>
+          </button>
+        </div>
+        <ul class="sub">
+          <li><a href="#"><i class="ri-hand-coin-line"></i> Cartilha de Libras</a></li>
+          <li><a href="#"><i class="ri-translate-2"></i> VLibras</a></li>
+          <li><a href="#"><i class="ri-volume-up-line"></i> NVDA</a></li>
+          <li><a href="#"><i class="ri-speak-line"></i> DOSVOX</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="./wifi.html" aria-current="page">
+          <span class="menu-left">
+            <i class="ri-wifi-line"></i>
+            Wi-Fi
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="menu-left">
+            <i class="ri-file-paper-line"></i>
+            Regulamento
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span class="menu-left">
+            <i class="ri-contacts-line"></i>
+            Contato
+          </span>
+        </a>
+      </li>
+
+      <p class="nav-label">Acadêmico</p>
+
+      <li class="has-sub">
+        <button type="button" class="sub-toggle">
+          <span class="menu-left">
+            <i class="ri-graduation-cap-line"></i>
+            TCC Estácio
+          </span>
+          <i class="ri-arrow-down-s-line arrow"></i>
+        </button>
+        <ul class="sub">
+          <li><a href="./manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
+          <li><a href="./repositorio.html"><i class="ri-archive-line"></i> Repositório</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">© 2026 Estácio São Luís</div>
 
 </aside>
 
 <!-- HERO -->
 <header class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h2>Wi-Fi<br>Biblioteca</h2>
-        </div>
-    </section>
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <i class="ri-wifi-line"></i>
+        Conectividade — Biblioteca
+      </div>
+      <h2>Wi-Fi <span class="hero-title-accent">Biblioteca</span></h2>
+      <p class="hero-subtitle">
+        Conexão gratuita e estável para toda a comunidade acadêmica da Estácio São Luís.
+      </p>
+    </div>
+  </section>
 </header>
+
+<!-- AVISO -->
+<div class="aviso-banner">
+  <i class="ri-information-line"></i>
+  <span><strong>Aviso:</strong> O acesso ao Wi-Fi é exclusivo para alunos e docentes regularmente matriculados. Use suas credenciais institucionais.</span>
+</div>
 
 <!-- CONTEÚDO -->
 <main class="content">
 
-    <section class="section-destaques">
+  <section class="section-destaques">
 
-        <h2>Acesso ao Wi-Fi</h2>
+    <h2>Acesso ao Wi-Fi</h2>
 
-        <p>
-            Utilize o Wi-Fi da biblioteca para estudos e acesso a conteúdos acadêmicos.
-        </p>
+    <p>
+      Utilize o Wi-Fi da biblioteca para estudos e acesso a conteúdos acadêmicos.
+    </p>
 
-        <!-- BLOCO ESTILO PDF -->
-        <div class="pdf-wrapper">
+    <!-- BLOCO ESTILO PDF -->
+    <div class="pdf-wrapper">
 
-            <div class="pdf-toolbar">
-                <span>Informações de acesso ao Wi-Fi</span>
-            </div>
+      <div class="pdf-toolbar">
+        <span>Informações de acesso ao Wi-Fi</span>
+      </div>
 
-            <div class="pdf-canvas-wrap">
+      <div class="pdf-canvas-wrap">
+        <img
+          src="../../assets/img/rede-wifi.jpg"
+          alt="Informações do Wi-Fi"
+          class="wifi-img"
+        >
+      </div>
 
-                <!-- IMAGEM DO WIFI -->
-                <img 
-                    src="../../assets/img/rede-wifi.jpg" 
-                    alt="Informações do Wi-Fi"
-                    class="wifi-img"
-                >
+    </div>
 
-            </div>
-
-        </div>
-
-    </section>
+  </section>
 
 </main>
 
 <!-- FOOTER -->
 <footer class="footer">
-    <div class="footer-container">
-        <div>
-            <h4>Biblioteca</h4>
-            <p>Estácio São Luís</p>
-        </div>
+  <div class="footer-inner">
 
-        <div>
-            <h4>Contato</h4>
-            <p>(98) 99150-0375</p>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo-row">
+          <div class="footer-logo-icon"><i class="ri-book-2-line"></i></div>
+          <span class="footer-logo-name">Biblioteca<br>Estácio São Luís</span>
         </div>
+        <p class="footer-desc">
+          Espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento intelectual da comunidade acadêmica.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="../../index.html">Início</a></li>
+          <li><a href="#">Regulamento</a></li>
+          <li><a href="./wifi.html">Wi-Fi</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Acadêmico</h4>
+        <ul>
+          <li><a href="./manualtcc.html">Manual TCC</a></li>
+          <li><a href="./repositorio.html">Repositório</a></li>
+          <li><a href="#">Normas ABNT</a></li>
+          <li><a href="./Acessibilidade.html">Acessibilidade</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="footer-bottom">
-        © 2026 Biblioteca Estácio São Luís
+    <div class="footer-bottom-row">
+      <span>© 2026 Biblioteca Estácio São Luís. Todos os direitos reservados.</span>
+      <span>Estácio São Luís — Maranhão</span>
     </div>
+
+  </div>
 </footer>
 
 <!-- JS -->
+<script src="../../assets/js/global.js" defer></script>
 <script src="../../assets/js/pages/wifi.js" defer></script>
 
 </body>

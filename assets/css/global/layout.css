@@ -1,0 +1,297 @@
+/* =========================
+   LAYOUT
+========================= */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* =========================
+   MENU TOGGLE
+========================= */
+.menu-toggle {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 10px 13px;
+  border-radius: 11px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  transition: background 0.2s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  line-height: 1;
+}
+
+.menu-toggle:hover { background: var(--primary-light); }
+.menu-toggle:active { transform: scale(0.95); }
+
+/* =========================
+   OVERLAY
+========================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 999;
+}
+
+.overlay.active { opacity: 1; visibility: visible; }
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  height: clamp(300px, 65vh, 680px);
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: clamp(80px, 15vh, 180px);
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.hero-content {
+  text-align: center;
+  padding: 0 clamp(16px, 5vw, 40px);
+  max-width: 680px;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: clamp(10px, 2vw, 12px);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 14px;
+}
+
+.hero-content h2 {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 6vw, 58px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero-title-accent { color: #7fb3ff; }
+
+.hero-subtitle {
+  color: rgba(255,255,255,0.65);
+  font-size: clamp(13px, 2vw, 17px);
+  margin-top: 10px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.btn-hero-primary,
+.btn-hero-outline {
+  padding: clamp(10px, 2vw, 12px) clamp(16px, 3vw, 24px);
+  border-radius: 10px;
+  font-size: clamp(13px, 2vw, 14px);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.btn-hero-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 18px rgba(0,56,147,0.4);
+}
+
+.btn-hero-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.btn-hero-outline {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.btn-hero-outline:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* =========================
+   AVISO BANNER
+========================= */
+.aviso-banner {
+  background: #eff6ff;
+  border-left: 4px solid var(--primary);
+  padding: clamp(10px, 2vw, 14px) clamp(16px, 5vw, 40px);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: clamp(12px, 2vw, 13.5px);
+  color: #1e3a70;
+  position: relative;
+  z-index: 2;
+  line-height: 1.5;
+}
+
+.aviso-banner i {
+  color: var(--primary);
+  font-size: 17px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+.content {
+  margin-top: clamp(-20px, -4vw, -80px);
+  padding: clamp(16px, 5vw, 40px);
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================
+   TABLET (≤ 900px)
+========================= */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-grid > *:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================
+   MOBILE (≤ 600px)
+========================= */
+@media (max-width: 600px) {
+  :root { --sidebar-width: min(270px, 82vw); }
+
+  .menu-toggle {
+    top: 12px;
+    left: 12px;
+    font-size: 18px;
+    padding: 9px 12px;
+  }
+
+  .hero { height: clamp(260px, 58vh, 380px); }
+  .hero::after { height: 70px; }
+  .hero-content { padding: 0 16px; }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-outline {
+    width: 100%;
+    justify-content: center;
+    max-width: 280px;
+  }
+
+  .aviso-banner { padding: 10px 16px; font-size: 12px; }
+
+  .content { padding: 16px; margin-top: -16px; }
+
+  .section-destaques { padding: 16px; }
+
+  .cards-container { grid-template-columns: 1fr; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* =========================
+   MUITO PEQUENO (≤ 380px)
+========================= */
+@media (max-width: 380px) {
+  .hero-content h2 { font-size: 22px; }
+  .sidebar { padding: 16px 10px; }
+}
