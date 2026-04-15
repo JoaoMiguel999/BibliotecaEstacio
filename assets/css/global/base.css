@@ -13,27 +13,65 @@ html, body {
   width: 100%;
 }
 
+/* =========================
+   VARIÁVEIS GLOBAIS
+========================= */
 :root {
+  /* CORES BASE */
   --bg: #f4f6fb;
-  --text: #1e293b;
+  --bg-soft: #f1f5f9;
   --card: #ffffff;
+
+  --text: #1e293b;
+  --text-light: #475569;
+
   --primary: #003893;
   --primary-light: #0052cc;
+
+  --border: #e2e8f0;
+
+  /* FOOTER / UI */
+  --white-soft: rgba(255,255,255,0.5);
+  --white-muted: rgba(255,255,255,0.4);
+  --white-fade: rgba(255,255,255,0.25);
+  --white-border: rgba(255,255,255,0.1);
+
+  /* LAYOUT */
   --sidebar-width: 260px;
 
+  /* ESPAÇAMENTO */
   --space-xs: clamp(8px, 2vw, 12px);
   --space-sm: clamp(12px, 3vw, 20px);
   --space-md: clamp(20px, 4vw, 40px);
   --space-lg: clamp(30px, 6vw, 60px);
 }
 
+/* =========================
+   BODY
+========================= */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
+  line-height: 1.5;
 }
 
-img { max-width: 100%; display: block; }
+/* =========================
+   ELEMENTOS BÁSICOS
+========================= */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
 
 /* =========================
    ACESSIBILIDADE

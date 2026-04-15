@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wi-Fi | Biblioteca Estácio São Luís</title>
+  <title>Wi-Fi da Biblioteca | Estácio São Luís</title>
   <meta name="description" content="Acesso ao Wi-Fi da Biblioteca Estácio São Luís">
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
@@ -54,8 +54,8 @@
           <i class="ri-arrow-down-s-line arrow"></i>
         </button>
         <ul class="sub">
-          <li><a href="#"><i class="ri-time-line"></i> Atraso de livros</a></li>
-          <li><a href="#"><i class="ri-article-line"></i> Normas</a></li>
+          <li><a href="./atraso.html"><i class="ri-time-line"></i> Atraso de livros</a></li>
+          <li><a href="./normas.html"><i class="ri-article-line"></i> Normas</a></li>
         </ul>
       </li>
 
@@ -157,28 +157,38 @@
 <!-- CONTEÚDO -->
 <main class="content">
 
+  <!-- TEXTO -->
   <section class="section-destaques">
-
     <h2>Acesso ao Wi-Fi</h2>
-
     <p>
       Utilize o Wi-Fi da biblioteca para estudos e acesso a conteúdos acadêmicos.
     </p>
 
-    <!-- BLOCO ESTILO PDF -->
-    <div class="pdf-wrapper">
+  </section>
 
-      <div class="pdf-toolbar">
-        <span>Informações de acesso ao Wi-Fi</span>
-      </div>
+  <!-- PDF -->
+  <section class="pdf-wrapper">
 
-      <div class="pdf-canvas-wrap">
-        <img
-          src="../../assets/img/rede-wifi.jpg"
-          alt="Informações do Wi-Fi"
-          class="wifi-img"
-        >
-      </div>
+    <div class="pdf-toolbar">
+      <span>Informações de Wi-Fi</span>
+    </div>
+
+    <div class="pdf-canvas-wrap">
+      <canvas id="pdf-canvas"></canvas>
+    </div>
+
+    <div class="pdf-bottom-controls">
+      <button id="prevPage" class="btn-visualizar">⬅️</button>
+
+      <span class="pdf-info">
+        Página <span id="pageNum">1</span> / <span id="pageCount">1</span>
+      </span>
+
+      <button id="nextPage" class="btn-visualizar">➡️</button>
+
+      <button id="zoomOut" class="btn-download">−</button>
+      <span id="zoomLevel">100%</span>
+      <button id="zoomIn" class="btn-download">+</button>
 
     </div>
 
@@ -230,8 +240,10 @@
   </div>
 </footer>
 
+<!-- PDF.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 <!-- JS -->
-<script src="../../assets/js/global.js" defer></script>
 <script src="../../assets/js/pages/wifi.js" defer></script>
 
 </body>

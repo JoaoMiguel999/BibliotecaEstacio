@@ -1,4 +1,3 @@
-
 // ===============================
 // MENU HAMBÚRGUER
 // ===============================
@@ -8,36 +7,36 @@ const overlay = document.getElementById("overlay");
 
 if (menuToggle && sidebar && overlay) {
 
-    menuToggle.addEventListener("click", () => {
+    const toggleMenu = () => {
         sidebar.classList.toggle("active");
         overlay.classList.toggle("active");
-    });
+    };
 
-    overlay.addEventListener("click", () => {
+    const closeMenu = () => {
         sidebar.classList.remove("active");
         overlay.classList.remove("active");
-    });
+    };
 
+    menuToggle.addEventListener("click", toggleMenu);
+    overlay.addEventListener("click", closeMenu);
 }
 
 
 // ===============================
-// SUBMENUS (ACORDION)
+// SUBMENUS (ACCORDION)
 // ===============================
 const subToggles = document.querySelectorAll(".sub-toggle");
 
 subToggles.forEach(button => {
 
-    button.addEventListener("click", (e) => {
-        e.preventDefault();
+    button.addEventListener("click", () => {
 
         const parent = button.closest(".has-sub");
         if (!parent) return;
 
-        // Alterna o submenu clicado
         parent.classList.toggle("open");
 
-        // Fecha os outros submenus
+        // Fecha os outros
         document.querySelectorAll(".has-sub").forEach(item => {
             if (item !== parent) {
                 item.classList.remove("open");
@@ -50,67 +49,119 @@ subToggles.forEach(button => {
 
 
 // ===============================
-// FECHAR MENU AO CLICAR NO OVERLAY
+// PDF.JS CONFIG
 // ===============================
-if (overlay) {
-    overlay.addEventListener("click", () => {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-    });
-}
+if (typeof pdfjsLib !== "undefined") {
 
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-// ===============================
-// ANIMAÇÃO DA IMAGEM (SCROLL)
-// ===============================
-const wifiImg = document.querySelector(".wifi-img");
+    const url = "../../assets/docs/documentosinformativos/wifi.pdf";
 
-if (wifiImg) {
+    const canvas = document.getElementById("pdf-canvas");
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                wifiImg.classList.add("show");
-            }
+    if (canvas) {
+
+        const ctx = canvas.getContext("2d");
+
+        let pdfDoc = null;
+        let pageNum = 1;
+        let scale = 1.2;
+
+        const pageNumEl = document.getElementById("pageNum");
+        const pageCountEl = document.getElementById("pageCount");
+        const zoomLevelEl = document.getElementById("zoomLevel");
+
+        // ===============================
+        // RENDERIZA PÁGINA
+        // ===============================
+        function renderPage(num) {
+
+            pdfDoc.getPage(num).then(page => {
+
+                const viewport = page.getViewport({ scale });
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                page.render(renderContext);
+
+                if (pageNumEl) pageNumEl.textContent = num;
+                if (zoomLevelEl) zoomLevelEl.textContent = Math.round(scale * 100) + "%";
+
+            });
+
+        }
+
+        // ===============================
+        // CARREGA PDF
+        // ===============================
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+
+            pdfDoc = pdf;
+
+            if (pageCountEl) pageCountEl.textContent = pdf.numPages;
+
+            renderPage(pageNum);
+
+        }).catch(err => {
+            console.error("Erro ao carregar PDF:", err);
+
+            canvas.insertAdjacentHTML("afterend",
+                `<p style="color:red;text-align:center;margin-top:10px;">
+                    Erro ao carregar o PDF.
+                </p>`
+            );
         });
-    }, {
-        threshold: 0.3
-    });
 
-    observer.observe(wifiImg);
+        // ===============================
+        // CONTROLES
+        // ===============================
+        const nextBtn = document.getElementById("nextPage");
+        const prevBtn = document.getElementById("prevPage");
+        const zoomInBtn = document.getElementById("zoomIn");
+        const zoomOutBtn = document.getElementById("zoomOut");
 
-}
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
+                if (pageNum < pdfDoc.numPages) {
+                    pageNum++;
+                    renderPage(pageNum);
+                }
+            });
+        }
 
+        if (prevBtn) {
+            prevBtn.addEventListener("click", () => {
+                if (pageNum > 1) {
+                    pageNum--;
+                    renderPage(pageNum);
+                }
+            });
+        }
 
-// ===============================
-// EFEITO 3D (MOUSE)
-// ===============================
-if (wifiImg) {
+        if (zoomInBtn) {
+            zoomInBtn.addEventListener("click", () => {
+                scale += 0.2;
+                renderPage(pageNum);
+            });
+        }
 
-    wifiImg.addEventListener("mousemove", (e) => {
+        if (zoomOutBtn) {
+            zoomOutBtn.addEventListener("click", () => {
+                if (scale > 0.6) {
+                    scale -= 0.2;
+                    renderPage(pageNum);
+                }
+            });
+        }
 
-        const rect = wifiImg.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * 6;
-        const rotateY = ((x - centerX) / centerX) * -6;
-
-        wifiImg.style.transform = `
-            scale(1.05)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-        `;
-
-    });
-
-    wifiImg.addEventListener("mouseleave", () => {
-        wifiImg.style.transform = "";
-    });
+    }
 
 }
 
@@ -118,4 +169,4 @@ if (wifiImg) {
 // ===============================
 // LOG
 // ===============================
-console.log("🚀 JS Wi-Fi carregado com sucesso");
+console.log("🚀 Wi-Fi JS completo carregado com sucesso");

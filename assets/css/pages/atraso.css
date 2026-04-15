@@ -1,0 +1,134 @@
+/* =========================
+   IMPORTS GLOBAIS
+========================= */
+@import url('../global/base.css');
+@import url('../global/layout.css');
+@import url('../global/components.css');
+@import url('../global/footer.css');
+
+
+/* =========================
+   HERO (SÓ IMAGEM DA PÁGINA)
+========================= */
+.hero-bg {
+  background: url("../../assets/img/biblioteca.png") center/cover no-repeat;
+}
+
+
+/* =========================
+   CONTAINER DA PÁGINA
+========================= */
+.content {
+  max-width: 1100px;
+  margin: auto;
+}
+
+
+/* =========================
+   AJUSTES DE TEXTO
+========================= */
+.section-destaques h2 {
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.section-destaques p {
+  color: var(--text-light);
+}
+
+
+/* =========================
+   PDF VIEWER
+========================= */
+.pdf-wrapper {
+  background: var(--bg-soft);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* TOPO */
+.pdf-toolbar {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ÁREA DO PDF */
+.pdf-canvas-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: var(--bg);
+}
+
+#pdf-canvas {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* CONTROLES */
+.pdf-bottom-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+}
+
+.pdf-info {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* BOTÕES */
+.btn-visualizar,
+.btn-download {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+}
+
+/* navegação */
+.btn-visualizar {
+  background: var(--bg-soft);
+}
+
+.btn-visualizar:hover {
+  background: #e2e8f0;
+}
+
+/* download */
+.btn-download {
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-download:hover {
+  background: var(--primary-light);
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+  .pdf-bottom-controls {
+    flex-direction: column;
+  }
+
+  #pdf-canvas {
+    width: 100%;
+    height: auto;
+  }
+}

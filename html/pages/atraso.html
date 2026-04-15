@@ -4,18 +4,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Acessibilidade | Biblioteca Estácio São Luís</title>
-  <meta name="description" content="Recursos de acessibilidade da Biblioteca Estácio São Luís">
+  <title>Wi-Fi | Biblioteca Estácio São Luís</title>
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../assets/css/pages/Acessibilidade.css" />
+  <link rel="stylesheet" href="../../assets/css/pages/normas.css" />
 </head>
 
 <body>
 
 <!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+<button class="menu-toggle" id="menuToggle">
   <i class="ri-menu-line"></i>
 </button>
 
@@ -46,7 +45,7 @@
       <p class="nav-label">Informações</p>
 
       <li class="has-sub">
-        <button type="button" class="sub-toggle" aria-expanded="false">
+        <button class="sub-toggle">
           <span class="menu-left">
             <i class="ri-file-list-3-line"></i>
             Informativo
@@ -61,13 +60,13 @@
 
       <li class="has-sub">
         <div class="menu-item">
-          <a href="./Acessibilidade.html" class="menu-link" aria-current="page">
+          <a href="./Acessibilidade.html" class="menu-link">
             <span class="menu-left">
               <i class="ri-wheelchair-line"></i>
               Acessibilidade
             </span>
           </a>
-          <button type="button" class="sub-toggle" aria-expanded="false">
+          <button class="sub-toggle">
             <i class="ri-arrow-down-s-line arrow"></i>
           </button>
         </div>
@@ -109,7 +108,7 @@
       <p class="nav-label">Acadêmico</p>
 
       <li class="has-sub">
-        <button type="button" class="sub-toggle" aria-expanded="false">
+        <button class="sub-toggle">
           <span class="menu-left">
             <i class="ri-graduation-cap-line"></i>
             TCC Estácio
@@ -117,7 +116,7 @@
           <i class="ri-arrow-down-s-line arrow"></i>
         </button>
         <ul class="sub">
-          <li><a href="./manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
+          <li><a href="./html/pages/manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
           <li><a href="./repositorio.html"><i class="ri-archive-line"></i> Repositório</a></li>
         </ul>
       </li>
@@ -137,12 +136,16 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-eyebrow">
-        <i class="ri-wheelchair-line"></i>
-        Inclusão — Biblioteca
+        <i class="ri-time-line"></i>
+        Pendência De Livros — Biblioteca
       </div>
-      <h2>Acessi<span class="hero-title-accent">bilidade</span></h2>
+
+      <h2>
+        Atraso de <span class="hero-title-accent">Livros</span>
+      </h2>
+
       <p class="hero-subtitle">
-        Recursos e ferramentas para garantir acesso pleno ao conhecimento para toda a comunidade acadêmica.
+        Confira as regras sobre prazos de devolução, multas por atraso e como manter seus empréstimos em dia.
       </p>
     </div>
   </section>
@@ -151,73 +154,55 @@
 <!-- AVISO -->
 <div class="aviso-banner">
   <i class="ri-information-line"></i>
-  <span><strong>Informação:</strong> Todos os recursos de acessibilidade estão disponíveis gratuitamente para alunos e docentes da Estácio São Luís.</span>
+  <span><strong>Aviso:</strong> Uso exclusivo para alunos e docentes.</span>
 </div>
 
 <!-- CONTEÚDO -->
 <main class="content">
 
-  <section class="section-destaques reveal">
-    <div class="section-header">
-      <i class="ri-wheelchair-line"></i>
-      <h2>Recursos de Acessibilidade</h2>
-    </div>
-    <div class="section-line"></div>
+  <!-- TEXTO -->
+  <section class="section-destaques">
+
+    <h2>NORMAS SOBRE ATRASO DE LIVROS</h2>
+
     <p>
-      A Biblioteca Estácio São Luís oferece uma ampla gama de recursos para garantir inclusão e acessibilidade
-      a todos os usuários, independentemente de suas necessidades.
+      A biblioteca disponibiliza seus materiais para empréstimo por tempo determinado. 
+      É responsabilidade do usuário realizar a devolução dentro do prazo estabelecido.
     </p>
+
   </section>
 
-  <div class="cards-container reveal">
+  <!-- PDF -->
+  <section class="pdf-wrapper">
 
-    <div class="card">
-      <div class="card-icon-wrap">
-        <i class="ri-computer-line card-icon"></i>
-      </div>
-      <h3>Softwares de Acessibilidade</h3>
-      <p>NVDA, DOSVOX e VLibras auxiliam na leitura de tela e tradução para Libras.</p>
+    <div class="pdf-toolbar">
+      <span>Informações de Pendência de Livros</span>
     </div>
+<div class="pdf-canvas-wrap">
+  <canvas id="pdf-canvas"></canvas>
+</div>
 
-    <div class="card">
-      <div class="card-icon-wrap">
-        <i class="ri-keyboard-line card-icon"></i>
-      </div>
-      <h3>Equipamentos Inclusivos</h3>
-      <p>Fones, teclado braile, lupa, reglete, sorobã e teclado acessível disponíveis.</p>
-    </div>
+<!-- BOTÕES EMBAIXO -->
+<div class="pdf-bottom-controls">
+  <button id="prevPage" class="btn-visualizar">⬅️</button>
 
-    <div class="card">
-      <div class="card-icon-wrap">
-        <i class="ri-global-line card-icon"></i>
-      </div>
-      <h3>Plataformas Digitais</h3>
-      <p>BV Pearson, Minha Biblioteca e EBSCO com leitura em voz alta integrada.</p>
-    </div>
+  <span class="pdf-info">
+    Página <span id="pageNum">1</span> / <span id="pageCount">1</span>
+  </span>
 
-    <div class="card">
-      <div class="card-icon-wrap">
-        <i class="ri-hand-coin-line card-icon"></i>
-      </div>
-      <h3>Cartilha de Libras</h3>
-      <p>Conteúdo com conceito, legislação e alfabeto completo em LIBRAS.</p>
-    </div>
+  <button id="nextPage" class="btn-visualizar">➡️</button>
 
-  </div>
+  <button id="zoomOut" class="btn-download">−</button>
+  <span id="zoomLevel">100%</span>
+  <button id="zoomIn" class="btn-download">+</button>
 
-  <section class="section-info reveal">
-    <div class="section-header">
-      <i class="ri-information-line"></i>
-      <h2>Informações</h2>
-    </div>
-    <div class="section-line"></div>
-    <div class="section-destaques">
-      <p>
-        A biblioteca oferece recursos como NVDA, DOSVOX, VLibras, equipamentos acessíveis
-        e plataformas digitais com leitura em voz alta, garantindo inclusão e acessibilidade
-        a toda a comunidade acadêmica da Estácio São Luís.
-      </p>
-    </div>
+  <a href="../../assets/docs/documentosinformativos/pendência-de-livros.pdf"
+     class="btn-download"
+     download>
+     Baixar PDF
+  </a>
+</div>
+
   </section>
 
 </main>
@@ -240,9 +225,9 @@
       <div class="footer-col">
         <h4>Navegação</h4>
         <ul>
-          <li><a href="../../index.html">Início</a></li>
+          <li><a href="#">Início</a></li>
           <li><a href="#">Regulamento</a></li>
-          <li><a href="./wifi.html">Wi-Fi</a></li>
+          <li><a href="#">Wi-Fi</a></li>
           <li><a href="#">Contato</a></li>
         </ul>
       </div>
@@ -250,10 +235,10 @@
       <div class="footer-col">
         <h4>Acadêmico</h4>
         <ul>
-          <li><a href="./manualtcc.html">Manual TCC</a></li>
-          <li><a href="./repositorio.html">Repositório</a></li>
+          <li><a href="#">Manual TCC</a></li>
+          <li><a href="#">Repositório</a></li>
           <li><a href="#">Normas ABNT</a></li>
-          <li><a href="./Acessibilidade.html">Acessibilidade</a></li>
+          <li><a href="#">Acessibilidade</a></li>
         </ul>
       </div>
     </div>
@@ -265,9 +250,8 @@
 
   </div>
 </footer>
-
-<!-- JS -->
-<script src="../../assets/js/pages/Acessibilade.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="../../assets/js/pages/atraso.js"></script>
 
 </body>
 </html>
