@@ -1,0 +1,351 @@
+/* =========================
+IMPORTS
+========================= */
+@import url('../../global/base.css');
+@import url('../../global/layout.css');
+@import url('../../global/components.css');
+@import url('../../global/footer.css');
+@import url('../../global/botaopdf.css');
+
+/* =========================
+VARIÁVEIS
+========================= */
+:root {
+  --bg: #f4f6fb;
+  --text: #1e293b;
+
+  --success: #198754;
+  --success-hover: #157347;
+
+  --blue: #0d6efd;
+  --blue-hover: #0b5ed7;
+
+  --sidebar-width: 260px;
+
+  --z-sidebar: 1000;
+  --z-modal: 1200;
+
+  --radius: 12px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+  --transition: all 0.25s ease;
+}
+
+/* =========================
+BASE
+========================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* =========================
+SIDEBAR
+========================= */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(180deg, #003893, #002c70);
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  transition: var(--transition);
+  z-index: var(--z-sidebar);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+/* =========================
+OVERLAY
+========================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: calc(var(--z-sidebar) - 1);
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  height: clamp(300px, 65vh, 680px);
+  position: relative;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url("../../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+}
+
+.hero-content h1 {
+  color: white;
+  font-size: clamp(26px, 6vw, 52px);
+}
+
+/* =========================
+PDF WRAPPER
+========================= */
+.pdf-wrapper {
+  margin-top: 20px;
+  background: #1e1e1e;
+  border-radius: 16px;
+  overflow: visible;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+}
+
+/* =========================
+ÁREA DO PDF
+========================= */
+.pdf-canvas-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  overflow: auto;
+  padding: 30px;
+
+  background: radial-gradient(circle, #2a2a2a, #1a1a1a);
+
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  cursor: default; /* 🔥 CORRIGIDO (sem mão) */
+}
+
+/* =========================
+CANVAS (ZOOM OK)
+========================= */
+#pdf-canvas,
+#pdf-canvas-modal {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-width: none;
+
+  background: #fff;
+  border-radius: 10px;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.30),
+    0 0 0 1px rgba(0,0,0,0.08);
+
+  margin: 0 auto;
+}
+
+/* =========================
+CONTROLES PDF
+========================= */
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+  background: #111;
+  color: #fff;
+
+  gap: 10px;
+  flex-wrap: nowrap;
+
+  min-height: 60px;
+}
+
+.pdf-nav,
+.pdf-zoom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* BOTÕES */
+.btn-control {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-control:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.05);
+}
+
+.btn-control:active {
+  transform: scale(0.95);
+}
+
+/* TEXTO */
+.pdf-info,
+.pdf-zoom-level {
+  font-size: 14px;
+}
+
+/* =========================
+AÇÕES
+========================= */
+.acoes {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-visualizar {
+  background: var(--success);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-visualizar:hover {
+  background: var(--success-hover);
+}
+
+.btn-download {
+  background: var(--blue);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.btn-download:hover {
+  background: var(--blue-hover);
+}
+
+/* =========================
+MODAL
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: var(--z-modal);
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+MODAL CONTENT
+========================= */
+.modal-content {
+  width: 95vw;
+  height: 95vh;
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* =========================
+MODAL PDF
+========================= */
+.modal-pdf {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-pdf .pdf-canvas-wrap {
+  flex: 1;
+  background: #000;
+  padding: 20px;
+  align-items: center;
+}
+
+/* =========================
+BOTÃO FECHAR
+========================= */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+/* =========================
+RESPONSIVO
+========================= */
+@media (max-width: 600px) {
+
+  .pdf-wrapper {
+    min-height: 60vh;
+  }
+
+  .pdf-canvas-wrap {
+    padding: 15px;
+  }
+
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .pdf-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

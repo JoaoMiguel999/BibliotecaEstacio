@@ -1,0 +1,106 @@
+/* =========================
+   CONTAINER
+========================= */
+.pdf-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(10px);
+
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0 0 12px 12px;
+
+  flex-wrap: wrap;
+}
+
+/* =========================
+   GRUPOS
+========================= */
+.pdf-nav,
+.pdf-zoom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+.btn-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 36px;
+  min-width: 36px;
+  padding: 0 12px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background: linear-gradient(145deg, #2a2a2a, #242424);
+  color: rgba(255,255,255,0.85);
+
+  font-size: 16px;
+  cursor: pointer;
+
+  transition: all 0.18s ease;
+}
+
+/* Hover suave */
+.btn-control:hover {
+  background: linear-gradient(145deg, #333, #2b2b2b);
+  color: #fff;
+}
+
+/* Clique */
+.btn-control:active {
+  transform: scale(0.95);
+}
+
+/* Desabilitado */
+.btn-control:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   INFO DE PÁGINA
+========================= */
+.pdf-info {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pdf-info span {
+  font-weight: 600;
+  color: #fff;
+}
+
+.pdf-separator {
+  opacity: 0.4;
+}
+
+/* =========================
+   ZOOM
+========================= */
+.pdf-zoom-level {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+
+  min-width: 48px;
+  text-align: center;
+
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biblioteca Estácio São Luís</title>
+
+    <meta name="description" content="Manual de Normalização de TCC - Biblioteca Estácio São Luís">
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../../assets/css/pages/informativos/visitaguiada.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle">
+    <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <i class="ri-map-pin-line"></i>
+        Biblioteca Estácio São Luís
+      </div>
+
+      <h2>Visita <span class="hero-title-accent">Guiada</span></h2>
+
+      <p class="hero-subtitle">
+        Conheça os espaços, serviços e recursos da biblioteca por meio de uma visita guiada completa e orientada.
+      </p>
+    </div>
+  </section>
+</header>
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques">
+
+    <h2>Visita Guiada à Biblioteca</h2>
+    <p>
+      Participe de uma visita guiada e conheça os espaços, serviços e recursos
+      disponíveis na Biblioteca Estácio São Luís.
+    </p>
+        <!-- PDF VIEWER -->
+        <div class="pdf-wrapper">
+
+            <!-- CANVAS -->
+            <div class="pdf-canvas-wrap">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
+
+            <!-- CONTROLES (SEU PADRÃO GLOBAL) -->
+            <div class="pdf-controls">
+
+                <!-- NAVEGAÇÃO -->
+                <div class="pdf-nav">
+                    <button class="btn-control" data-prev>
+                        <i class="ri-arrow-left-s-line"></i>
+                    </button>
+
+                    <span class="pdf-info">
+                        <span data-page-num>1</span>
+                        <span class="pdf-separator">/</span>
+                        <span data-page-count>1</span>
+                    </span>
+
+                    <button class="btn-control" data-next>
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+                </div>
+
+                <!-- ZOOM -->
+                <div class="pdf-zoom">
+                    <button class="btn-control" data-zoom-out>
+                        <i class="ri-subtract-line"></i>
+                    </button>
+
+                    <span class="pdf-zoom-level" data-zoom-level>100%</span>
+
+                    <button class="btn-control" data-zoom-in>
+                        <i class="ri-add-line"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="acoes">
+            <button class="btn-visualizar" id="abrirModal">
+                Tela cheia
+            </button>
+
+            <a href="../../../assets/docs/documentosinformativos/Visitaguiada.pdf" download class="btn-download">
+                Baixar PDF
+            </a>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal" id="modalPDF">
+    <button class="modal-close" id="fecharModal">
+        <i class="ri-close-line"></i>
+    </button>
+
+    <iframe
+        id="pdf-iframe"
+        src="../../../assets/docs/documentosinformativos/Visitaguiada.pdf"
+        class="modal-iframe"
+        title="Manual de Normalização de TCC">
+    </iframe>
+</div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../../assets/js/pages/informativos/visitaguiada.js" defer></script>
+
+</body>
+</html>

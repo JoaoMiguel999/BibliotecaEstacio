@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>NVDA | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="NVDA — Leitor de Tela gratuito para Windows da Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../assets/css/pages/acessibilidade/nvda.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+  <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-volume-up-line"></i>
+        Acessibilidade
+      </div>
+
+      <h2><span class="hero-title-accent">NVDA</span></h2>
+
+      <p class="hero-subtitle">
+        NonVisual Desktop Access — leitor de tela gratuito e de código aberto para Windows,
+        que permite a pessoas cegas e com baixa visão utilizarem computadores.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques reveal">
+    <div class="section-icon">
+      <i class="ri-volume-up-line"></i>
+    </div>
+    <div class="section-text">
+      <h2>O que é o NVDA?</h2>
+      <p>
+        O NVDA (NonVisual Desktop Access) é um leitor de tela gratuito e de código aberto para o sistema operacional Windows.
+        Desenvolvido pela NV Access, ele permite que pessoas cegas ou com baixa visão utilizem computadores através de síntese de voz
+        e saída em Braille, lendo em voz alta o conteúdo exibido na tela.
+      </p>
+    </div>
+  </section>
+
+  <div class="cards-grid">
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-download-cloud-line"></i></div>
+      <h3>Download Gratuito</h3>
+      <p>Baixe a versão mais recente do NVDA diretamente do site oficial da NV Access.</p>
+      <a href="https://www.nvaccess.org/download/" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-download-2-line"></i> Baixar NVDA
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-keyboard-line"></i></div>
+      <h3>Atalhos de Teclado</h3>
+      <p>Guia completo com os principais comandos de teclado para navegar com o NVDA.</p>
+      <a href="https://www.nvaccess.org/files/nvda/documentation/userGuide.html" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Ver Guia
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-book-2-line"></i></div>
+      <h3>Documentação PT-BR</h3>
+      <p>Manual do usuário traduzido para o português com todas as funcionalidades detalhadas.</p>
+      <a href="https://www.nvaccess.org/files/nvda/documentation/pt_BR/userGuide.html" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Acessar
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-community-line"></i></div>
+      <h3>Comunidade</h3>
+      <p>Fórum oficial da NV Access para suporte, dúvidas e troca de experiências com outros usuários.</p>
+      <a href="https://community.nvda-project.org/" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Comunidade
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ATALHOS PRINCIPAIS -->
+  <section class="atalhos-section reveal">
+    <h2><i class="ri-keyboard-line"></i> Atalhos Essenciais</h2>
+    <div class="atalhos-grid">
+
+      <div class="atalho-item">
+        <kbd>NVDA + Space</kbd>
+        <span>Ativar/desativar modo de navegação</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>NVDA + F7</kbd>
+        <span>Lista de elementos (links, títulos, formulários)</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>Tab</kbd>
+        <span>Navegar entre elementos interativos</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>H</kbd>
+        <span>Pular para o próximo título</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>NVDA + T</kbd>
+        <span>Ler o título da janela atual</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>Ctrl</kbd>
+        <span>Parar a leitura imediatamente</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>NVDA + ↓</kbd>
+        <span>Leitura contínua a partir do cursor</span>
+      </div>
+      <div class="atalho-item">
+        <kbd>NVDA + Q</kbd>
+        <span>Fechar o NVDA</span>
+      </div>
+
+    </div>
+    <p class="atalhos-obs">
+      <i class="ri-information-line"></i>
+      A tecla NVDA padrão é o <strong>Insert</strong>. Pode ser redefinida nas configurações.
+    </p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../../assets/js/pages/acessibilidade/nvda.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ficha Catalográfica | Biblioteca Estácio São Luís</title>
+
+    <meta name="description" content="Solicitação e consulta de ficha catalográfica - Biblioteca Estácio São Luís">
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/pages/fichacatalografica.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle">
+    <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <i class="ri-book-2-line"></i>
+        Catalogação na Publicação
+      </div>
+
+      <h2>Ficha <span class="hero-title-accent">Catalográfica</span></h2>
+
+      <p class="hero-subtitle">
+        Solicite ou consulte a ficha catalográfica do seu TCC conforme normas da ABNT.
+      </p>
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+    <section class="section-destaques">
+
+        <h2>Ficha Catalográfica</h2>
+        <p>Visualize o documento informativo e orientações para solicitação.</p>
+
+        <!-- PDF VIEWER PRINCIPAL -->
+        <div class="pdf-wrapper">
+
+            <div class="pdf-canvas-wrap">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
+
+            <div class="pdf-controls">
+
+                <div class="pdf-nav">
+                    <button class="btn-control" data-prev>
+                        <i class="ri-arrow-left-s-line"></i>
+                    </button>
+
+                    <span class="pdf-info">
+                        <span data-page-num>1</span>
+                        <span>/</span>
+                        <span data-page-count>1</span>
+                    </span>
+
+                    <button class="btn-control" data-next>
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+                </div>
+
+                <div class="pdf-zoom">
+                    <button class="btn-control" data-zoom-out>
+                        <i class="ri-subtract-line"></i>
+                    </button>
+
+                    <span class="pdf-zoom-level" data-zoom-level>100%</span>
+
+                    <button class="btn-control" data-zoom-in>
+                        <i class="ri-add-line"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="acoes">
+            <button class="btn-visualizar" id="abrirModal">
+                Tela cheia
+            </button>
+
+            <a href="../../assets/docs/documentosinformativos/Aviso-ficha-catalografica.pdf" 
+               download 
+               class="btn-download">
+                Baixar PDF
+            </a>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- MODAL PDF (FULLSCREEN CORRIGIDO) -->
+<div class="modal" id="modalPDF">
+
+    <button class="modal-close" id="fecharModal">
+        <i class="ri-close-line"></i>
+    </button>
+
+    <div class="modal-content">
+
+        <div class="pdf-wrapper modal-pdf">
+
+            <div id="modal-canvas-wrap" class="pdf-canvas-wrap">
+                <canvas id="modal-pdf-canvas"></canvas>
+            </div>
+
+            <div class="pdf-controls">
+
+                <div class="pdf-nav">
+                    <button class="btn-control" data-modal-prev>
+                        <i class="ri-arrow-left-s-line"></i>
+                    </button>
+
+                    <span class="pdf-info">
+                        <span data-modal-page-num>1</span>
+                        <span>/</span>
+                        <span data-modal-page-count>1</span>
+                    </span>
+
+                    <button class="btn-control" data-modal-next>
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+                </div>
+
+                <div class="pdf-zoom">
+                    <button class="btn-control" data-modal-zoom-out>
+                        <i class="ri-subtract-line"></i>
+                    </button>
+
+                    <span class="pdf-zoom-level" data-modal-zoom-level>50%</span>
+
+                    <button class="btn-control" data-modal-zoom-in>
+                        <i class="ri-add-line"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../assets/js/pages/fichacatalografica.js" defer></script>
+
+</body>
+</html>

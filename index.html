@@ -8,6 +8,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="./assets/css/pages/inicio.css" />
 </head>
 
@@ -21,112 +23,8 @@
 <!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-  <div class="brand">
-    <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img" alt="Logo Estácio" />
-    <h1>Biblioteca<br>Estácio São Luís</h1>
-    <div class="brand-divider"></div>
-  </div>
-
-  <nav class="nav">
-    <ul>
-
-      <li>
-        <a href="./index.html">
-          <span class="menu-left">
-            <i class="ri-home-4-line"></i>
-            Início
-          </span>
-        </a>
-      </li>
-
-      <p class="nav-label">Informações</p>
-
-      <li class="has-sub">
-        <button class="sub-toggle">
-          <span class="menu-left">
-            <i class="ri-file-list-3-line"></i>
-            Informativo
-          </span>
-          <i class="ri-arrow-down-s-line arrow"></i>
-        </button>
-        <ul class="sub">
-          <li><a href="#"><i class="ri-time-line"></i> Atraso de livros</a></li>
-          <li><a href="./html/pages/normas.html"><i class="ri-article-line"></i> Normas</a></li>
-        </ul>
-      </li>
-
-      <li class="has-sub">
-        <div class="menu-item">
-          <a href="./html/pages/Acessibilidade.html" class="menu-link">
-            <span class="menu-left">
-              <i class="ri-wheelchair-line"></i>
-              Acessibilidade
-            </span>
-          </a>
-          <button class="sub-toggle">
-            <i class="ri-arrow-down-s-line arrow"></i>
-          </button>
-        </div>
-        <ul class="sub">
-          <li><a href="#"><i class="ri-hand-coin-line"></i> Cartilha de Libras</a></li>
-          <li><a href="#"><i class="ri-translate-2"></i> VLibras</a></li>
-          <li><a href="#"><i class="ri-volume-up-line"></i> NVDA</a></li>
-          <li><a href="#"><i class="ri-speak-line"></i> DOSVOX</a></li>
-        </ul>
-      </li>
-
-      <li>
-        <a href="./html/pages/wifi.html">
-          <span class="menu-left">
-            <i class="ri-wifi-line"></i>
-            Wi-Fi
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="menu-left">
-            <i class="ri-file-paper-line"></i>
-            Regulamento
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="menu-left">
-            <i class="ri-contacts-line"></i>
-            Contato
-          </span>
-        </a>
-      </li>
-
-      <p class="nav-label">Acadêmico</p>
-
-      <li class="has-sub">
-        <button class="sub-toggle">
-          <span class="menu-left">
-            <i class="ri-graduation-cap-line"></i>
-            TCC Estácio
-          </span>
-          <i class="ri-arrow-down-s-line arrow"></i>
-        </button>
-        <ul class="sub">
-          <li><a href="./html/pages/manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
-          <li><a href="./html/pages/repositorio.html"><i class="ri-archive-line"></i> Repositório</a></li>
-        </ul>
-      </li>
-
-    </ul>
-  </nav>
-
-  <div class="sidebar-footer">© 2026 Estácio São Luís</div>
-
-</aside>
+<!-- SIDEBAR (INJETADA VIA FETCH) -->
+<div id="sidebar-container"></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -135,22 +33,30 @@
 
   <section class="hero-section">
     <div class="hero-content">
+
       <div class="hero-eyebrow">
         <i class="ri-building-4-line"></i>
         Estácio São Luís — Maranhão
       </div>
-      <h2>Biblioteca <span class="hero-title-accent">Universitária</span></h2>
+
+      <h2>
+        Biblioteca <span class="hero-title-accent">Universitária</span>
+      </h2>
+
       <p class="hero-subtitle">
         Um espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento acadêmico da nossa comunidade.
       </p>
+
       <div class="hero-ctas">
         <a href="#sobre" class="btn-hero-primary">
           <i class="ri-information-line"></i> Conheça a biblioteca
         </a>
+
         <a href="#horarios" class="btn-hero-outline">
           <i class="ri-time-line"></i> Horários
         </a>
       </div>
+
     </div>
   </section>
 </header>
@@ -158,146 +64,143 @@
 <!-- AVISO -->
 <div class="aviso-banner">
   <i class="ri-information-line"></i>
-  <span><strong>Aviso:</strong> O empréstimo é exclusivo para alunos e docentes regularmente matriculados. Apresente sua carteirinha de estudante.</span>
+  <span>
+    <strong>Aviso:</strong> O empréstimo é exclusivo para alunos e docentes regularmente matriculados.
+  </span>
 </div>
 
 <!-- MAIN -->
 <main class="main">
+
   <div class="content">
 
     <!-- SOBRE -->
     <section class="section-destaques reveal" id="sobre">
+
       <div class="section-header">
         <i class="ri-book-open-line"></i>
         <h2>Sobre a Biblioteca</h2>
       </div>
+
       <div class="section-line"></div>
+
       <p>
         A Biblioteca Estácio São Luís é um espaço dedicado ao conhecimento, pesquisa e desenvolvimento acadêmico.
-        Oferece um ambiente moderno e acessível para estudantes, com acervo atualizado, áreas de estudo e suporte ao aprendizado.
+        Oferece um ambiente moderno e acessível para estudantes.
       </p>
+
       <p>
-        Nosso objetivo é proporcionar recursos que auxiliem na formação acadêmica, incentivando a leitura,
-        a pesquisa e o crescimento intelectual de toda a comunidade universitária.
+        Nosso objetivo é proporcionar recursos que auxiliem na formação acadêmica e no crescimento intelectual.
       </p>
+
     </section>
 
-    <!-- HORÁRIOS & CONTATO -->
+    <!-- HORÁRIOS -->
     <section class="section-horarios reveal" id="horarios">
+
       <div class="section-header">
         <i class="ri-time-line"></i>
         <h2>Horários e Contato</h2>
       </div>
+
       <div class="section-line"></div>
 
       <div class="horarios-grid">
 
+        <!-- HORÁRIO -->
         <div class="horario-card">
+
           <div class="card-header">
             <i class="ri-calendar-check-line"></i>
             Funcionamento
           </div>
+
           <div class="card-body">
+
             <div class="horario-row">
-              <span class="horario-dia">Segunda a Sexta</span>
-              <span class="horario-time">08h00 – 20h00</span>
+              <span>Segunda a Sexta</span>
+              <span>08h00 – 20h00</span>
             </div>
+
             <div class="horario-row">
-              <span class="horario-dia">Sábado</span>
-              <span class="badge-fechado">Fechado</span>
+              <span>Sábado</span>
+              <span>Fechado</span>
             </div>
+
             <div class="horario-row">
-              <span class="horario-dia">Domingo</span>
-              <span class="badge-fechado">Fechado</span>
+              <span>Domingo</span>
+              <span>Fechado</span>
             </div>
+
             <div class="horario-row">
-              <span class="horario-dia">Feriados</span>
-              <span class="badge-fechado">Fechado</span>
+              <span>Feriados</span>
+              <span>Fechado</span>
             </div>
           </div>
+
         </div>
 
+        <!-- CONTATO -->
         <div class="contato-card">
+
           <div class="card-header">
             <i class="ri-contacts-line"></i>
-            Informações de Contato
+            Contato
           </div>
+
           <div class="card-body">
+
             <div class="contato-item">
-              <div class="contato-icon"><i class="ri-phone-line"></i></div>
+              <i class="ri-phone-line"></i>
               <div>
-                <div class="contato-label">Telefone</div>
-                <div class="contato-val">(98) 99115-0375 / 98918-0375</div>
+                <strong>Telefone</strong>
+                <p>(98) 99115-0375/</p>
+              </div>
+            </div>
+
+            <div class="contato-item">
+              <i class="ri-map-pin-line"></i>
+              <div>
+                <strong>Localização</strong>
+                <p>Estácio São Luís — MA</p>
+              </div>
+            </div>
+
+            <div class="contato-item">
+              <i class="ri-mail-line"></i>
+              <div>
+                <strong>E-mail</strong>
+                <p>biblioteca.saoluis@estacio.br</p>
               </div>
             </div>
             <div class="contato-item">
-              <div class="contato-icon"><i class="ri-map-pin-line"></i></div>
-              <div>
-                <div class="contato-label">Localização</div>
-                <div class="contato-val">Estácio São Luís — MA</div>
-              </div>
-            </div>
-            <div class="contato-item">
-              <div class="contato-icon"><i class="ri-mail-line"></i></div>
-              <div>
-                <div class="contato-label">E-mail</div>
-                <div class="contato-val">biblioteca.saoluis@estacio.br</div>
-              </div>
-            </div>
+  <i class="ri-instagram-line"></i>
+  <div>
+    <strong>Instagram</strong>
+    <p><a href="https://www.instagram.com/estacio.saoluis.biblioteca/" target="_blank">@estacio.saoluis.biblioteca
+</a></p>
+  </div>
+</div>
+
           </div>
+
         </div>
 
       </div>
+
     </section>
 
   </div>
+
 </main>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
+<div id="footer-container"></div>
 
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo-row">
-          <div class="footer-logo-icon"><i class="ri-book-2-line"></i></div>
-          <span class="footer-logo-name">Biblioteca<br>Estácio São Luís</span>
-        </div>
-        <p class="footer-desc">
-          Espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento intelectual da comunidade acadêmica.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Navegação</h4>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Regulamento</a></li>
-          <li><a href="#">Wi-Fi</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Acadêmico</h4>
-        <ul>
-          <li><a href="#">Manual TCC</a></li>
-          <li><a href="#">Repositório</a></li>
-          <li><a href="#">Normas ABNT</a></li>
-          <li><a href="#">Acessibilidade</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom-row">
-      <span>© 2026 Biblioteca Estácio São Luís. Todos os direitos reservados.</span>
-      <span>Estácio São Luís — Maranhão</span>
-    </div>
-
-  </div>
-</footer>
-
-<script src="../../assets/js/pages/inicio.js"></script>
+<!-- JS (IMPORTANTE: SEM "/" NA FRENTE) -->
+<script src="./assets/js/layout/layout.js"></script>
+<script src="./assets/js/layout/global.js"></script>
+<script src="./assets/js/pages/inicio.js"></script>
 
 </body>
 </html>

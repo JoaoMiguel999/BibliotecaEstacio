@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Regulamento | Biblioteca Estácio São Luís</title>
+
+  <meta name="description" content="Regulamento da Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../assets/css/pages/repositorio.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle">
+  <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-file-list-3-line"></i>
+        Normas da Biblioteca
+      </div>
+
+      <h2>Regulamento <span class="hero-title-accent">Interno</span></h2>
+
+      <p class="hero-subtitle">
+        Consulte as regras, diretrizes e orientações para utilização dos serviços da biblioteca.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques">
+    <h2>Regulamento da Biblioteca</h2>
+    <p>
+      Consulte as normas para empréstimos, devoluções e uso adequado do espaço.
+    </p>
+  </section>
+
+  <!-- PDF VIEWER -->
+  <div class="pdf-wrapper">
+
+    <div class="pdf-canvas-wrap">
+      <canvas id="pdf-canvas"></canvas>
+    </div>
+
+    <div class="pdf-controls">
+
+      <!-- NAVEGAÇÃO -->
+      <div class="pdf-nav">
+        <button id="btn-prev" class="btn-control">
+          <i class="ri-arrow-left-s-line"></i>
+        </button>
+
+        <span class="pdf-info">
+          <span id="pg-atual">1</span> /
+          <span id="pg-total">1</span>
+        </span>
+
+        <button id="btn-next" class="btn-control">
+          <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+
+      <!-- ZOOM -->
+      <div class="pdf-zoom">
+        <button id="btn-zoom-out" class="btn-control">
+          <i class="ri-subtract-line"></i>
+        </button>
+
+        <span id="zoom-level">100%</span>
+
+        <button id="btn-zoom-in" class="btn-control">
+          <i class="ri-add-line"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="acoes">
+    <button class="btn-visualizar" id="abrirModal">
+      Tela cheia
+    </button>
+
+    <a href="../../assets/docs/regulamento-biblioteca.pdf"
+       download
+       class="btn-download">
+      Baixar PDF
+    </a>
+  </div>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal" id="modalPDF">
+
+  <button class="modal-close" id="fecharModal">
+    <i class="ri-close-line"></i>
+  </button>
+
+  <div class="modal-content">
+    <iframe 
+      src="../../assets/docs/regulamento-biblioteca.pdf"
+      class="modal-iframe">
+    </iframe>
+  </div>
+
+</div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../assets/js/pages/regulamento.js" defer></script>
+
+</body>
+</html>

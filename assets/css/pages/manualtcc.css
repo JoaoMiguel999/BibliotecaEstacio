@@ -1,187 +1,22 @@
+/* =========================
+   IMPORTS GLOBAIS
+========================= */
 @import url('../global/base.css');
 @import url('../global/layout.css');
 @import url('../global/components.css');
 @import url('../global/footer.css');
+@import url('../global/botaopdf.css');
 
-/* =========================
-   VARIÁVEIS
-========================= */
-:root {
-  --bg: #f4f6fb;
-  --text: #1e293b;
-  --card: #ffffff;
-  --primary: #003893;
-  --primary-light: #0052cc;
-  --sidebar-width: 260px;
-
-  --z-overlay: 900;
-  --z-sidebar: 1000;
-  --z-button: 1100;
-  --z-modal: 1200;
-}
-
-/* =========================
-   BASE
-========================= */
-html, body {
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  width: 100%;
-  scroll-padding-top: 80px;
-}
-
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-img { max-width: 100%; display: block; }
-
-button, a {
-  cursor: pointer;
-}
-
-/* =========================
-   LAYOUT
-========================= */
-.layout {
-  display: flex;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-.sidebar {
-  width: var(--sidebar-width);
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translateX(-100%);
-  background: #003893;
-  color: white;
-  padding: 20px 12px;
-  overflow-y: auto;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: var(--z-sidebar);
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar.active {
-  transform: translateX(0);
-}
-
-/* =========================
-   BRAND
-========================= */
-.brand {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.logo-img {
-  width: 64px;
-  margin: 0 auto 8px;
-}
-
-.brand h1 {
-  font-size: 13px;
-  font-weight: 700;
-  color: white;
-}
-
-.brand-divider {
-  width: 36px;
-  height: 2px;
-  background: rgba(255,255,255,0.2);
-  margin: 10px auto 0;
-}
-
-/* =========================
-   NAV
-========================= */
-.nav ul { list-style: none; }
-
-.nav > ul > li > a {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 13.5px;
-  font-weight: 600;
-  transition: 0.2s;
-}
-
-.nav > ul > li > a:hover {
-  background: rgba(255,255,255,0.14);
-  transform: translateX(4px);
-}
-
-/* SUBMENU */
-.sub {
-  list-style: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.has-sub.open .sub {
-  max-height: 1000px;
-}
-
-/* =========================
-   MENU TOGGLE
-========================= */
-.menu-toggle {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-size: 20px;
-  padding: 10px 13px;
-  border-radius: 11px;
-  z-index: var(--z-button);
-}
-
-/* =========================
-   OVERLAY
-========================= */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
-  z-index: var(--z-overlay);
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
 
 /* =========================
    HERO
 ========================= */
 .hero {
-  height: clamp(300px, 65vh, 680px);
   position: relative;
+  height: clamp(300px, 65vh, 680px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-bg {
@@ -196,18 +31,38 @@ button, a {
   background: rgba(0,0,0,0.55);
 }
 
-.hero-content {
+.hero-section {
   position: relative;
+  z-index: 2;
   text-align: center;
+  padding: 20px;
 }
 
 .hero-content h2 {
-  color: white;
-  font-size: clamp(26px, 6vw, 52px);
+  color: #fff;
+  font-size: clamp(28px, 6vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
 }
 
+
 /* =========================
-   CONTENT
+   ANIMAÇÃO
+========================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.6s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================
+   CONTEÚDO
 ========================= */
 .content {
   padding: clamp(16px, 5vw, 40px);
@@ -215,57 +70,118 @@ button, a {
 
 .section-destaques {
   background: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
+
 /* =========================
-   PDF — VISUALIZADOR INLINE
+   PDF WRAPPER
 ========================= */
 .pdf-wrapper {
   margin-top: 20px;
   border-radius: 16px;
   overflow: hidden;
   background: #1e1e1e;
-}
-
-.pdf-toolbar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  background: #111;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
+
+/* =========================
+   ÁREA DO PDF
+========================= */
 .pdf-canvas-wrap {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   overflow: auto;
-  padding: 12px;
-  min-height: 55vh;
+  padding: 16px;
+  min-height: 60vh;
+  max-height: 70vh;
   background: #2a2a2a;
-  box-sizing: border-box;
   width: 100%;
 }
 
 #pdf-canvas {
-  display: block;
   max-width: 100%;
-  height: auto;
+  border-radius: 6px;
+  background: #fff;
 }
+
+
+/* =========================
+   CONTROLES PDF
+========================= */
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #111;
+  flex-wrap: wrap;
+}
+
+.pdf-nav,
+.pdf-zoom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 
 /* =========================
    BOTÕES
+========================= */
+.btn-control {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: #1f2937;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-control:hover {
+  background: #2563eb;
+  transform: scale(1.08);
+}
+
+.btn-control:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pdf-info {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.pdf-zoom-level {
+  font-size: 13px;
+  color: #ccc;
+  min-width: 55px;
+  text-align: center;
+}
+
+
+/* =========================
+   BOTÕES PRINCIPAIS
 ========================= */
 .acoes {
   margin-top: 20px;
   display: flex;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .btn-visualizar,
@@ -278,24 +194,40 @@ button, a {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 180px;
+  transition: 0.25s;
 }
 
-.btn-visualizar { background: #198754; }
-.btn-download   { background: #0d6efd; }
+.btn-visualizar {
+  background: linear-gradient(135deg, #198754, #20c997);
+}
+
+.btn-download {
+  background: linear-gradient(135deg, #0d6efd, #3b82f6);
+}
+
+.btn-visualizar:hover,
+.btn-download:hover {
+  transform: translateY(-2px);
+}
+
 
 /* =========================
-   MODAL — TELA CHEIA COM IFRAME
+   MODAL
 ========================= */
 .modal {
   position: fixed;
-  inset: 0;                        /* ocupa 100vw × 100vh */
-  background: #000;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  z-index: var(--z-modal);
-  display: flex;
-  flex-direction: column;
+  transition: 0.3s;
+  z-index: 2000;
 }
 
 .modal.active {
@@ -303,52 +235,113 @@ button, a {
   visibility: visible;
 }
 
-/* Botão fechar — canto superior direito */
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: rgba(255,255,255,0.15);
-  border: none;
-  color: #fff;
-  font-size: 28px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.modal-content {
+  position: relative;
+  width: 95%;
+  height: 95%;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: background 0.2s;
+  flex-direction: column;
 }
 
-.modal-close:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-/* Iframe ocupa toda a área do modal */
 .modal-iframe {
   width: 100%;
   height: 100%;
   border: none;
   flex: 1;
-  display: block;
 }
 
+
 /* =========================
-   RESPONSIVO
+   BOTÃO FECHAR (CORRIGIDO)
 ========================= */
-@media (max-width: 600px) {
-  :root {
-    --sidebar-width: 82vw;
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  transition: 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+
+/* =========================
+   FIX REAL DO MODAL MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  /* remove qualquer padding errado */
+  .modal {
+    padding: 0;
   }
 
-  .acoes {
+  /* 🔥 botão sempre acima de tudo */
+  .modal-close {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+
+    width: 42px;
+    height: 42px;
+
+    font-size: 22px;
+
+    z-index: 99999;
+
+    background: rgba(0,0,0,0.75);
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 🔥 empurra o PDF pra baixo do botão */
+  .modal-iframe {
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+  }
+
+}
+@media (max-width: 768px) {
+
+  .pdf-controls {
     flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
   }
 
-  .pdf-canvas-wrap {
-    padding: 8px;
+  .pdf-nav,
+  .pdf-zoom {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-control {
+    flex: 1;
+    max-width: 60px;
+  }
+
+  .pdf-info,
+  .pdf-zoom-level {
+    text-align: center;
+    min-width: auto;
   }
 }

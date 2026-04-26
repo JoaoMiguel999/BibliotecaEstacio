@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Atraso de Livros | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="Regras de atraso na devolução de livros - Biblioteca Estácio São Luís">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../assets/css/pages/informativos/atraso.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle">
+  <i class="ri-menu-line"></i>
+</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-time-line"></i>
+        Biblioteca — Regulamento
+      </div>
+
+      <h1>Atraso de <span class="hero-title-accent">Livros</span></h1>
+
+      <p class="hero-subtitle">
+        Regras de devolução, prazos e penalidades em caso de atraso na entrega de materiais.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques">
+
+    <h2>Atraso na Devolução de Livros</h2>
+    <p>
+      Consulte as regras e penalidades aplicadas em casos de atraso
+      na devolução de materiais da biblioteca.
+    </p>
+
+    <!-- PDF VIEWER -->
+    <div class="pdf-wrapper">
+
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+
+      <div class="pdf-controls">
+
+        <div class="pdf-nav">
+          <button data-prev class="btn-control" title="Página anterior">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info">
+            <span data-page-num>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count>1</span>
+          </span>
+
+          <button data-next class="btn-control" title="Próxima página">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="pdf-zoom">
+          <button data-zoom-out class="btn-control" title="Diminuir zoom">
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span data-zoom-level class="pdf-zoom-level">100%</span>
+
+          <button data-zoom-in class="btn-control" title="Aumentar zoom">
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+      <button id="abrirModal" class="btn-visualizar">
+        <i class="ri-fullscreen-line"></i>
+        Tela cheia
+      </button>
+
+      <a href="../../../assets/docs/documentosinformativos/pendencia-de-livros.pdf"
+         download
+         class="btn-download">
+        <i class="ri-download-2-line"></i>
+        Baixar PDF
+      </a>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- MODAL
+     CORRIGIDO: .modal-close agora está DENTRO de .modal-content
+     Modal usa canvas próprio em vez de iframe (mantém o padrão original)
+-->
+<div class="modal" id="modalPDF">
+  <div class="modal-content">
+
+    <button id="fecharModal" class="modal-close" title="Fechar">
+      <i class="ri-close-line"></i>
+    </button>
+
+    <div class="modal-canvas-wrap">
+      <canvas id="pdf-canvas-modal"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<!-- PDF.js
+     CORRIGIDO: workerSrc definido diretamente, sem DOMContentLoaded no head
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../../assets/js/pages/informativos/atraso.js" defer></script>
+
+</body>
+</html>

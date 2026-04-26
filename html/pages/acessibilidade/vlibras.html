@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>VLibras | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="VLibras — Tradutor de Língua Brasileira de Sinais da Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../assets/css/pages/acessibilidade/vlibras.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+  <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-translate-2-line"></i>
+        Acessibilidade
+      </div>
+
+      <h2>V<span class="hero-title-accent">Libras</span></h2>
+
+      <p class="hero-subtitle">
+        Tradutor automático de conteúdo digital para Língua Brasileira de Sinais,
+        promovendo a inclusão de pessoas surdas em ambientes digitais.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques reveal">
+    <div class="section-icon">
+      <i class="ri-translate-2-line"></i>
+    </div>
+    <div class="section-text">
+      <h2>O que é o VLibras?</h2>
+      <p>
+        O VLibras é um conjunto de ferramentas computacionais de código aberto, desenvolvido pelo
+        Ministério da Economia em parceria com a UFPB, que traduz conteúdos digitais (texto, áudio e vídeo)
+        para a Língua Brasileira de Sinais (Libras), tornando a web mais acessível para a comunidade surda.
+      </p>
+    </div>
+  </section>
+
+  <div class="cards-grid">
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-global-line"></i></div>
+      <h3>Plugin Web</h3>
+      <p>Extensão para navegadores que traduz automaticamente qualquer página da web para Libras.</p>
+      <a href="https://vlibras.gov.br/" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Acessar
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-smartphone-line"></i></div>
+      <h3>App Mobile</h3>
+      <p>Aplicativo gratuito para Android e iOS que permite tradução de textos e vídeos para Libras.</p>
+      <a href="https://vlibras.gov.br/doc/vlibras-mobile/introducao.html" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Saiba mais
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-code-box-line"></i></div>
+      <h3>Para Desenvolvedores</h3>
+      <p>API e widget gratuito para integrar o VLibras em qualquer site ou sistema web.</p>
+      <a href="https://vlibras.gov.br/doc/vlibras-web/introducao.html" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Documentação
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-government-line"></i></div>
+      <h3>Portal Oficial</h3>
+      <p>Acesse o portal oficial do VLibras com tutoriais, downloads e suporte completo.</p>
+      <a href="https://vlibras.gov.br/" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Portal
+      </a>
+    </div>
+
+  </div>
+
+  <!-- COMO USAR -->
+  <section class="como-usar reveal">
+    <h2><i class="ri-question-line"></i> Como usar o VLibras neste site?</h2>
+    <ol class="passos">
+      <li>
+        <span class="passo-num">1</span>
+        <div>
+          <strong>Localize o ícone VLibras</strong>
+          <p>Procure o ícone de acessibilidade localizado no canto da tela.</p>
+        </div>
+      </li>
+      <li>
+        <span class="passo-num">2</span>
+        <div>
+          <strong>Clique para ativar</strong>
+          <p>Ao clicar, o avatar de Libras aparecerá e começará a traduzir o conteúdo.</p>
+        </div>
+      </li>
+      <li>
+        <span class="passo-num">3</span>
+        <div>
+          <strong>Navegue normalmente</strong>
+          <p>Todo o texto da página será traduzido automaticamente para Libras em tempo real.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../../assets/js/pages/acessibilidade/vlibras.js" defer></script>
+
+</body>
+</html>

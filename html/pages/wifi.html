@@ -7,14 +7,19 @@
   <title>Wi-Fi da Biblioteca | Estácio São Luís</title>
   <meta name="description" content="Acesso ao Wi-Fi da Biblioteca Estácio São Luís">
 
+  <!-- Remix Icons -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <!-- Fonte -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="../../assets/css/pages/wifi.css" />
 </head>
 
 <body>
 
-<!-- BOTÃO MENU -->
+<!-- MENU -->
 <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu">
   <i class="ri-menu-line"></i>
 </button>
@@ -23,111 +28,7 @@
 <div class="overlay" id="overlay"></div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-  <div class="brand">
-    <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img" alt="Logo Estácio" />
-    <h1>Biblioteca<br>Estácio São Luís</h1>
-    <div class="brand-divider"></div>
-  </div>
-
-  <nav class="nav">
-    <ul>
-
-      <li>
-        <a href="../../index.html">
-          <span class="menu-left">
-            <i class="ri-home-4-line"></i>
-            Início
-          </span>
-        </a>
-      </li>
-
-      <p class="nav-label">Informações</p>
-
-      <li class="has-sub">
-        <button type="button" class="sub-toggle">
-          <span class="menu-left">
-            <i class="ri-file-list-3-line"></i>
-            Informativo
-          </span>
-          <i class="ri-arrow-down-s-line arrow"></i>
-        </button>
-        <ul class="sub">
-          <li><a href="./atraso.html"><i class="ri-time-line"></i> Atraso de livros</a></li>
-          <li><a href="./normas.html"><i class="ri-article-line"></i> Normas</a></li>
-        </ul>
-      </li>
-
-      <li class="has-sub">
-        <div class="menu-item">
-          <a href="./Acessibilidade.html" class="menu-link">
-            <span class="menu-left">
-              <i class="ri-wheelchair-line"></i>
-              Acessibilidade
-            </span>
-          </a>
-          <button type="button" class="sub-toggle">
-            <i class="ri-arrow-down-s-line arrow"></i>
-          </button>
-        </div>
-        <ul class="sub">
-          <li><a href="#"><i class="ri-hand-coin-line"></i> Cartilha de Libras</a></li>
-          <li><a href="#"><i class="ri-translate-2"></i> VLibras</a></li>
-          <li><a href="#"><i class="ri-volume-up-line"></i> NVDA</a></li>
-          <li><a href="#"><i class="ri-speak-line"></i> DOSVOX</a></li>
-        </ul>
-      </li>
-
-      <li>
-        <a href="./wifi.html" aria-current="page">
-          <span class="menu-left">
-            <i class="ri-wifi-line"></i>
-            Wi-Fi
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="menu-left">
-            <i class="ri-file-paper-line"></i>
-            Regulamento
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="menu-left">
-            <i class="ri-contacts-line"></i>
-            Contato
-          </span>
-        </a>
-      </li>
-
-      <p class="nav-label">Acadêmico</p>
-
-      <li class="has-sub">
-        <button type="button" class="sub-toggle">
-          <span class="menu-left">
-            <i class="ri-graduation-cap-line"></i>
-            TCC Estácio
-          </span>
-          <i class="ri-arrow-down-s-line arrow"></i>
-        </button>
-        <ul class="sub">
-          <li><a href="./manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
-          <li><a href="./repositorio.html"><i class="ri-archive-line"></i> Repositório</a></li>
-        </ul>
-      </li>
-
-    </ul>
-  </nav>
-
-  <div class="sidebar-footer">© 2026 Estácio São Luís</div>
-
-</aside>
+<div id="sidebar-container"></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -140,7 +41,9 @@
         <i class="ri-wifi-line"></i>
         Conectividade — Biblioteca
       </div>
+
       <h2>Wi-Fi <span class="hero-title-accent">Biblioteca</span></h2>
+
       <p class="hero-subtitle">
         Conexão gratuita e estável para toda a comunidade acadêmica da Estácio São Luís.
       </p>
@@ -151,7 +54,10 @@
 <!-- AVISO -->
 <div class="aviso-banner">
   <i class="ri-information-line"></i>
-  <span><strong>Aviso:</strong> O acesso ao Wi-Fi é exclusivo para alunos e docentes regularmente matriculados. Use suas credenciais institucionais.</span>
+  <span>
+    <strong>Aviso:</strong> O acesso ao Wi-Fi é exclusivo para alunos e docentes regularmente matriculados.
+    Use suas credenciais institucionais.
+  </span>
 </div>
 
 <!-- CONTEÚDO -->
@@ -163,7 +69,6 @@
     <p>
       Utilize o Wi-Fi da biblioteca para estudos e acesso a conteúdos acadêmicos.
     </p>
-
   </section>
 
   <!-- PDF -->
@@ -173,75 +78,29 @@
       <span>Informações de Wi-Fi</span>
     </div>
 
-    <div class="pdf-canvas-wrap">
+    <!-- 🔥 WRAP COM ALTURA GARANTIDA -->
+    <div class="pdf-canvas-wrap" style="min-height: 500px; overflow: auto;">
       <canvas id="pdf-canvas"></canvas>
     </div>
 
-    <div class="pdf-bottom-controls">
-      <button id="prevPage" class="btn-visualizar">⬅️</button>
-
-      <span class="pdf-info">
-        Página <span id="pageNum">1</span> / <span id="pageCount">1</span>
-      </span>
-
-      <button id="nextPage" class="btn-visualizar">➡️</button>
-
-      <button id="zoomOut" class="btn-download">−</button>
-      <span id="zoomLevel">100%</span>
-      <button id="zoomIn" class="btn-download">+</button>
-
-    </div>
+    <!-- CONTROLES CARREGADOS VIA FETCH -->
+    <div id="pdf-controls"></div>
 
   </section>
 
 </main>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo-row">
-          <div class="footer-logo-icon"><i class="ri-book-2-line"></i></div>
-          <span class="footer-logo-name">Biblioteca<br>Estácio São Luís</span>
-        </div>
-        <p class="footer-desc">
-          Espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento intelectual da comunidade acadêmica.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Navegação</h4>
-        <ul>
-          <li><a href="../../index.html">Início</a></li>
-          <li><a href="#">Regulamento</a></li>
-          <li><a href="./wifi.html">Wi-Fi</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Acadêmico</h4>
-        <ul>
-          <li><a href="./manualtcc.html">Manual TCC</a></li>
-          <li><a href="./repositorio.html">Repositório</a></li>
-          <li><a href="#">Normas ABNT</a></li>
-          <li><a href="./Acessibilidade.html">Acessibilidade</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom-row">
-      <span>© 2026 Biblioteca Estácio São Luís. Todos os direitos reservados.</span>
-      <span>Estácio São Luís — Maranhão</span>
-    </div>
-
-  </div>
-</footer>
+<div id="footer-container"></div>
 
 <!-- PDF.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- 🔥 WORKER OBRIGATÓRIO -->
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
 
 <!-- JS -->
 <script src="../../assets/js/pages/wifi.js" defer></script>

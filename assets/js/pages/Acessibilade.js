@@ -1,58 +1,61 @@
 // ===============================
-// ELEMENTOS
+// ELEMENTOS PRINCIPAIS
 // ===============================
 
-const sidebar = document.getElementById("sidebar");
 const toggle = document.getElementById("menuToggle");
 const overlay = document.getElementById("overlay");
-const subToggles = document.querySelectorAll(".sub-toggle");
+
+// sidebar é injetada via fetch
+let sidebar = null;
 
 
 // ===============================
-// SUBMENUS
+// ESPERA SIDEBAR SER CARREGADA
 // ===============================
 
-subToggles.forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
+const waitSidebar = setInterval(() => {
+  sidebar = document.querySelector(".sidebar");
 
-    const parent = btn.closest(".has-sub");
-    const isOpen = parent.classList.contains("open");
+  if (sidebar) {
+    clearInterval(waitSidebar);
+    initSidebar();
+  }
+}, 100);
 
-    // fecha outros
-    document.querySelectorAll(".has-sub.open").forEach(item => {
-      if (item !== parent) {
-        item.classList.remove("open");
-        item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
-      }
+
+// ===============================
+// INICIALIZA SIDEBAR
+// ===============================
+
+function initSidebar() {
+
+  const subToggles = document.querySelectorAll(".sub-toggle");
+
+  // ===============================
+  // SUBMENUS
+  // ===============================
+  subToggles.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      const parent = btn.closest(".has-sub");
+      const isOpen = parent.classList.contains("open");
+
+      // fecha outros menus abertos
+      document.querySelectorAll(".has-sub.open").forEach(item => {
+        if (item !== parent) {
+          item.classList.remove("open");
+          item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // toggle atual
+      parent.classList.toggle("open");
+      btn.setAttribute("aria-expanded", !isOpen);
     });
-
-    // toggle atual
-    parent.classList.toggle("open");
-    btn.setAttribute("aria-expanded", !isOpen);
-  });
-});
-
-
-// ===============================
-// MENU TOGGLE
-// ===============================
-
-if (toggle && sidebar && overlay) {
-
-  toggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    const isActive = sidebar.classList.toggle("active");
-    overlay.classList.toggle("active");
-
-    toggle.setAttribute("aria-expanded", isActive);
-
-    if (!isActive) closeAllSubmenus();
   });
 
-  overlay.addEventListener("click", closeSidebar);
-
+  // clique fora da sidebar
   document.addEventListener("click", (e) => {
     const clickedOutside =
       !sidebar.contains(e.target) &&
@@ -66,15 +69,46 @@ if (toggle && sidebar && overlay) {
 
 
 // ===============================
-// FUNÇÕES AUXILIARES
+// ABRIR / FECHAR MENU
+// ===============================
+
+if (toggle && overlay) {
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (!sidebar) return;
+
+    const isActive = sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+
+    toggle.setAttribute("aria-expanded", isActive);
+
+    if (!isActive) closeAllSubmenus();
+  });
+
+  overlay.addEventListener("click", closeSidebar);
+}
+
+
+// ===============================
+// FECHAR SIDEBAR
 // ===============================
 
 function closeSidebar() {
+  if (!sidebar) return;
+
   sidebar.classList.remove("active");
   overlay.classList.remove("active");
   toggle.setAttribute("aria-expanded", "false");
+
   closeAllSubmenus();
 }
+
+
+// ===============================
+// FECHAR SUBMENUS
+// ===============================
 
 function closeAllSubmenus() {
   document.querySelectorAll(".has-sub.open").forEach(item => {
@@ -85,7 +119,7 @@ function closeAllSubmenus() {
 
 
 // ===============================
-// MELHORIA UX (ESC fecha menu)
+// ESC FECHA MENU
 // ===============================
 
 document.addEventListener("keydown", (e) => {
@@ -96,7 +130,7 @@ document.addEventListener("keydown", (e) => {
 
 
 // ===============================
-// REVEAL (ANIMAÇÃO AO SCROLL) 🔥
+// REVEAL (ANIMAÇÃO AO SCROLL)
 // ===============================
 
 const reveals = document.querySelectorAll(".reveal");
@@ -108,7 +142,6 @@ function revealOnScroll() {
     const elementTop = el.getBoundingClientRect().top;
 
     if (elementTop < windowHeight - 100) {
-      // delay suave nos elementos (efeito premium)
       setTimeout(() => {
         el.classList.add("active");
       }, index * 100);
@@ -116,10 +149,8 @@ function revealOnScroll() {
   });
 }
 
-// executa ao carregar
+// eventos de scroll
 window.addEventListener("load", revealOnScroll);
-
-// executa ao rolar
 window.addEventListener("scroll", revealOnScroll);
 
 
@@ -127,4 +158,4 @@ window.addEventListener("scroll", revealOnScroll);
 // DEBUG
 // ===============================
 
-console.log("🚀 Sistema completo carregado (menu + reveal)");
+console.log("🚀 Sistema atualizado carregado (sidebar dinâmica + menu + reveal)");

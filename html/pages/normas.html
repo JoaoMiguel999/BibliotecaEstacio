@@ -4,129 +4,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wi-Fi | Biblioteca Estácio São Luís</title>
+  <title>Normas | Biblioteca Estácio São Luís</title>
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS DA PÁGINA -->
   <link rel="stylesheet" href="../../assets/css/pages/normas.css" />
 </head>
 
 <body>
 
 <!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle">
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
   <i class="ri-menu-line"></i>
 </button>
 
 <!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-  <div class="brand">
-    <img src="../../assets/img/logo-estacio-biblioteca.png" class="logo-img" alt="Logo Estácio" />
-    <h1>Biblioteca<br>Estácio São Luís</h1>
-    <div class="brand-divider"></div>
-  </div>
-
-  <nav class="nav">
-    <ul>
-
-      <li>
-        <a href="../../index.html">
-          <span class="menu-left">
-            <i class="ri-home-4-line"></i>
-            Início
-          </span>
-        </a>
-      </li>
-
-      <p class="nav-label">Informações</p>
-
-      <li class="has-sub">
-        <button class="sub-toggle">
-          <span class="menu-left">
-            <i class="ri-file-list-3-line"></i>
-            Informativo
-          </span>
-          <i class="ri-arrow-down-s-line arrow"></i>
-        </button>
-        <ul class="sub">
-          <li><a href="./atraso.html"><i class="ri-time-line"></i> Atraso de livros</a></li>
-          <li><a href="./html/pages/normas.html"><i class="ri-article-line"></i> Normas</a></li>
-        </ul>
-      </li>
-
-      <li class="has-sub">
-        <div class="menu-item">
-          <a href="./Acessibilidade.html" class="menu-link">
-            <span class="menu-left">
-              <i class="ri-wheelchair-line"></i>
-              Acessibilidade
-            </span>
-          </a>
-          <button class="sub-toggle">
-            <i class="ri-arrow-down-s-line arrow"></i>
-          </button>
-        </div>
-        <ul class="sub">
-          <li><a href="#"><i class="ri-hand-coin-line"></i> Cartilha de Libras</a></li>
-          <li><a href="#"><i class="ri-translate-2"></i> VLibras</a></li>
-          <li><a href="#"><i class="ri-volume-up-line"></i> NVDA</a></li>
-          <li><a href="#"><i class="ri-speak-line"></i> DOSVOX</a></li>
-        </ul>
-      </li>
-
-      <li>
-        <a href="./wifi.html">
-          <span class="menu-left">
-            <i class="ri-wifi-line"></i>
-            Wi-Fi
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="menu-left">
-            <i class="ri-file-paper-line"></i>
-            Regulamento
-          </span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#">
-          <span class="menu-left">
-            <i class="ri-contacts-line"></i>
-            Contato
-          </span>
-        </a>
-      </li>
-
-      <p class="nav-label">Acadêmico</p>
-
-      <li class="has-sub">
-        <button class="sub-toggle">
-          <span class="menu-left">
-            <i class="ri-graduation-cap-line"></i>
-            TCC Estácio
-          </span>
-          <i class="ri-arrow-down-s-line arrow"></i>
-        </button>
-        <ul class="sub">
-          <li><a href="./html/pages/manualtcc.html"><i class="ri-book-marked-line"></i> Manual TCC</a></li>
-          <li><a href="./repositorio.html"><i class="ri-archive-line"></i> Repositório</a></li>
-        </ul>
-      </li>
-
-    </ul>
-  </nav>
-
-  <div class="sidebar-footer">© 2026 Estácio São Luís</div>
-
-</aside>
+<!-- SIDEBAR GLOBAL -->
+<div id="sidebar-container"></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -135,9 +33,10 @@
 
   <section class="hero-section">
     <div class="hero-content">
+
       <div class="hero-eyebrow">
         <i class="ri-article-line"></i>
-        Normas — Biblioteca
+        Biblioteca — Regulamento
       </div>
 
       <h2>
@@ -145,8 +44,9 @@
       </h2>
 
       <p class="hero-subtitle">
-        Diretrizes e regras para manter um ambiente de estudo organizado, silencioso e adequado para todos.
+        Diretrizes e regras para utilização correta dos espaços, serviços e materiais da biblioteca.
       </p>
+
     </div>
   </section>
 </header>
@@ -160,97 +60,101 @@
 <!-- CONTEÚDO -->
 <main class="content">
 
-  <!-- TEXTO -->
   <section class="section-destaques">
 
-    <h2>NORMAS DE ATENDIMENTO DA BIBLIOTECA</h2>
+    <h2>Atraso na Devolução de Livros</h2>
 
     <p>
-      A biblioteca é um espaço destinado ao estudo e à pesquisa, devendo ser utilizado com respeito.
+      Consulte as regras e penalidades aplicadas em casos de atraso na devolução de materiais da biblioteca.
     </p>
 
-  </section>
+    <!-- PDF -->
+    <div class="pdf-wrapper">
 
-  <!-- PDF -->
-  <section class="pdf-wrapper">
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
 
-    <div class="pdf-toolbar">
-      <span>Informações de acesso ao Wi-Fi</span>
+      <div class="pdf-controls">
+
+        <div class="pdf-nav">
+          <button class="btn-control" data-prev>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info">
+            <span data-page-num>1</span> / <span data-page-count>1</span>
+          </span>
+
+          <button class="btn-control" data-next>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="pdf-zoom">
+          <button class="btn-control" data-zoom-out>
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span class="pdf-zoom-level" data-zoom-level>100%</span>
+
+          <button class="btn-control" data-zoom-in>
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+
     </div>
-<div class="pdf-canvas-wrap">
-  <canvas id="pdf-canvas"></canvas>
-</div>
 
-<!-- BOTÕES EMBAIXO -->
-<div class="pdf-bottom-controls">
-  <button id="prevPage" class="btn-visualizar">⬅️</button>
+    <!-- AÇÕES -->
+    <div class="acoes">
 
-  <span class="pdf-info">
-    Página <span id="pageNum">1</span> / <span id="pageCount">1</span>
-  </span>
+      <button class="btn-visualizar" id="abrirModal">
+        Tela cheia
+      </button>
 
-  <button id="nextPage" class="btn-visualizar">➡️</button>
+      <a href="/assets/docs/documentosinformativos/normas-biblioteca-2026.pdf"
+         download
+         class="btn-download">
+        Baixar PDF
+      </a>
 
-  <button id="zoomOut" class="btn-download">−</button>
-  <span id="zoomLevel">100%</span>
-  <button id="zoomIn" class="btn-download">+</button>
-
-  <a href="../../assets/docs/documentosinformativos/normas-biblioteca-2026.pdf"
-     class="btn-download"
-     download>
-     Baixar PDF
-  </a>
-</div>
+    </div>
 
   </section>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
+<!-- MODAL PDF -->
+<div class="modal" id="modalPDF">
 
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo-row">
-          <div class="footer-logo-icon"><i class="ri-book-2-line"></i></div>
-          <span class="footer-logo-name">Biblioteca<br>Estácio São Luís</span>
-        </div>
-        <p class="footer-desc">
-          Espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento intelectual da comunidade acadêmica.
-        </p>
-      </div>
+  <button class="modal-close" id="fecharModal">
+    <i class="ri-close-line"></i>
+  </button>
 
-      <div class="footer-col">
-        <h4>Navegação</h4>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="#">Regulamento</a></li>
-          <li><a href="#">Wi-Fi</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Acadêmico</h4>
-        <ul>
-          <li><a href="#">Manual TCC</a></li>
-          <li><a href="#">Repositório</a></li>
-          <li><a href="#">Normas ABNT</a></li>
-          <li><a href="#">Acessibilidade</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom-row">
-      <span>© 2026 Biblioteca Estácio São Luís. Todos os direitos reservados.</span>
-      <span>Estácio São Luís — Maranhão</span>
-    </div>
-
+  <div class="modal-content">
+    <iframe
+      id="pdf-iframe"
+      class="modal-iframe"
+      src="/assets/docs/documentosinformativos/normas-biblioteca-2026.pdf">
+    </iframe>
   </div>
-</footer>
+
+</div>
+
+<!-- FOOTER (GLOBAL INJETADO) -->
+<div id="footer-container"></div>
+
+<!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="../../assets/js/pages/normas.js"></script>
+
+<!-- JS GLOBAL (CORRIGIDO PATH) -->
+<script src="/assets/js/layout/layout.js"></script>
+<script src="/assets/js/layout/global.js"></script>
+
+<!-- JS DA PÁGINA -->
+<script src="../../assets/js/pages/normas.js" defer></script>
 
 </body>
 </html>

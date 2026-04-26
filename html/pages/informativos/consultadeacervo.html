@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Consulta de Acervo | Biblioteca Estácio São Luís</title>
+
+  <meta name="description" content="Consulta de acervo da Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../assets/css/pages/informativos/consultadeacervo.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+  <i class="ri-menu-line"></i>
+</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-book-open-line"></i>
+        Biblioteca — Acervo
+      </div>
+
+      <h1>
+        Consulta de <span class="hero-title-accent">Acervo</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Consulte livros, materiais disponíveis e informações sobre o acervo da biblioteca.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques">
+
+    <h2>Consulta de Acervo</h2>
+
+    <p>
+      Acesse o acervo da biblioteca para verificar disponibilidade de livros, autores e materiais acadêmicos.
+    </p>
+
+    <!-- PDF -->
+    <div class="pdf-wrapper">
+
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+
+      <div class="pdf-controls">
+
+        <div class="pdf-nav">
+          <button class="btn-control" data-prev>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info">
+            <span data-page-num>1</span> / <span data-page-count>1</span>
+          </span>
+
+          <button class="btn-control" data-next>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="pdf-zoom">
+          <button class="btn-control" data-zoom-out>
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span class="pdf-zoom-level" data-zoom-level>100%</span>
+
+          <button class="btn-control" data-zoom-in>
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+
+      <button class="btn-visualizar" id="abrirModal">
+        Tela cheia
+      </button>
+
+      <a href="/assets/docs/documentosinformativos/Cartaz-Consulta%20ao%20Pergamum.pdf"
+         download
+         target="_blank"
+         class="btn-download">
+        Baixar PDF
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal" id="modalPDF">
+
+  <button class="modal-close" id="fecharModal">
+    <i class="ri-close-line"></i>
+  </button>
+
+  <div class="modal-content">
+
+    <div class="pdf-wrapper modal-pdf">
+
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas-modal"></canvas>
+      </div>
+
+      <div class="pdf-controls">
+
+        <div class="pdf-nav">
+          <button class="btn-control" data-prev-modal>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info">
+            <span data-page-num-modal>1</span> /
+            <span data-page-count-modal>1</span>
+          </span>
+
+          <button class="btn-control" data-next-modal>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="pdf-zoom">
+          <button class="btn-control" data-zoom-out-modal>
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span data-zoom-level-modal>100%</span>
+
+          <button class="btn-control" data-zoom-in-modal>
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+</script>
+
+<!-- JS -->
+<script src="/assets/js/layout/layout.js" defer></script>
+<script src="/assets/js/layout/global.js" defer></script>
+<script src="../../../assets/js/pages/informativos/consultadeacervo.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+@import url('../global/base.css');
+@import url('../global/layout.css');
+@import url('../global/components.css');
+@import url('../global/footer.css');
+@import url('../global/botaopdf.css');
+
+/* =========================
+VARIÁVEIS
+========================= */
+:root {
+  --bg: #f4f6fb;
+  --text: #1e293b;
+  --card: #ffffff;
+
+  --success: #198754;
+  --success-hover: #157347;
+
+  --blue: #0d6efd;
+  --blue-hover: #0b5ed7;
+
+  --sidebar-width: 260px;
+
+  --z-sidebar: 1000;
+  --z-modal: 1200;
+
+  --radius: 12px;
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+  --transition: all 0.25s ease;
+}
+
+/* =========================
+BASE
+========================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* =========================
+SIDEBAR
+========================= */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(180deg, #003893, #002c70);
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  transition: var(--transition);
+  z-index: var(--z-sidebar);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+/* overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+HERO
+========================= */
+.hero {
+  height: 60vh;
+  position: relative;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* =========================
+PDF WRAPPER
+========================= */
+.pdf-wrapper {
+  margin-top: 20px;
+  background: #1e1e1e;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+}
+
+/* área do canvas */
+.pdf-canvas-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background: #2a2a2a;
+  padding: 20px;
+}
+
+/* canvas */
+#pdf-canvas,
+#modal-pdf-canvas {
+  max-width: 100%;
+  height: auto;
+  background: white;
+  border-radius: 6px;
+  display: block;
+}
+
+/* =========================
+CONTROLES PDF
+========================= */
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #111;
+  color: #fff;
+}
+
+.btn-control {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+/* =========================
+BOTÕES
+========================= */
+.acoes {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-visualizar {
+  background: var(--success);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+
+.btn-download {
+  background: var(--blue);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+
+/* =========================
+MODAL (CORRIGIDO 100%)
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: var(--z-modal);
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.modal-pdf {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* área canvas modal */
+#modal-canvas-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  padding: 20px;
+}
+
+/* botão fechar */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 22px;
+}

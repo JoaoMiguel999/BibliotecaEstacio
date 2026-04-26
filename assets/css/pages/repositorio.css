@@ -1,33 +1,131 @@
 /* =========================
    IMPORTS GLOBAIS
+   Arquivo em: assets/css/pages/repositorio.css
+   Global em:  assets/css/global/
+   → caminho relativo: ../global/
 ========================= */
 @import url('../global/base.css');
 @import url('../global/layout.css');
 @import url('../global/components.css');
 @import url('../global/footer.css');
+@import url('../global/botaopdf.css');
 
 
 /* =========================
-   HERO — imagem desta página
+   HERO
 ========================= */
+.hero {
+  position: relative;
+  height: clamp(300px, 65vh, 680px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .hero-bg {
-  background: url("../../assets/img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+  position: absolute;
+  inset: 0;
+  background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-section {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.hero-content h2 {
+  color: #fff;
+  font-size: clamp(28px, 6vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 14px;
+}
+
+.hero-title-accent {
+  color: #60a5fa;
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(14px, 2vw, 18px);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 
 /* =========================
-   REVEAL (ANIMAÇÃO) 🔥
+   ANIMAÇÃO REVEAL
 ========================= */
 .reveal {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  will-change: transform, opacity;
 }
 
 .reveal.active {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+.content {
+  padding: clamp(16px, 5vw, 40px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.content-full {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: clamp(16px, 5vw, 40px);
+}
+.section-destaques {
+  background: #fff;
+  padding: 24px 28px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.section-destaques h2 {
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 10px;
+}
+
+.section-destaques p {
+  color: #475569;
+  line-height: 1.7;
+  margin: 0 0 4px;
 }
 
 
@@ -35,97 +133,112 @@
    PDF WRAPPER
 ========================= */
 .pdf-wrapper {
-  width: 100%;
   margin-top: 20px;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   background: #1e1e1e;
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
 }
 
 
 /* =========================
-   PDF TOOLBAR
-========================= */
-.pdf-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
-  background: #111;
-  color: rgba(255,255,255,0.75);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  flex-wrap: wrap;
-}
-
-.pdf-toolbar span {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pdf-toolbar button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 18px;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s ease;
-}
-
-.pdf-toolbar button:hover:not(:disabled) {
-  opacity: 0.85;
-  transform: scale(1.05);
-}
-
-.pdf-toolbar button:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-#pdf-info {
-  color: #ccc;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-
-/* =========================
-   PDF CANVAS
+   ÁREA DO CANVAS
 ========================= */
 .pdf-canvas-wrap {
-  overflow-y: auto;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px;
+  overflow: auto;
+  padding: 16px;
   min-height: 60vh;
   max-height: 70vh;
-  background: #f8fafc;
+  background: #2a2a2a;
+  width: 100%;
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 #pdf-canvas {
   display: block;
   max-width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  background: #fff;
 }
 
 
 /* =========================
-   BOTÕES DE AÇÃO
+   CONTROLES PDF
+========================= */
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #111;
+  flex-wrap: wrap;
+}
+
+.pdf-nav,
+.pdf-zoom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* CORRIGIDO: removidos !important desnecessários */
+.btn-control {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: #1f2937;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-control:hover {
+  background: #2563eb;
+  transform: scale(1.08);
+}
+
+.btn-control:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pdf-info {
+  font-size: 14px;
+  color: #ccc;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pdf-separator {
+  color: #555;
+}
+
+.pdf-zoom-level {
+  font-size: 13px;
+  color: #ccc;
+  min-width: 55px;
+  text-align: center;
+}
+
+
+/* =========================
+   AÇÕES
 ========================= */
 .acoes {
   margin-top: 20px;
@@ -137,21 +250,20 @@
 
 .btn-visualizar,
 .btn-download {
-  padding: 12px 20px;
+  padding: 12px 24px;
   border-radius: 10px;
-  border: none;
-  cursor: pointer;
   color: #fff;
   font-weight: 600;
-  transition: all 0.25s ease;
-  min-width: 180px;
-  text-align: center;
+  font-size: 15px;
+  border: none;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  text-decoration: none;
+  min-width: 180px;
+  cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .btn-visualizar {
@@ -162,17 +274,14 @@
   background: linear-gradient(135deg, #0d6efd, #3b82f6);
 }
 
+.btn-download:visited {
+  color: #fff;
+}
+
 .btn-visualizar:hover,
 .btn-download:hover {
   transform: translateY(-2px) scale(1.02);
-  opacity: 0.95;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-.btn-visualizar:active,
-.btn-download:active {
-  transform: scale(0.98);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  opacity: 0.92;
 }
 
 
@@ -182,13 +291,13 @@
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
   visibility: hidden;
-  transition: 0.3s;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 2000;
 }
 
@@ -198,32 +307,46 @@
 }
 
 .modal-content {
+  position: relative;
   width: 95%;
   height: 95%;
   background: #000;
   border-radius: 16px;
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
 }
 
-.modal iframe {
+/* CORRIGIDO: era .close-modal, inexistente no HTML */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* CORRIGIDO: iframe sem dimensões antes */
+.modal-iframe {
   width: 100%;
   height: 100%;
   border: none;
-}
-
-.close-modal {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  font-size: 30px;
-  color: #fff;
-  cursor: pointer;
-  z-index: 10;
-  line-height: 1;
-  background: none;
-  border: none;
+  flex: 1;
 }
 
 
@@ -232,14 +355,15 @@
 ========================= */
 @media (max-width: 768px) {
 
-  .pdf-wrapper {
-    border-radius: 12px;
-  }
-
   .pdf-canvas-wrap {
     min-height: 55vh;
     max-height: 60vh;
-    padding: 8px;
+    padding: 10px;
+  }
+
+  .pdf-controls {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .acoes {
@@ -249,10 +373,32 @@
 
   .acoes > * {
     width: 100%;
+    text-align: center;
   }
 
   .modal-content {
-    width: min(95%, 480px);
-    height: min(85vh, 90%);
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
   }
+}
+/* =========================
+   FIX BOTÃO FECHAR (MOBILE)
+========================= */
+@media (max-width: 768px) {
+
+  .modal-close {
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    z-index: 20;
+  }
+
+  /* 🔥 cria espaço para não sobrepor conteúdo */
+  .modal-content {
+    padding-top: 50px;
+  }
+
 }

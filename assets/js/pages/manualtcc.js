@@ -1,11 +1,13 @@
 // ===============================
-// SIDEBAR (MENU HAMBÚRGUER)
+// SIDEBAR (CARREGAMENTO + INIT)
 // ===============================
-const menuToggle = document.getElementById("menuToggle");
-const sidebar    = document.getElementById("sidebar");
-const overlay    = document.getElementById("overlay");
+function initSidebar() {
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar    = document.getElementById("sidebar");
+    const overlay    = document.getElementById("overlay");
 
-if (menuToggle && sidebar && overlay) {
+    if (!menuToggle || !sidebar || !overlay) return;
+
     menuToggle.addEventListener("click", () => {
         sidebar.classList.toggle("active");
         overlay.classList.toggle("active");
@@ -17,173 +19,200 @@ if (menuToggle && sidebar && overlay) {
     });
 }
 
+// ===============================
+// CARREGAR SIDEBAR
+// ===============================
+const sidebarContainer = document.getElementById("sidebar-container");
+
+if (sidebarContainer) {
+    fetch("../../components/sidebar.html")
+        .then(res => res.text())
+        .then(html => {
+            sidebarContainer.innerHTML = html;
+            initSidebar();
+            initSubmenu();
+        })
+        .catch(err => console.error("Erro ao carregar sidebar:", err));
+}
 
 // ===============================
 // SUBMENU
 // ===============================
-const subToggles = document.querySelectorAll(".sub-toggle");
+function initSubmenu() {
+    const subToggles = document.querySelectorAll(".sub-toggle");
 
-subToggles.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const parent = btn.closest(".has-sub");
-        parent.classList.toggle("open");
+    subToggles.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const parent = btn.closest(".has-sub");
+            parent?.classList.toggle("open");
+        });
     });
-});
-
+}
 
 // ===============================
-// MODAL (TELA CHEIA — IFRAME)
+// MODAL
 // ===============================
-// O modal usa um <iframe> simples que carrega o PDF diretamente.
-// Não precisa de renderPage — o browser/leitor nativo cuida do zoom.
-const abrirModal  = document.getElementById("abrirModal");
-const fecharModal = document.getElementById("fecharModal");
-const modal       = document.getElementById("modalPDF");
+function initModal() {
+    const abrirModal  = document.getElementById("abrirModal");
+    const fecharModal = document.getElementById("fecharModal");
+    const modal       = document.getElementById("modalPDF");
 
-if (abrirModal && modal && fecharModal) {
+    if (!abrirModal || !modal || !fecharModal) return;
+
     abrirModal.addEventListener("click", () => {
         modal.classList.add("active");
-        // Impede scroll da página enquanto o modal está aberto
         document.body.style.overflow = "hidden";
+
+        // 🔥 Modal abre em 100%
+        if (window.setPDFScale) window.setPDFScale(1);
     });
 
     fecharModal.addEventListener("click", () => {
         modal.classList.remove("active");
         document.body.style.overflow = "";
+
+        // 🔥 Volta ao padrão
+        if (window.resetPDF) window.resetPDF();
     });
 
-    // Fechar com tecla Escape
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && modal.classList.contains("active")) {
             modal.classList.remove("active");
             document.body.style.overflow = "";
+            if (window.resetPDF) window.resetPDF();
         }
     });
 }
 
-
 // ===============================
-// PDF.JS CONFIG (visualizador inline)
+// PDF.JS (VERSÃO FINAL PROFISSIONAL)
 // ===============================
-if (typeof pdfjsLib !== "undefined") {
+function initPDF() {
 
-    const url = "../../assets/docs/manual-estacio.pdf";
-    let pdfDoc      = null;
-    let paginaAtual = 1;
-    let renderTask  = null;
-
-    const canvas    = document.getElementById("pdf-canvas");
-    const ctx       = canvas ? canvas.getContext("2d") : null;
-    const wrap      = document.querySelector(".pdf-canvas-wrap");
-
-    const btnPrev   = document.getElementById("btn-prev");
-    const btnNext   = document.getElementById("btn-next");
-    const btnZoomIn = document.getElementById("btn-zoom-in");
-    const btnZoomOut= document.getElementById("btn-zoom-out");
-
-    const pgAtualEl = document.getElementById("pg-atual");
-    const pgTotalEl = document.getElementById("pg-total");
-
-    let zoomOffset  = 0;
-
-    // ── Escala responsiva ──────────────────────────────────────────
-    // FIX: usa window.innerWidth como fallback se clientWidth = 0
-    // FIX: limita escala máxima a 1.5 para evitar zoom exagerado
-    function calcEscala(page) {
-        let containerWidth = wrap ? wrap.clientWidth : 0;
-        if (containerWidth < 50) containerWidth = window.innerWidth;
-        containerWidth -= 24;
-
-        const pdfWidth = page.getViewport({ scale: 1 }).width;
-        const base = containerWidth / pdfWidth;
-
-        return Math.min(1.5, Math.max(0.4, base + zoomOffset));
+    if (typeof pdfjsLib === "undefined") {
+        console.error("pdfjsLib não carregado");
+        return;
     }
 
-    // ── Renderizar página ──────────────────────────────────────────
+    const url = "../../assets/docs/manual-estacio.pdf";
+
+    let pdfDoc = null;
+    let paginaAtual = 1;
+    let renderTask = null;
+
+    // 🔥 ESCALA INICIAL (separada do mínimo)
+    let initialScale = window.innerWidth <= 768 ? 1 : 0.5;
+    let scale = initialScale;
+
+    const MIN_SCALE = 0.3;
+    const MAX_SCALE = 3;
+
+    const canvas = document.getElementById("pdf-canvas");
+    const ctx    = canvas?.getContext("2d");
+    const wrap   = document.querySelector(".pdf-canvas-wrap");
+
+    const btnPrev    = document.querySelector("[data-prev]");
+    const btnNext    = document.querySelector("[data-next]");
+    const btnZoomIn  = document.querySelector("[data-zoom-in]");
+    const btnZoomOut = document.querySelector("[data-zoom-out]");
+
+    const pgAtualEl   = document.querySelector("[data-page-num]");
+    const pgTotalEl   = document.querySelector("[data-page-count]");
+    const zoomLevelEl = document.querySelector("[data-zoom-level]");
+
+    if (!canvas || !ctx) return;
+
+    function calcEscala(page) {
+        let containerWidth = wrap?.clientWidth || window.innerWidth;
+
+        if (containerWidth < 50) {
+            containerWidth = window.innerWidth;
+        }
+
+        containerWidth -= 16;
+
+        const pdfWidth = page.getViewport({ scale: 1 }).width;
+        const baseScale = containerWidth / pdfWidth;
+
+        return baseScale * scale;
+    }
+
     function renderPage(num) {
-        if (!pdfDoc || !canvas || !ctx) return;
+
+        if (!pdfDoc) return;
 
         pdfDoc.getPage(num).then(page => {
+
             const escala   = calcEscala(page);
             const dpr      = window.devicePixelRatio || 1;
             const viewport = page.getViewport({ scale: escala * dpr });
 
-            // Cancela render anterior
             if (renderTask) renderTask.cancel();
 
-            // Tamanho físico do canvas (pixels reais da tela)
             canvas.width  = viewport.width;
             canvas.height = viewport.height;
 
-            // Tamanho visual (CSS — sem o fator DPR)
-            canvas.style.width  = Math.floor(viewport.width  / dpr) + "px";
-            canvas.style.height = Math.floor(viewport.height / dpr) + "px";
+            canvas.style.width  = (viewport.width  / dpr) + "px";
+            canvas.style.height = (viewport.height / dpr) + "px";
 
             renderTask = page.render({ canvasContext: ctx, viewport });
 
-            renderTask.promise
-                .then(() => { renderTask = null; })
-                .catch(err => {
-                    if (err?.name !== "RenderingCancelledException") {
-                        console.error("Erro ao renderizar:", err);
-                    }
-                });
+            renderTask.promise.catch(err => {
+                if (err?.name !== "RenderingCancelledException") {
+                    console.error(err);
+                }
+            });
 
-            if (pgAtualEl) pgAtualEl.textContent = num;
-            if (btnPrev)   btnPrev.disabled  = num <= 1;
-            if (btnNext)   btnNext.disabled  = num >= pdfDoc.numPages;
+            if (pgAtualEl)   pgAtualEl.textContent   = num;
+            if (pgTotalEl)   pgTotalEl.textContent   = pdfDoc.numPages;
+            if (zoomLevelEl) zoomLevelEl.textContent = Math.round(scale * 100) + "%";
+
+            if (btnPrev) btnPrev.disabled = num <= 1;
+            if (btnNext) btnNext.disabled = num >= pdfDoc.numPages;
         });
     }
 
-    // ── Carregar PDF ───────────────────────────────────────────────
     pdfjsLib.getDocument(url).promise.then(pdf => {
         pdfDoc = pdf;
-        if (pgTotalEl) pgTotalEl.textContent = pdf.numPages;
         renderPage(paginaAtual);
-    }).catch(err => {
-        console.error("Erro ao carregar PDF:", err);
     });
 
-    // ── Navegação ─────────────────────────────────────────────────
+    // BOTÕES
     btnPrev?.addEventListener("click", () => {
-        if (paginaAtual <= 1) return;
-        renderPage(--paginaAtual);
+        if (paginaAtual > 1) renderPage(--paginaAtual);
     });
 
     btnNext?.addEventListener("click", () => {
-        if (!pdfDoc || paginaAtual >= pdfDoc.numPages) return;
-        renderPage(++paginaAtual);
+        if (paginaAtual < pdfDoc.numPages) renderPage(++paginaAtual);
     });
 
-    // ── Zoom ───────────────────────────────────────────────────────
     btnZoomIn?.addEventListener("click", () => {
-        zoomOffset += 0.2;
+        scale = Math.min(scale + 0.2, MAX_SCALE);
         renderPage(paginaAtual);
     });
 
     btnZoomOut?.addEventListener("click", () => {
-        zoomOffset -= 0.2;
+        scale = Math.max(scale - 0.2, MIN_SCALE);
         renderPage(paginaAtual);
     });
 
-    // ── Swipe horizontal (mobile) ─────────────────────────────────
-    function adicionarSwipe(elemento) {
-        if (!elemento) return;
+    // SWIPE MOBILE
+    if (wrap) {
         let startX = 0, startY = 0;
 
-        elemento.addEventListener("touchstart", e => {
+        wrap.addEventListener("touchstart", e => {
             startX = e.changedTouches[0].screenX;
             startY = e.changedTouches[0].screenY;
         }, { passive: true });
 
-        elemento.addEventListener("touchend", e => {
+        wrap.addEventListener("touchend", e => {
             const dx = e.changedTouches[0].screenX - startX;
             const dy = e.changedTouches[0].screenY - startY;
+
             if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
 
-            if (dx < 0 && pdfDoc && paginaAtual < pdfDoc.numPages) {
+            if (dx < 0 && paginaAtual < pdfDoc.numPages) {
                 renderPage(++paginaAtual);
             } else if (dx > 0 && paginaAtual > 1) {
                 renderPage(--paginaAtual);
@@ -191,26 +220,42 @@ if (typeof pdfjsLib !== "undefined") {
         }, { passive: true });
     }
 
-    adicionarSwipe(wrap);
-
-    // ── Re-renderiza ao redimensionar ─────────────────────────────
+    // RESIZE
     let resizeTimer;
     window.addEventListener("resize", () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => renderPage(paginaAtual), 200);
+
+        resizeTimer = setTimeout(() => {
+            if (!pdfDoc) return;
+
+            initialScale = window.innerWidth <= 768 ? 1 : 0.5;
+            scale = initialScale;
+
+            renderPage(paginaAtual);
+        }, 200);
     });
 
-} else {
-    console.error("pdfjsLib não foi carregado corretamente.");
-}
+    // FUNÇÕES GLOBAIS
+    window.resetPDF = () => {
+        scale = initialScale;
+        paginaAtual = 1;
+        renderPage(paginaAtual);
+    };
 
+    window.setPDFScale = (value) => {
+        scale = value;
+        renderPage(paginaAtual);
+    };
+}
 
 // ===============================
 // SCROLL REVEAL
 // ===============================
-const revealEls = document.querySelectorAll(".reveal");
+function initReveal() {
+    const revealEls = document.querySelectorAll(".reveal");
 
-if (revealEls.length) {
+    if (!revealEls.length) return;
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -223,15 +268,16 @@ if (revealEls.length) {
     revealEls.forEach(el => observer.observe(el));
 }
 
-
 // ===============================
 // CARROSSEL
 // ===============================
-const imgs     = document.querySelectorAll(".carrossel-img");
-const btnPrevC = document.querySelector(".carrossel .prev");
-const btnNextC = document.querySelector(".carrossel .next");
+function initCarrossel() {
+    const imgs     = document.querySelectorAll(".carrossel-img");
+    const btnPrevC = document.querySelector(".carrossel .prev");
+    const btnNextC = document.querySelector(".carrossel .next");
 
-if (imgs.length && btnPrevC && btnNextC) {
+    if (!imgs.length || !btnPrevC || !btnNextC) return;
+
     let idx = 0;
 
     function showImg(n) {
@@ -249,3 +295,13 @@ if (imgs.length && btnPrevC && btnNextC) {
         showImg(idx);
     });
 }
+
+// ===============================
+// INIT
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+    initModal();
+    initPDF();
+    initReveal();
+    initCarrossel();
+});

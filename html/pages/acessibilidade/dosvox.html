@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>DOSVOX | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="DOSVOX — Sistema computacional para deficientes visuais da Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../assets/css/pages/acessibilidade/dosvox.css" />
+</head>
+
+<body>
+
+<!-- MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+  <i class="ri-menu-line"></i>
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-speak-line"></i>
+        Acessibilidade
+      </div>
+
+      <h2><span class="hero-title-accent">DOSVOX</span></h2>
+
+      <p class="hero-subtitle">
+        Sistema computacional desenvolvido pela UFRJ para auxiliar deficientes visuais a utilizarem
+        computadores com síntese de voz em português.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques reveal">
+    <div class="section-icon">
+      <i class="ri-speak-line"></i>
+    </div>
+    <div class="section-text">
+      <h2>O que é o DOSVOX?</h2>
+      <p>
+        O DOSVOX é um sistema computacional para microcomputadores que se comunica com o usuário através de síntese de voz,
+        viabilizando o uso de computadores por deficientes visuais. Desenvolvido pelo Núcleo de Computação Eletrônica (NCE)
+        da UFRJ, é gratuito e amplamente utilizado no Brasil desde 1993.
+      </p>
+    </div>
+  </section>
+
+  <div class="cards-grid">
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-download-cloud-line"></i></div>
+      <h3>Download Gratuito</h3>
+      <p>Baixe o DOSVOX gratuitamente diretamente do portal do NCE/UFRJ.</p>
+      <a href="http://intervox.nce.ufrj.br/dosvox/download.htm" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-download-2-line"></i> Baixar
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-file-text-line"></i></div>
+      <h3>Manual do Usuário</h3>
+      <p>Documentação completa com instruções de instalação e uso do sistema DOSVOX.</p>
+      <a href="http://intervox.nce.ufrj.br/dosvox/textos.htm" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Acessar
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-tools-line"></i></div>
+      <h3>Utilitários</h3>
+      <p>Programas complementares do DOSVOX: editor de texto, leitor de e-mail, jogos e mais.</p>
+      <a href="http://intervox.nce.ufrj.br/dosvox/" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Ver mais
+      </a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="ri-shield-check-line"></i></div>
+      <h3>Portal NCE/UFRJ</h3>
+      <p>Acesse o portal oficial do Núcleo de Computação Eletrônica, criador do DOSVOX.</p>
+      <a href="http://www.nce.ufrj.br/" target="_blank" rel="noopener" class="card-btn">
+        <i class="ri-external-link-line"></i> Portal
+      </a>
+    </div>
+
+  </div>
+
+  <!-- RECURSOS -->
+  <section class="recursos-section reveal">
+    <h2><i class="ri-list-check-2"></i> Principais Recursos</h2>
+    <div class="recursos-grid">
+
+      <div class="recurso-item">
+        <div class="recurso-icon"><i class="ri-volume-up-line"></i></div>
+        <div>
+          <strong>Síntese de Voz em PT-BR</strong>
+          <p>Leitura de tela totalmente em português brasileiro com voz natural e clara.</p>
+        </div>
+      </div>
+
+      <div class="recurso-item">
+        <div class="recurso-icon"><i class="ri-edit-line"></i></div>
+        <div>
+          <strong>Editor de Textos (EDVOX)</strong>
+          <p>Editor acessível para criação e edição de documentos de texto com suporte a voz.</p>
+        </div>
+      </div>
+
+      <div class="recurso-item">
+        <div class="recurso-icon"><i class="ri-global-line"></i></div>
+        <div>
+          <strong>Navegação Web (WEBVOX)</strong>
+          <p>Navegador de internet adaptado com leitura de páginas web em voz alta.</p>
+        </div>
+      </div>
+
+      <div class="recurso-item">
+        <div class="recurso-icon"><i class="ri-mail-line"></i></div>
+        <div>
+          <strong>Leitor de E-mail (CARTAVOX)</strong>
+          <p>Cliente de e-mail acessível para envio e recebimento de mensagens.</p>
+        </div>
+      </div>
+
+      <div class="recurso-item">
+        <div class="recurso-icon"><i class="ri-gamepad-line"></i></div>
+        <div>
+          <strong>Jogos Acessíveis</strong>
+          <p>Jogos adaptados para deficientes visuais, promovendo lazer e estimulação cognitiva.</p>
+        </div>
+      </div>
+
+      <div class="recurso-item">
+        <div class="recurso-icon"><i class="ri-braille-line"></i></div>
+        <div>
+          <strong>Suporte a Braille</strong>
+          <p>Compatível com terminais Braille para leitura tátil do conteúdo da tela.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="../../../assets/js/pages/acessibilidade/dosvox.js" defer></script>
+
+</body>
+</html>

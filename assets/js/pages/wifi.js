@@ -1,172 +1,217 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 // ===============================
-// MENU HAMBÚRGUER
+// SIDEBAR (FETCH)
 // ===============================
-const menuToggle = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
+fetch("/components/sidebar.html")
+  .then(res => res.text())
+  .then(data => {
+    const container = document.getElementById("sidebar-container");
+    if (!container) return;
 
-if (menuToggle && sidebar && overlay) {
+    container.innerHTML = data;
+    initSidebar();
+  })
+  .catch(err => console.error("Erro sidebar:", err));
 
-    const toggleMenu = () => {
-        sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
-    };
 
-    const closeMenu = () => {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-    };
+// ===============================
+// FOOTER (FETCH)
+// ===============================
+fetch("/components/footer.html")
+  .then(res => res.text())
+  .then(data => {
+    const container = document.getElementById("footer-container");
+    if (!container) return;
 
-    menuToggle.addEventListener("click", toggleMenu);
-    overlay.addEventListener("click", closeMenu);
+    container.innerHTML = data;
+  })
+  .catch(err => console.error("Erro footer:", err));
+
+
+// ===============================
+// BOTÕES PDF (FETCH)
+// ===============================
+fetch("/components/botaopdf.html")
+  .then(res => res.text())
+  .then(data => {
+    const container = document.getElementById("pdf-controls");
+    if (!container) return;
+
+    container.innerHTML = data;
+
+    // inicia controles depois do HTML existir
+    window.initPdfControls?.();
+  })
+  .catch(err => console.error("Erro botões PDF:", err));
+
+
+// ===============================
+// SIDEBAR
+// ===============================
+function initSidebar() {
+
+  const menuToggle = document.getElementById("menuToggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+
+  if (!menuToggle || !sidebar || !overlay) return;
+
+  menuToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    document.body.style.overflow =
+      sidebar.classList.contains("active") ? "hidden" : "";
+  });
+
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  });
+
+  sidebar.addEventListener("click", (e) => {
+    const btn = e.target.closest(".sub-toggle");
+    if (!btn) return;
+
+    e.preventDefault();
+
+    const parent = btn.closest(".has-sub");
+    if (!parent) return;
+
+    document.querySelectorAll(".has-sub.open").forEach(item => {
+      if (item !== parent) item.classList.remove("open");
+    });
+
+    parent.classList.toggle("open");
+    btn.setAttribute("aria-expanded", parent.classList.contains("open"));
+  });
 }
 
 
 // ===============================
-// SUBMENUS (ACCORDION)
-// ===============================
-const subToggles = document.querySelectorAll(".sub-toggle");
-
-subToggles.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        const parent = button.closest(".has-sub");
-        if (!parent) return;
-
-        parent.classList.toggle("open");
-
-        // Fecha os outros
-        document.querySelectorAll(".has-sub").forEach(item => {
-            if (item !== parent) {
-                item.classList.remove("open");
-            }
-        });
-
-    });
-
-});
-
-
-// ===============================
-// PDF.JS CONFIG
+// PDF.JS RESPONSIVO 🔥
 // ===============================
 if (typeof pdfjsLib !== "undefined") {
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  const url = "/assets/docs/documentosinformativos/wifi.pdf";
 
-    const url = "../../assets/docs/documentosinformativos/wifi.pdf";
+  const canvas = document.getElementById("pdf-canvas");
+  if (!canvas) {
+    console.error("Canvas não encontrado");
+    return;
+  }
 
-    const canvas = document.getElementById("pdf-canvas");
+  const ctx = canvas.getContext("2d");
+  const container = document.querySelector(".pdf-canvas-wrap");
 
-    if (canvas) {
+  let pdfDoc = null;
+  let pageNum = 1;
+  let scale = 1;
+  let renderTask = null;
 
-        const ctx = canvas.getContext("2d");
+  let pageNumEl, pageCountEl, zoomLevelEl;
 
-        let pdfDoc = null;
-        let pageNum = 1;
-        let scale = 1.2;
+  function updateUI() {
+    if (pageNumEl) pageNumEl.textContent = pageNum;
+    if (pageCountEl && pdfDoc) pageCountEl.textContent = pdfDoc.numPages;
+    if (zoomLevelEl) zoomLevelEl.textContent = Math.round(scale * 100) + "%";
+  }
 
-        const pageNumEl = document.getElementById("pageNum");
-        const pageCountEl = document.getElementById("pageCount");
-        const zoomLevelEl = document.getElementById("zoomLevel");
+  function renderPage(num) {
+    pdfDoc.getPage(num).then(page => {
 
-        // ===============================
-        // RENDERIZA PÁGINA
-        // ===============================
-        function renderPage(num) {
+      // viewport base
+      const viewport = page.getViewport({ scale: 1 });
 
-            pdfDoc.getPage(num).then(page => {
+      // largura do container
+      const containerWidth = container.clientWidth;
 
-                const viewport = page.getViewport({ scale });
+      // escala automática
+      const scaleAuto = containerWidth / viewport.width;
 
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+      // escala final (responsivo + zoom)
+      const finalScale = scaleAuto * scale;
 
-                const renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
+      const scaledViewport = page.getViewport({ scale: finalScale });
 
-                page.render(renderContext);
+      canvas.width  = scaledViewport.width;
+      canvas.height = scaledViewport.height;
 
-                if (pageNumEl) pageNumEl.textContent = num;
-                if (zoomLevelEl) zoomLevelEl.textContent = Math.round(scale * 100) + "%";
+      if (renderTask) renderTask.cancel();
 
-            });
+      renderTask = page.render({
+        canvasContext: ctx,
+        viewport: scaledViewport
+      });
 
+      renderTask.promise.catch(err => {
+        if (err?.name !== "RenderingCancelledException") {
+          console.error(err);
         }
+      });
 
-        // ===============================
-        // CARREGA PDF
-        // ===============================
-        pdfjsLib.getDocument(url).promise.then(pdf => {
+      updateUI();
+    });
+  }
 
-            pdfDoc = pdf;
+  pdfjsLib.getDocument(url).promise
+    .then(pdf => {
+      pdfDoc = pdf;
+      renderPage(pageNum);
+      updateUI();
+    })
+    .catch(err => {
+      console.error("❌ Erro ao carregar PDF:", err);
+    });
 
-            if (pageCountEl) pageCountEl.textContent = pdf.numPages;
 
-            renderPage(pageNum);
+  // ===============================
+  // CONTROLES
+  // ===============================
+  function initPdfControls() {
 
-        }).catch(err => {
-            console.error("Erro ao carregar PDF:", err);
+    const controls = document.getElementById("pdf-controls");
+    if (!controls) return;
 
-            canvas.insertAdjacentHTML("afterend",
-                `<p style="color:red;text-align:center;margin-top:10px;">
-                    Erro ao carregar o PDF.
-                </p>`
-            );
-        });
+    pageNumEl   = controls.querySelector("[data-page-num]");
+    pageCountEl = controls.querySelector("[data-page-count]");
+    zoomLevelEl = controls.querySelector("[data-zoom-level]");
 
-        // ===============================
-        // CONTROLES
-        // ===============================
-        const nextBtn = document.getElementById("nextPage");
-        const prevBtn = document.getElementById("prevPage");
-        const zoomInBtn = document.getElementById("zoomIn");
-        const zoomOutBtn = document.getElementById("zoomOut");
+    controls.querySelector("[data-next]")?.addEventListener("click", () => {
+      if (pageNum < pdfDoc.numPages) renderPage(++pageNum);
+    });
 
-        if (nextBtn) {
-            nextBtn.addEventListener("click", () => {
-                if (pageNum < pdfDoc.numPages) {
-                    pageNum++;
-                    renderPage(pageNum);
-                }
-            });
-        }
+    controls.querySelector("[data-prev]")?.addEventListener("click", () => {
+      if (pageNum > 1) renderPage(--pageNum);
+    });
 
-        if (prevBtn) {
-            prevBtn.addEventListener("click", () => {
-                if (pageNum > 1) {
-                    pageNum--;
-                    renderPage(pageNum);
-                }
-            });
-        }
+    controls.querySelector("[data-zoom-in]")?.addEventListener("click", () => {
+      scale = Math.min(3, scale + 0.2);
+      renderPage(pageNum);
+    });
 
-        if (zoomInBtn) {
-            zoomInBtn.addEventListener("click", () => {
-                scale += 0.2;
-                renderPage(pageNum);
-            });
-        }
+    controls.querySelector("[data-zoom-out]")?.addEventListener("click", () => {
+      scale = Math.max(0.5, scale - 0.2);
+      renderPage(pageNum);
+    });
 
-        if (zoomOutBtn) {
-            zoomOutBtn.addEventListener("click", () => {
-                if (scale > 0.6) {
-                    scale -= 0.2;
-                    renderPage(pageNum);
-                }
-            });
-        }
+    updateUI();
+  }
 
-    }
+  window.initPdfControls = initPdfControls;
 
+  // 🔥 RESPONSIVO DINÂMICO
+  window.addEventListener("resize", () => {
+    if (pdfDoc) renderPage(pageNum);
+  });
+
+} else {
+  console.error("pdfjsLib não carregado");
 }
 
 
 // ===============================
-// LOG
-// ===============================
-console.log("🚀 Wi-Fi JS completo carregado com sucesso");
+console.log("🚀 PDF RESPONSIVO + ZOOM FUNCIONANDO 100%");
+
+});

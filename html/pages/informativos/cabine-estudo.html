@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cabine de Estudos em Grupo | Biblioteca Estácio São Luís</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/css/pages/informativos/cabine-estudo.css" />
+</head>
+
+<body>
+
+<!-- BOTÃO MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+  <i class="ri-menu-line"></i>
+</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-group-line"></i>
+        Serviços da Biblioteca
+      </div>
+
+      <h2>
+        Cabine de <span class="hero-title-accent">Estudos em Grupo</span>
+      </h2>
+
+      <p class="hero-subtitle">
+        Reserve uma cabine confortável para estudar com seus colegas em um ambiente tranquilo e produtivo.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#reservar" class="btn-hero-primary">
+          <i class="ri-calendar-check-line"></i> Fazer Reserva
+        </a>
+        <a href="#regras" class="btn-hero-outline">
+          <i class="ri-file-list-line"></i> Regras de Uso
+        </a>
+      </div>
+
+    </div>
+  </section>
+</header>
+
+<!-- AVISO -->
+<div class="aviso-banner">
+  <i class="ri-information-line"></i>
+  <span>
+    <strong>Atenção:</strong> A reserva é exclusiva para alunos e docentes regularmente matriculados. Apresente a carteirinha no balcão.
+  </span>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="content">
+
+    <!-- INFO CARDS -->
+    <div class="info-cards reveal">
+      <div class="info-card">
+        <i class="ri-user-line"></i>
+        <strong>2 a 6 pessoas</strong>
+        <span>Capacidade por cabine</span>
+      </div>
+      <div class="info-card">
+        <i class="ri-time-line"></i>
+        <strong>Até 2 horas</strong>
+        <span>Por reserva / dia</span>
+      </div>
+      <div class="info-card">
+        <i class="ri-door-line"></i>
+        <strong>4 cabines</strong>
+        <span>Disponíveis no local</span>
+      </div>
+      <div class="info-card">
+        <i class="ri-wifi-line"></i>
+        <strong>Wi-Fi incluso</strong>
+        <span>Acesso à rede da instituição</span>
+      </div>
+    </div>
+
+    <!-- FORMULÁRIO DE RESERVA -->
+    <section class="section-card reveal" id="reservar">
+
+      <div class="section-header">
+        <i class="ri-calendar-check-line"></i>
+        <h2>Fazer Reserva</h2>
+      </div>
+
+      <div class="section-line"></div>
+
+      <div id="form-success" class="form-success" style="display:none;">
+        <i class="ri-checkbox-circle-line"></i>
+        <div>
+          <strong>Reserva registrada com sucesso!</strong>
+          <p>Compareça ao balcão da biblioteca para confirmar. Leve sua carteirinha estudantil.</p>
+        </div>
+      </div>
+
+      <div class="form-grid" id="reserva-form">
+
+        <div class="form-group">
+          <label for="nome-reserva">Nome completo <span class="obrig">*</span></label>
+          <input type="text" id="nome-reserva" placeholder="Seu nome completo" />
+          <span class="form-erro" id="erro-nome-reserva"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="matricula-reserva">Matrícula <span class="obrig">*</span></label>
+          <input type="text" id="matricula-reserva" placeholder="Ex: 202400001" />
+          <span class="form-erro" id="erro-matricula-reserva"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email-reserva">E-mail institucional <span class="obrig">*</span></label>
+          <input type="email" id="email-reserva" placeholder="seu@email.com" />
+          <span class="form-erro" id="erro-email-reserva"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="curso-reserva">Curso</label>
+          <input type="text" id="curso-reserva" placeholder="Ex: Direito, Enfermagem..." />
+        </div>
+
+        <div class="form-group">
+          <label for="data-reserva">Data desejada <span class="obrig">*</span></label>
+          <input type="date" id="data-reserva" />
+          <span class="form-erro" id="erro-data-reserva"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="horario-reserva">Horário <span class="obrig">*</span></label>
+          <select id="horario-reserva">
+            <option value="">Selecione um horário</option>
+            <option value="08:00">08h00 – 10h00</option>
+            <option value="10:00">10h00 – 12h00</option>
+            <option value="13:00">13h00 – 15h00</option>
+            <option value="15:00">15h00 – 17h00</option>
+            <option value="17:00">17h00 – 19h00</option>
+            <option value="19:00">19h00 – 20h00 (1h)</option>
+          </select>
+          <span class="form-erro" id="erro-horario-reserva"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="cabine-reserva">Cabine preferida</label>
+          <select id="cabine-reserva">
+            <option value="">Sem preferência</option>
+            <option value="1">Cabine 01</option>
+            <option value="2">Cabine 02</option>
+            <option value="3">Cabine 03</option>
+            <option value="4">Cabine 04</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="integrantes-reserva">Nº de integrantes <span class="obrig">*</span></label>
+          <select id="integrantes-reserva">
+            <option value="">Selecione</option>
+            <option value="2">2 pessoas</option>
+            <option value="3">3 pessoas</option>
+            <option value="4">4 pessoas</option>
+            <option value="5">5 pessoas</option>
+            <option value="6">6 pessoas</option>
+          </select>
+          <span class="form-erro" id="erro-integrantes-reserva"></span>
+        </div>
+
+        <div class="form-group full">
+          <label for="obs-reserva">Observações</label>
+          <textarea id="obs-reserva" rows="3" placeholder="Ex: Necessito de projetor, acesso a tomadas, etc."></textarea>
+        </div>
+
+        <div class="form-group full form-actions">
+          <button type="button" class="btn-submit" id="btn-reservar">
+            <i class="ri-calendar-check-line"></i> Confirmar Reserva
+          </button>
+          <button type="button" class="btn-limpar" id="btn-limpar-reserva">
+            <i class="ri-refresh-line"></i> Limpar
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- REGRAS -->
+    <section class="section-card reveal" id="regras">
+
+      <div class="section-header">
+        <i class="ri-file-list-3-line"></i>
+        <h2>Regras de Uso</h2>
+      </div>
+
+      <div class="section-line"></div>
+
+      <ul class="regras-lista">
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          A reserva deve ser feita com pelo menos <strong>1 hora de antecedência</strong> junto ao balcão ou por este formulário.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          Cada grupo pode reservar a cabine por no máximo <strong>2 horas por dia</strong>.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          O uso é restrito a <strong>alunos e docentes</strong> regularmente matriculados. A carteirinha deve ser apresentada.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          É proibido o consumo de <strong>alimentos</strong> dentro das cabines. Apenas água em garrafas fechadas é permitida.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          Mantenha o <strong>ambiente limpo e organizado</strong>. Qualquer dano deve ser comunicado imediatamente.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          O <strong>nível de ruído</strong> deve ser moderado para não perturbar os outros usuários da biblioteca.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          Reservas não utilizadas em até <strong>15 minutos</strong> do horário agendado serão canceladas automaticamente.
+        </li>
+        <li>
+          <i class="ri-checkbox-circle-line"></i>
+          Equipamentos da cabine (TV, tomadas) devem ser usados <strong>com cuidado e responsabilidade</strong>.
+        </li>
+      </ul>
+
+    </section>
+
+    <!-- CONTATO -->
+    <section class="section-card reveal">
+
+      <div class="section-header">
+        <i class="ri-customer-service-2-line"></i>
+        <h2>Dúvidas? Fale conosco</h2>
+      </div>
+
+      <div class="section-line"></div>
+
+      <div class="contato-mini">
+        <div class="contato-item">
+          <i class="ri-phone-line"></i>
+          <div>
+            <strong>Telefone</strong>
+            <p>(98) 99115-0375</p>
+          </div>
+        </div>
+        <div class="contato-item">
+          <i class="ri-mail-line"></i>
+          <div>
+            <strong>E-mail</strong>
+            <p>biblioteca.saoluis@estacio.br</p>
+          </div>
+        </div>
+        <div class="contato-item">
+          <i class="ri-instagram-line"></i>
+          <div>
+            <strong>Instagram</strong>
+            <p>
+              <a href="https://www.instagram.com/estacio.saoluis.biblioteca/" target="_blank" rel="noopener noreferrer">
+                @estacio.saoluis.biblioteca
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- JS -->
+<script src="./assets/js/layout/layout.js"></script>
+<script src="./assets/js/layout/global.js"></script>
+<script src="../../../assets/js/pages/informativos/cabine-estudos.js"></script>
+
+</body>
+</html>

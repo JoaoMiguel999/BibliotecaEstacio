@@ -2,6 +2,7 @@
 @import url('../global/layout.css');
 @import url('../global/components.css');
 @import url('../global/footer.css');
+
 /* =========================
    FONTE ELEGANTE
 ========================= */
@@ -13,4 +14,147 @@
 .hero-bg {
   background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
 }
+/* =========================
+   contatos e funcionamento 
+========================= */
+* { box-sizing: border-box; }
 
+.section-horarios {
+  padding: 2rem 1.5rem;
+  width: 100%;
+  background: #f0f4f8;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.4rem;
+}
+
+.section-header i {
+  font-size: 22px;
+  color: #1a3a6b;
+}
+
+.section-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a3a6b;
+}
+
+.section-line {
+  width: 48px;
+  height: 3px;
+  background: #1a3a6b;
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (max-width: 640px) {
+  .horarios-grid { grid-template-columns: 1fr; }
+}
+
+.horario-card,
+.contato-card {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a3a6b;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 20px;
+}
+
+.card-header i {
+  font-size: 17px;
+  color: #fff;
+}
+
+.card-body {
+  padding: 0 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ── Horários ── */
+.horario-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  font-size: 15px;
+  color: #333;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.horario-row:last-child { border-bottom: none; }
+
+.horario-row span:first-child { color: #444; }
+
+.horario-row span:last-child {
+  font-weight: 500;
+  color: #222;
+}
+
+/* ── Contato ── */
+.contato-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eef0f4;
+  flex: 1;
+}
+
+.contato-item:last-child { border-bottom: none; }
+
+.contato-item > i {
+  font-size: 20px;
+  color: #1a3a6b;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.contato-item strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.contato-item p {
+  margin: 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.contato-item a {
+  color: #444;
+  text-decoration: none;
+}
+
+.contato-item a:hover { color: #1a3a6b; }

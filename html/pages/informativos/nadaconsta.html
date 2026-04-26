@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atraso de Livros | Biblioteca Estácio São Luís</title>
+
+  <meta name="description" content="Regras de atraso na devolução de livros - Biblioteca Estácio São Luís">
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../assets/css/pages/informativos/nadaconsta.css" />
+</head>
+
+<body>
+
+<!-- BOTÃO MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+  <i class="ri-menu-line"></i>
+</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR (GLOBAL INJETADA) -->
+<div id="sidebar-container"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <section class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow">
+        <i class="ri-file-check-line"></i>
+        Biblioteca — Consulta
+      </div>
+
+      <h2>
+        Declaração de <span class="hero-title-accent">Nada Consta</span>
+      </h2>
+
+      <p class="hero-subtitle">
+        Verifique se não há pendências com a biblioteca e emita sua declaração de nada consta de forma rápida e segura.
+      </p>
+
+    </div>
+  </section>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="content">
+
+  <section class="section-destaques">
+
+    <h2>Declaração de Nada Consta</h2>
+
+    <p>
+      Consulte sua situação na biblioteca e verifique a existência de pendências para emissão da declaração de nada consta.
+    </p>
+    <!-- PDF -->
+    <div class="pdf-wrapper">
+
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+
+      <div class="pdf-controls">
+
+        <div class="pdf-nav">
+          <button class="btn-control" data-prev>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info">
+            <span data-page-num>1</span> / <span data-page-count>1</span>
+          </span>
+
+          <button class="btn-control" data-next>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="pdf-zoom">
+          <button class="btn-control" data-zoom-out>
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span class="pdf-zoom-level" data-zoom-level>100%</span>
+
+          <button class="btn-control" data-zoom-in>
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+
+      <button class="btn-visualizar" id="abrirModal">
+        Tela cheia
+      </button>
+
+      <a href="/assets/docs/documentosinformativos/Nadaconsta.pdf"
+         download
+         class="btn-download">
+        Baixar PDF
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- MODAL PDF -->
+<div class="modal" id="modalPDF">
+
+  <button class="modal-close" id="fecharModal">
+    <i class="ri-close-line"></i>
+  </button>
+
+  <div class="modal-content">
+    <iframe
+      id="pdf-iframe"
+      class="modal-iframe"
+      src="/assets/docs/documentosinformativos/Nadaconsta.pdf">
+    </iframe>
+  </div>
+
+</div>
+
+<!-- FOOTER (GLOBAL INJETADO) -->
+<div id="footer-container"></div>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- JS GLOBAL (CORRIGIDO PATH) -->
+<script src="/assets/js/layout/layout.js"></script>
+<script src="/assets/js/layout/global.js"></script>
+
+<!-- JS DA PÁGINA -->
+<script src="../../../assets/js/pages/informativos/nadaconsta.js" defer></script>
+
+</body>
+</html>

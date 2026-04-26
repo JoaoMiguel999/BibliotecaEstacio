@@ -11,7 +11,21 @@
    HERO — imagem desta página
 ========================= */
 .hero-bg {
-  background: url("../../assets/img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+  background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+}
+
+
+/* =========================
+   ESPAÇAMENTO GLOBAL ENTRE SECTIONS
+   (CORREÇÃO DO PROBLEMA DE COLAGEM)
+========================= */
+
+.content section {
+  margin-bottom: 40px;
+}
+
+.content section:last-child {
+  margin-bottom: 0;
 }
 
 
@@ -20,11 +34,12 @@
 ========================= */
 .section-info {
   margin-top: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
 
 /* =========================
-   REVEAL (ANIMAÇÃO GLOBAL) 🔥
+   REVEAL (ANIMAÇÃO GLOBAL)
 ========================= */
 
 .reveal {
@@ -41,11 +56,12 @@
 
 
 /* =========================
-   MELHORIA VISUAL DOS CARDS
+   CARDS (HOVER MELHORADO)
 ========================= */
 
 .cards-container .card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
 .cards-container .card:hover {
@@ -64,15 +80,22 @@
 
 
 /* =========================
-   RESPONSIVO (AJUSTES FINOS)
+   RESPONSIVO
 ========================= */
 
 @media (max-width: 768px) {
+
   .hero h2 {
     font-size: 2rem;
   }
 
   .hero-subtitle {
     font-size: 0.95rem;
+  }
+
+  /* desativa hover no mobile */
+  .cards-container .card:hover {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   }
 }

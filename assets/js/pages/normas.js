@@ -1,173 +1,235 @@
 // ===============================
-// SIDEBAR (MENU)
+// INJECT COMPONENTS
 // ===============================
-const menuToggle = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
+function injectComponent(containerId, url, callback) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-if (menuToggle && sidebar && overlay) {
-  menuToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("active");
-    overlay.classList.toggle("active");
-  });
+  fetch(url)
+    .then(res => res.text())
+    .then(html => {
+      container.innerHTML = html;
+      if (callback) callback();
+    })
+    .catch(err => console.warn(err));
+}
 
-  overlay.addEventListener("click", () => {
+
+// ===============================
+// SIDEBAR (CORRIGIDO)
+// ===============================
+// ===============================
+// SIDEBAR (COM SETAS FUNCIONANDO)
+// ===============================
+function initSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const toggle = document.getElementById("menuToggle");
+  const overlay = document.getElementById("overlay");
+
+  if (!sidebar || !toggle || !overlay) return;
+
+  const abrir = () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
+
+  const fechar = () => {
     sidebar.classList.remove("active");
     overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  };
+
+  toggle.onclick = () => {
+    sidebar.classList.contains("active") ? fechar() : abrir();
+  };
+
+  overlay.onclick = fechar;
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fechar();
+  });
+
+  // ===============================
+  // 🔥 SETAS (SUBMENU) — CORREÇÃO
+  // ===============================
+  const subToggles = sidebar.querySelectorAll(".sub-toggle");
+
+  subToggles.forEach(btn => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const parent = btn.closest(".has-sub");
+      if (!parent) return;
+
+      const isOpen = parent.classList.contains("open");
+
+      // fecha outros submenus
+      sidebar.querySelectorAll(".has-sub.open").forEach(item => {
+        if (item !== parent) {
+          item.classList.remove("open");
+        }
+      });
+
+      // alterna atual
+      parent.classList.toggle("open", !isOpen);
+    };
   });
 }
 
+
 // ===============================
-// SUBMENU (CORRIGIDO)
+// MODAL (TELA CHEIA)
 // ===============================
-document.querySelectorAll(".sub-toggle").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); // evita conflito
+function initModal() {
+  const modal = document.getElementById("modalPDF");
+  const openBtn = document.getElementById("abrirModal");
+  const closeBtn = document.getElementById("fecharModal");
 
-    const parent = btn.closest(".has-sub");
-    const submenu = parent.querySelector(".sub");
+  if (!modal || !openBtn || !closeBtn) return;
 
-    // fecha outros abertos (opcional, estilo accordion)
-    document.querySelectorAll(".has-sub").forEach(item => {
-      if (item !== parent) {
-        item.classList.remove("active");
-      }
-    });
+  openBtn.onclick = () => {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
 
-    // toggle atual
-    parent.classList.toggle("active");
+  closeBtn.onclick = () => {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  };
 
-    // animação suave
-    if (submenu) {
-      if (parent.classList.contains("active")) {
-        submenu.style.maxHeight = submenu.scrollHeight + "px";
-      } else {
-        submenu.style.maxHeight = null;
-      }
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  };
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
     }
   });
-});
+}
+
 
 // ===============================
-// PDF.JS CONFIG
+// PDF.JS
 // ===============================
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-// ===============================
-// ELEMENTOS PDF
-// ===============================
-const url = "../../assets/docs/documentosinformativos/normas-biblioteca-2026.pdf";
+const PDF_URL =
+  "/assets/docs/documentosinformativos/normas-biblioteca-2026.pdf";
 
-const canvas = document.getElementById("pdf-canvas");
-const ctx = canvas.getContext("2d");
-
-const pageNumEl = document.getElementById("pageNum");
-const pageCountEl = document.getElementById("pageCount");
-const zoomLevelEl = document.getElementById("zoomLevel");
-
-const prevBtn = document.getElementById("prevPage");
-const nextBtn = document.getElementById("nextPage");
-const zoomInBtn = document.getElementById("zoomIn");
-const zoomOutBtn = document.getElementById("zoomOut");
-
-// ===============================
-// ESTADO
-// ===============================
 let pdfDoc = null;
 let pageNum = 1;
 let scale = 1.2;
-let isRendering = false;
-let pendingPage = null;
+let rendering = false;
+let pending = null;
 
-// ===============================
-// RENDERIZAR PÁGINA
-// ===============================
+const canvas = document.getElementById("pdf-canvas");
+const ctx = canvas?.getContext("2d");
+
+const elPageNum = document.querySelector("[data-page-num]");
+const elPageCount = document.querySelector("[data-page-count]");
+const elZoom = document.querySelector("[data-zoom-level]");
+
+const btnPrev = document.querySelector("[data-prev]");
+const btnNext = document.querySelector("[data-next]");
+const btnIn = document.querySelector("[data-zoom-in]");
+const btnOut = document.querySelector("[data-zoom-out]");
+
 function renderPage(num) {
-  isRendering = true;
+  if (!pdfDoc) return;
+
+  rendering = true;
 
   pdfDoc.getPage(num).then(page => {
     const viewport = page.getViewport({ scale });
 
-    canvas.height = viewport.height;
     canvas.width = viewport.width;
+    canvas.height = viewport.height;
 
-    const renderContext = {
-      canvasContext: ctx,
-      viewport: viewport
-    };
+    const task = page.render({ canvasContext: ctx, viewport });
 
-    page.render(renderContext).promise.then(() => {
-      isRendering = false;
-
-      if (pendingPage !== null) {
-        renderPage(pendingPage);
-        pendingPage = null;
+    task.promise.then(() => {
+      rendering = false;
+      if (pending !== null) {
+        renderPage(pending);
+        pending = null;
       }
     });
 
-    // Atualiza UI
-    pageNumEl.textContent = num;
-    zoomLevelEl.textContent = Math.round(scale * 100) + "%";
+    if (elPageNum) elPageNum.textContent = num;
+    if (elZoom) elZoom.textContent = Math.round(scale * 100) + "%";
   });
 }
 
-// ===============================
-// FILA DE RENDER
-// ===============================
-function queueRenderPage(num) {
-  if (isRendering) {
-    pendingPage = num;
-  } else {
-    renderPage(num);
-  }
+function queue(num) {
+  if (rendering) pending = num;
+  else renderPage(num);
 }
 
-// ===============================
-// NAVEGAÇÃO
-// ===============================
-function prevPage() {
-  if (pageNum <= 1) return;
-  pageNum--;
-  queueRenderPage(pageNum);
+function loadPDF() {
+  if (!window.pdfjsLib || !canvas) return;
+
+  pdfjsLib.getDocument(PDF_URL).promise.then(pdf => {
+    pdfDoc = pdf;
+
+    if (elPageCount) {
+      elPageCount.textContent = pdf.numPages;
+    }
+
+    renderPage(pageNum);
+  });
 }
 
-function nextPage() {
-  if (pageNum >= pdfDoc.numPages) return;
-  pageNum++;
-  queueRenderPage(pageNum);
+
+// ===============================
+// INIT PDF CONTROLS
+// ===============================
+function initPDF() {
+  btnNext?.addEventListener("click", () => {
+    if (pdfDoc && pageNum < pdfDoc.numPages) {
+      pageNum++;
+      queue(pageNum);
+    }
+  });
+
+  btnPrev?.addEventListener("click", () => {
+    if (pageNum > 1) {
+      pageNum--;
+      queue(pageNum);
+    }
+  });
+
+  btnIn?.addEventListener("click", () => {
+    scale = Math.min(scale + 0.2, 3);
+    queue(pageNum);
+  });
+
+  btnOut?.addEventListener("click", () => {
+    scale = Math.max(scale - 0.2, 0.6);
+    queue(pageNum);
+  });
+
+  loadPDF();
 }
 
-// ===============================
-// ZOOM
-// ===============================
-function zoomIn() {
-  scale += 0.2;
-  queueRenderPage(pageNum);
-}
-
-function zoomOut() {
-  if (scale <= 0.6) return;
-  scale -= 0.2;
-  queueRenderPage(pageNum);
-}
 
 // ===============================
-// EVENTOS
+// EXECUÇÃO CORRETA (IMPORTANTE)
 // ===============================
-if (prevBtn) prevBtn.addEventListener("click", prevPage);
-if (nextBtn) nextBtn.addEventListener("click", nextPage);
-if (zoomInBtn) zoomInBtn.addEventListener("click", zoomIn);
-if (zoomOutBtn) zoomOutBtn.addEventListener("click", zoomOut);
+injectComponent("sidebar-container", "../../components/sidebar.html", () => {
+  initSidebar(); // 👈 SÓ AQUI FUNCIONA SEM BUG
+});
 
-// ===============================
-// CARREGAR PDF
-// ===============================
-pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
-  pdfDoc = pdfDoc_;
-  pageCountEl.textContent = pdfDoc.numPages;
+injectComponent("footer-container", "../../components/footer.html");
 
-  renderPage(pageNum);
-}).catch(err => {
-  console.error("Erro ao carregar PDF:", err);
+document.addEventListener("DOMContentLoaded", () => {
+  initPDF();
+  initModal();
 });
