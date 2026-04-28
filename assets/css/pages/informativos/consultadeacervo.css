@@ -10,9 +10,8 @@
 
 
 /* =========================
-   HERO — CONSULTA DE ACERVO
+   HERO
 ========================= */
-
 .hero {
   position: relative;
 
@@ -118,6 +117,12 @@
 }
 
 
+/* destaque do título */
+.hero-title-accent {
+  color: #60a5fa;
+}
+
+
 /* subtítulo */
 .hero-subtitle {
   max-width: 700px;
@@ -160,11 +165,13 @@
    CONTENT
 ========================= */
 .content {
-  padding: clamp(16px, 5vw, 40px);
+  width: 100%;
 
-  max-width: 1200px;
+  max-width: 1600px;
 
   margin: 0 auto;
+
+  padding: 40px 32px;
 }
 
 
@@ -172,9 +179,11 @@
    SECTION
 ========================= */
 .section-destaques {
+  width: 100%;
+
   background: #fff;
 
-  padding: 28px;
+  padding: 32px;
 
   border-radius: 20px;
 
@@ -185,16 +194,15 @@
 
 /* título seção */
 .section-destaques h2 {
+  color: #0f172a;
+
   font-size: clamp(28px, 4vw, 40px);
 
   font-weight: 700;
 
-  color: #0f172a;
-
-  margin-bottom: 18px;
-
-  position: relative;
+  margin-bottom: 16px;
 }
+
 
 /* texto */
 .section-destaques p {
@@ -233,23 +241,26 @@
 
   overflow: auto;
 
-  padding: 16px;
-
-  min-height: 60vh;
-  max-height: 70vh;
+  padding: 24px;
 
   width: 100%;
+
+  min-height: 700px;
+  max-height: 80vh;
 
   background: #2a2a2a;
 
   scroll-behavior: smooth;
 }
 
+
 #pdf-canvas,
 #pdf-canvas-modal {
   display: block;
 
-  max-width: 100%;
+  width: 100%;
+  max-width: 900px;
+
   height: auto;
 
   background: #fff;
@@ -298,7 +309,7 @@
   border: none;
   border-radius: 10px;
 
-  background: #1f2937 !important;
+  background: #1f2937;
 
   color: #fff;
 
@@ -314,7 +325,7 @@
 }
 
 .btn-control:hover {
-  background: #2563eb !important;
+  background: #2563eb;
 
   transform: scale(1.08);
 }
@@ -428,6 +439,11 @@
   background: #000;
 }
 
+.modal-pdf {
+  width: 100%;
+  height: 100%;
+}
+
 .modal iframe {
   width: 100%;
   height: 100%;
@@ -453,4 +469,47 @@
   font-size: 30px;
 
   cursor: pointer;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+
+  .content {
+    padding: 24px 16px;
+  }
+
+  .section-destaques {
+    padding: 20px;
+  }
+
+  .hero-section {
+    padding: 80px 20px;
+  }
+
+  .hero-content h1 {
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    line-height: 1.7;
+  }
+
+  .pdf-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pdf-nav,
+  .pdf-zoom {
+    justify-content: center;
+  }
+
+  .pdf-canvas-wrap {
+    min-height: 400px;
+    max-height: 70vh;
+    padding: 16px;
+  }
 }
