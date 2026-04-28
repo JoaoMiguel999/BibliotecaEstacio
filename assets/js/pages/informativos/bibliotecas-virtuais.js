@@ -1,169 +1,226 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ===============================
+// INJECT COMPONENTS
+// ===============================
+function injectComponent(containerId, url, callback) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-  // ===============================
-  // SIDEBAR
-  // ===============================
-  function initSidebar() {
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
+  fetch(url)
+    .then(res => res.text())
+    .then(html => {
+      container.innerHTML = html;
+      if (callback) callback();
+    })
+    .catch(err => console.warn(err));
+}
 
-    if (!menuToggle || !sidebar || !overlay) return;
 
-    menuToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
+// ===============================
+// SIDEBAR
+// ===============================
+function initSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const toggle  = document.getElementById("menuToggle");
+  const overlay = document.getElementById("overlay");
 
-      document.body.style.overflow =
-        sidebar.classList.contains("active") ? "hidden" : "";
-    });
+  if (!sidebar || !toggle || !overlay) return;
 
-    overlay.addEventListener("click", () => {
-      sidebar.classList.remove("active");
-      overlay.classList.remove("active");
-      document.body.style.overflow = "";
-    });
+  const abrir = () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
 
-    sidebar.addEventListener("click", (e) => {
-      const btn = e.target.closest(".sub-toggle");
-      if (!btn) return;
+  const fechar = () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  };
 
+  toggle.onclick = () => {
+    sidebar.classList.contains("active") ? fechar() : abrir();
+  };
+
+  overlay.onclick = fechar;
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fechar();
+  });
+
+  // SUBMENUS
+  const subToggles = sidebar.querySelectorAll(".sub-toggle");
+
+  subToggles.forEach(btn => {
+    btn.onclick = (e) => {
       e.preventDefault();
-      btn.closest(".has-sub")?.classList.toggle("open");
-    });
-  }
+      e.stopPropagation();
 
-  // ===============================
-  // LOAD COMPONENTES
-  // ===============================
-  fetch("/components/sidebar.html")
-    .then(res => res.text())
-    .then(html => {
-      const el = document.getElementById("sidebar-container");
-      if (!el) return;
-      el.innerHTML = html;
-      initSidebar();
-    });
+      const parent = btn.closest(".has-sub");
+      if (!parent) return;
 
-  fetch("/components/footer.html")
-    .then(res => res.text())
-    .then(html => {
-      const el = document.getElementById("footer-container");
-      if (el) el.innerHTML = html;
-    });
+      const isOpen = parent.classList.contains("open");
 
-  // ===============================
-  // PDF ENGINE 🔥 PROFISSIONAL
-  // ===============================
-  function initPDF(canvasId, suffix = "") {
-
-    if (typeof pdfjsLib === "undefined") return;
-
-    const url = "/assets/docs/bibliotecasvirtuaisminhabibliotecaebsco/Cartaz-ebsco1_merged.pdf";
-
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    let pdfDoc = null;
-    let pageNum = 1;
-    let scale = 0.6; // 🔥 ZOOM PADRÃO 60%
-    let renderTask = null;
-
-    const pageNumEl = document.querySelector(`[data-page-num${suffix}]`);
-    const pageCountEl = document.querySelector(`[data-page-count${suffix}]`);
-    const zoomLevelEl = document.querySelector(`[data-zoom-level${suffix}]`);
-
-    function renderPage(num) {
-      pdfDoc.getPage(num).then(page => {
-
-        const viewport = page.getViewport({ scale });
-
-        if (renderTask) renderTask.cancel();
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        renderTask = page.render({
-          canvasContext: ctx,
-          viewport
-        });
-
-        if (pageNumEl) pageNumEl.textContent = num;
-        if (pageCountEl) pageCountEl.textContent = pdfDoc.numPages;
-        if (zoomLevelEl) zoomLevelEl.textContent = Math.round(scale * 100) + "%";
+      sidebar.querySelectorAll(".has-sub.open").forEach(item => {
+        if (item !== parent) item.classList.remove("open");
       });
-    }
 
-    pdfjsLib.getDocument(url).promise.then(pdf => {
-      pdfDoc = pdf;
-      renderPage(pageNum);
-    });
+      parent.classList.toggle("open", !isOpen);
+    };
+  });
+}
 
-    // ===============================
-    // CONTROLES (SEM BUG 🔥)
-    // ===============================
-    document.addEventListener("click", (e) => {
 
-      if (!pdfDoc) return;
-
-      if (e.target.closest(`[data-prev${suffix}]`)) {
-        if (pageNum > 1) renderPage(--pageNum);
-      }
-
-      if (e.target.closest(`[data-next${suffix}]`)) {
-        if (pageNum < pdfDoc.numPages) renderPage(++pageNum);
-      }
-
-      if (e.target.closest(`[data-zoom-in${suffix}]`)) {
-        scale = Math.min(3, scale + 0.2);
-        renderPage(pageNum);
-      }
-
-      if (e.target.closest(`[data-zoom-out${suffix}]`)) {
-        scale = Math.max(0.5, scale - 0.2);
-        renderPage(pageNum);
-      }
-
-    });
-  }
-
-  // ===============================
-  // INIT PDF NORMAL
-  // ===============================
-  initPDF("pdf-canvas", "");
-
-  // ===============================
-  // MODAL
-  // ===============================
-  const modal = document.getElementById("modalPDF");
-  const openBtn = document.getElementById("abrirModal");
+// ===============================
+// MODAL
+// ===============================
+function initModal() {
+  const modal    = document.getElementById("modalPDF");
+  const openBtn  = document.getElementById("abrirModal");
   const closeBtn = document.getElementById("fecharModal");
 
-  if (modal && openBtn && closeBtn) {
+  if (!modal || !openBtn || !closeBtn) return;
 
-    openBtn.addEventListener("click", () => {
-      modal.classList.add("active");
-      document.body.style.overflow = "hidden";
+  openBtn.onclick = () => {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
 
-      initPDF("pdf-canvas-modal", "-modal");
-    });
+  closeBtn.onclick = () => {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  };
 
-    function closeModal() {
+  modal.onclick = (e) => {
+    if (e.target === modal) {
       modal.classList.remove("active");
       document.body.style.overflow = "";
     }
+  };
 
-    closeBtn.addEventListener("click", closeModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+}
 
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
+
+// ===============================
+// PDF.JS
+// ===============================
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const PDF_URL =
+  "/assets/docs/bibliotecasvirtuaisminhabibliotecaebsco/Cartaz-ebsco1.pdf";
+
+let pdfDoc    = null;
+let pageNum   = 1;
+let scale     = 1.2;
+let rendering = false;
+let pending   = null;
+
+const canvas = document.getElementById("pdf-canvas");
+const ctx    = canvas?.getContext("2d");
+
+const elPageNum   = document.querySelector("[data-page-num]");
+const elPageCount = document.querySelector("[data-page-count]");
+const elZoom      = document.querySelector("[data-zoom-level]");
+
+const btnPrev = document.querySelector("[data-prev]");
+const btnNext = document.querySelector("[data-next]");
+const btnIn   = document.querySelector("[data-zoom-in]");
+const btnOut  = document.querySelector("[data-zoom-out]");
+
+function renderPage(num) {
+  if (!pdfDoc) return;
+
+  rendering = true;
+
+  pdfDoc.getPage(num).then(page => {
+    const viewport = page.getViewport({ scale });
+
+    canvas.width  = viewport.width;
+    canvas.height = viewport.height;
+
+    const task = page.render({ canvasContext: ctx, viewport });
+
+    task.promise.then(() => {
+      rendering = false;
+      if (pending !== null) {
+        renderPage(pending);
+        pending = null;
+      }
     });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-  }
+    if (elPageNum)   elPageNum.textContent   = num;
+    if (elPageCount) elPageCount.textContent = pdfDoc.numPages;
+    if (elZoom)      elZoom.textContent      = Math.round(scale * 100) + "%";
 
+    if (btnPrev) btnPrev.disabled = num <= 1;
+    if (btnNext) btnNext.disabled = num >= pdfDoc.numPages;
+  });
+}
+
+function queue(num) {
+  if (rendering) pending = num;
+  else renderPage(num);
+}
+
+function loadPDF() {
+  if (!window.pdfjsLib || !canvas) return;
+
+  pdfjsLib.getDocument(PDF_URL).promise.then(pdf => {
+    pdfDoc = pdf;
+    if (elPageCount) elPageCount.textContent = pdf.numPages;
+    renderPage(pageNum);
+  });
+}
+
+
+// ===============================
+// CONTROLES PDF
+// ===============================
+function initPDF() {
+  btnNext?.addEventListener("click", () => {
+    if (pdfDoc && pageNum < pdfDoc.numPages) {
+      pageNum++;
+      queue(pageNum);
+    }
+  });
+
+  btnPrev?.addEventListener("click", () => {
+    if (pageNum > 1) {
+      pageNum--;
+      queue(pageNum);
+    }
+  });
+
+  btnIn?.addEventListener("click", () => {
+    scale = Math.min(scale + 0.2, 3);
+    queue(pageNum);
+  });
+
+  btnOut?.addEventListener("click", () => {
+    scale = Math.max(scale - 0.2, 0.6);
+    queue(pageNum);
+  });
+
+  loadPDF();
+}
+
+
+// ===============================
+// EXECUÇÃO
+// ===============================
+injectComponent("sidebar-container", "/components/sidebar.html", () => {
+  initSidebar();
+});
+
+injectComponent("footer-container", "/components/footer.html");
+
+document.addEventListener("DOMContentLoaded", () => {
+  initPDF();
+  initModal();
 });

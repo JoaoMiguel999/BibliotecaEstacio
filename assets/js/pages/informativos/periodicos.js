@@ -65,7 +65,7 @@ function loadIncludes() {
 
   if (sidebarContainer) {
     promises.push(
-      fetch("../../components/sidebar.html")
+      fetch("../../../components/sidebar.html")
         .then(r => r.text())
         .then(html => sidebarContainer.innerHTML = html)
     );
@@ -73,7 +73,7 @@ function loadIncludes() {
 
   if (footerContainer) {
     promises.push(
-      fetch("../../components/footer.html")
+      fetch("../../../components/footer.html")
         .then(r => r.text())
         .then(html => footerContainer.innerHTML = html)
     );
@@ -127,7 +127,7 @@ function loadPDF() {
 
   if (!window.pdfjsLib) return;
 
-  const url = "../../assets/docs/regulamento-biblioteca.pdf";
+  const url = "../../../assets/docs/documentosinformativos/periodes-capes.pdf";
 
   const canvas = document.getElementById("pdf-canvas");
   if (!canvas) return;

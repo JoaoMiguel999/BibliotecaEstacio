@@ -4,21 +4,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bibliotecas Virtuais | Biblioteca Estácio São Luís</title>
 
-  <title>Renovação de Livros | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="Bibliotecas Virtuais e bases de dados acadêmicas - Biblioteca Estácio São Luís">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Biblioteca Estácio São Luís">
 
-  <meta name="description" content="Informações sobre renovação de livros - Biblioteca Estácio São Luís">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 
-  <!-- Remix Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
-  <!-- CSS -->
+  <!-- CSS DA PÁGINA -->
   <link rel="stylesheet" href="../../../assets/css/pages/informativos/bibliotecas-virtuais.css" />
 </head>
 
 <body>
 
-<!-- MENU -->
+<!-- BOTÃO MENU -->
 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
   <i class="ri-menu-line"></i>
 </button>
@@ -26,7 +27,7 @@
 <!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR GLOBAL -->
 <div id="sidebar-container"></div>
 
 <!-- HERO -->
@@ -42,9 +43,9 @@
         Biblioteca — Acesso Digital
       </div>
 
-      <h1>
+      <h2>
         Bibliotecas <span class="hero-title-accent">Virtuais</span>
-      </h1>
+      </h2>
 
       <p class="hero-subtitle">
         Acesse bibliotecas virtuais, bases de dados acadêmicas e conteúdos digitais disponíveis para pesquisa e estudo.
@@ -54,6 +55,12 @@
   </section>
 </header>
 
+<!-- AVISO -->
+<div class="aviso-banner">
+  <i class="ri-information-line"></i>
+  <span><strong>Aviso:</strong> Uso exclusivo para alunos e docentes.</span>
+</div>
+
 <!-- CONTEÚDO -->
 <main class="content">
 
@@ -62,7 +69,8 @@
     <h2>Bibliotecas Virtuais</h2>
 
     <p>
-      Acesse plataformas digitais, bases de dados acadêmicas e bibliotecas virtuais disponíveis para pesquisa, leitura e apoio aos estudos.
+      Acesse plataformas digitais, bases de dados acadêmicas e bibliotecas virtuais disponíveis
+      para pesquisa, leitura e apoio aos estudos.
     </p>
 
     <!-- PDF -->
@@ -108,13 +116,14 @@
     <div class="acoes">
 
       <button class="btn-visualizar" id="abrirModal">
+        <i class="ri-fullscreen-line"></i>
         Tela cheia
       </button>
 
       <a href="/assets/docs/bibliotecasvirtuaisminhabibliotecaebsco/Cartaz-ebsco1.pdf"
          download
-         target="_blank"
          class="btn-download">
+        <i class="ri-download-2-line"></i>
         Baixar PDF
       </a>
 
@@ -124,73 +133,37 @@
 
 </main>
 
-<!-- MODAL PADRÃO (SEM IFRAME 🔥) -->
+<!-- MODAL PDF -->
 <div class="modal" id="modalPDF">
-
-  <button class="modal-close" id="fecharModal">
-    <i class="ri-close-line"></i>
-  </button>
 
   <div class="modal-content">
 
-    <div class="pdf-wrapper modal-pdf">
+    <button class="modal-close" id="fecharModal" title="Fechar">
+      <i class="ri-close-line"></i>
+    </button>
 
-      <div class="pdf-canvas-wrap">
-        <canvas id="pdf-canvas-modal"></canvas>
-      </div>
-
-      <div class="pdf-controls">
-
-        <div class="pdf-nav">
-          <button class="btn-control" data-prev-modal>
-            <i class="ri-arrow-left-s-line"></i>
-          </button>
-
-          <span class="pdf-info">
-            <span data-page-num-modal>1</span> /
-            <span data-page-count-modal>1</span>
-          </span>
-
-          <button class="btn-control" data-next-modal>
-            <i class="ri-arrow-right-s-line"></i>
-          </button>
-        </div>
-
-        <div class="pdf-zoom">
-          <button class="btn-control" data-zoom-out-modal>
-            <i class="ri-subtract-line"></i>
-          </button>
-
-          <span data-zoom-level-modal>100%</span>
-
-          <button class="btn-control" data-zoom-in-modal>
-            <i class="ri-add-line"></i>
-          </button>
-        </div>
-
-      </div>
-
-    </div>
+    <iframe
+      id="pdf-iframe"
+      class="modal-iframe"
+      src="/assets/docs/bibliotecasvirtuaisminhabibliotecaebsco/Cartaz-ebsco1.pdf"
+      title="Bibliotecas Virtuais">
+    </iframe>
 
   </div>
 
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER (GLOBAL INJETADO) -->
 <div id="footer-container"></div>
 
 <!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-<!-- 🔥 OBRIGATÓRIO -->
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-</script>
+<!-- JS GLOBAL -->
+<script src="/assets/js/layout/layout.js"></script>
+<script src="/assets/js/layout/global.js"></script>
 
-<!-- JS -->
-<script src="/assets/js/layout/layout.js" defer></script>
-<script src="/assets/js/layout/global.js" defer></script>
+<!-- JS DA PÁGINA -->
 <script src="../../../assets/js/pages/informativos/bibliotecas-virtuais.js" defer></script>
 
 </body>

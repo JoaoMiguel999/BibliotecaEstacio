@@ -16,14 +16,11 @@ function injectComponent(containerId, url, callback) {
 
 
 // ===============================
-// SIDEBAR (CORRIGIDO)
-// ===============================
-// ===============================
-// SIDEBAR (COM SETAS FUNCIONANDO)
+// SIDEBAR
 // ===============================
 function initSidebar() {
   const sidebar = document.getElementById("sidebar");
-  const toggle = document.getElementById("menuToggle");
+  const toggle  = document.getElementById("menuToggle");
   const overlay = document.getElementById("overlay");
 
   if (!sidebar || !toggle || !overlay) return;
@@ -50,9 +47,7 @@ function initSidebar() {
     if (e.key === "Escape") fechar();
   });
 
-  // ===============================
-  // 🔥 SETAS (SUBMENU) — CORREÇÃO
-  // ===============================
+  // SUBMENUS
   const subToggles = sidebar.querySelectorAll(".sub-toggle");
 
   subToggles.forEach(btn => {
@@ -65,14 +60,10 @@ function initSidebar() {
 
       const isOpen = parent.classList.contains("open");
 
-      // fecha outros submenus
       sidebar.querySelectorAll(".has-sub.open").forEach(item => {
-        if (item !== parent) {
-          item.classList.remove("open");
-        }
+        if (item !== parent) item.classList.remove("open");
       });
 
-      // alterna atual
       parent.classList.toggle("open", !isOpen);
     };
   });
@@ -80,11 +71,11 @@ function initSidebar() {
 
 
 // ===============================
-// MODAL (TELA CHEIA)
+// MODAL
 // ===============================
 function initModal() {
-  const modal = document.getElementById("modalPDF");
-  const openBtn = document.getElementById("abrirModal");
+  const modal    = document.getElementById("modalPDF");
+  const openBtn  = document.getElementById("abrirModal");
   const closeBtn = document.getElementById("fecharModal");
 
   if (!modal || !openBtn || !closeBtn) return;
@@ -122,25 +113,25 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 const PDF_URL =
-  "/assets/docs/documentosinformativos/normas-biblioteca-2026.pdf";
+  "../../../assets/docs/documentosinformativos/normas-biblioteca-2026.pdf";
 
-let pdfDoc = null;
-let pageNum = 1;
-let scale = 1.2;
+let pdfDoc   = null;
+let pageNum  = 1;
+let scale    = 1.2;
 let rendering = false;
-let pending = null;
+let pending   = null;
 
 const canvas = document.getElementById("pdf-canvas");
-const ctx = canvas?.getContext("2d");
+const ctx    = canvas?.getContext("2d");
 
-const elPageNum = document.querySelector("[data-page-num]");
+const elPageNum   = document.querySelector("[data-page-num]");
 const elPageCount = document.querySelector("[data-page-count]");
-const elZoom = document.querySelector("[data-zoom-level]");
+const elZoom      = document.querySelector("[data-zoom-level]");
 
 const btnPrev = document.querySelector("[data-prev]");
 const btnNext = document.querySelector("[data-next]");
-const btnIn = document.querySelector("[data-zoom-in]");
-const btnOut = document.querySelector("[data-zoom-out]");
+const btnIn   = document.querySelector("[data-zoom-in]");
+const btnOut  = document.querySelector("[data-zoom-out]");
 
 function renderPage(num) {
   if (!pdfDoc) return;
@@ -150,7 +141,7 @@ function renderPage(num) {
   pdfDoc.getPage(num).then(page => {
     const viewport = page.getViewport({ scale });
 
-    canvas.width = viewport.width;
+    canvas.width  = viewport.width;
     canvas.height = viewport.height;
 
     const task = page.render({ canvasContext: ctx, viewport });
@@ -163,8 +154,12 @@ function renderPage(num) {
       }
     });
 
-    if (elPageNum) elPageNum.textContent = num;
-    if (elZoom) elZoom.textContent = Math.round(scale * 100) + "%";
+    if (elPageNum)   elPageNum.textContent   = num;
+    if (elPageCount) elPageCount.textContent = pdfDoc.numPages;
+    if (elZoom)      elZoom.textContent      = Math.round(scale * 100) + "%";
+
+    if (btnPrev) btnPrev.disabled = num <= 1;
+    if (btnNext) btnNext.disabled = num >= pdfDoc.numPages;
   });
 }
 
@@ -178,18 +173,14 @@ function loadPDF() {
 
   pdfjsLib.getDocument(PDF_URL).promise.then(pdf => {
     pdfDoc = pdf;
-
-    if (elPageCount) {
-      elPageCount.textContent = pdf.numPages;
-    }
-
+    if (elPageCount) elPageCount.textContent = pdf.numPages;
     renderPage(pageNum);
   });
 }
 
 
 // ===============================
-// INIT PDF CONTROLS
+// CONTROLES PDF
 // ===============================
 function initPDF() {
   btnNext?.addEventListener("click", () => {
@@ -221,13 +212,13 @@ function initPDF() {
 
 
 // ===============================
-// EXECUÇÃO CORRETA (IMPORTANTE)
+// EXECUÇÃO
 // ===============================
-injectComponent("sidebar-container", "../../components/sidebar.html", () => {
-  initSidebar(); // 👈 SÓ AQUI FUNCIONA SEM BUG
+injectComponent("sidebar-container", "../../../components/sidebar.html", () => {
+  initSidebar();
 });
 
-injectComponent("footer-container", "../../components/footer.html");
+injectComponent("footer-container", "../../../components/footer.html");
 
 document.addEventListener("DOMContentLoaded", () => {
   initPDF();

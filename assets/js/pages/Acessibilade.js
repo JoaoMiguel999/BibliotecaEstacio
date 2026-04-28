@@ -5,7 +5,6 @@
 const toggle = document.getElementById("menuToggle");
 const overlay = document.getElementById("overlay");
 
-// sidebar é injetada via fetch
 let sidebar = null;
 
 
@@ -14,12 +13,14 @@ let sidebar = null;
 // ===============================
 
 const waitSidebar = setInterval(() => {
+
   sidebar = document.querySelector(".sidebar");
 
   if (sidebar) {
     clearInterval(waitSidebar);
     initSidebar();
   }
+
 }, 100);
 
 
@@ -29,42 +30,52 @@ const waitSidebar = setInterval(() => {
 
 function initSidebar() {
 
-  const subToggles = document.querySelectorAll(".sub-toggle");
+  // pega apenas botões da sidebar
+  const subToggles = sidebar.querySelectorAll(".sub-toggle");
 
   // ===============================
   // SUBMENUS
   // ===============================
+
   subToggles.forEach(btn => {
+
     btn.addEventListener("click", (e) => {
+
+      e.preventDefault();
       e.stopPropagation();
 
       const parent = btn.closest(".has-sub");
+
+      if (!parent) return;
+
       const isOpen = parent.classList.contains("open");
 
-      // fecha outros menus abertos
-      document.querySelectorAll(".has-sub.open").forEach(item => {
+      // fecha outros submenus
+      sidebar.querySelectorAll(".has-sub.open").forEach(item => {
+
         if (item !== parent) {
+
           item.classList.remove("open");
-          item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
+
+          item
+            .querySelector(".sub-toggle")
+            ?.setAttribute("aria-expanded", "false");
         }
+
       });
 
-      // toggle atual
+      // abre atual
       parent.classList.toggle("open");
-      btn.setAttribute("aria-expanded", !isOpen);
+
+      btn.setAttribute(
+        "aria-expanded",
+        String(!isOpen)
+      );
+
     });
+
   });
 
-  // clique fora da sidebar
-  document.addEventListener("click", (e) => {
-    const clickedOutside =
-      !sidebar.contains(e.target) &&
-      !toggle.contains(e.target);
-
-    if (clickedOutside && sidebar.classList.contains("active")) {
-      closeSidebar();
-    }
-  });
 }
 
 
@@ -75,19 +86,28 @@ function initSidebar() {
 if (toggle && overlay) {
 
   toggle.addEventListener("click", (e) => {
+
     e.stopPropagation();
 
     if (!sidebar) return;
 
     const isActive = sidebar.classList.toggle("active");
+
     overlay.classList.toggle("active");
 
-    toggle.setAttribute("aria-expanded", isActive);
+    toggle.setAttribute(
+      "aria-expanded",
+      String(isActive)
+    );
 
-    if (!isActive) closeAllSubmenus();
+    if (!isActive) {
+      closeAllSubmenus();
+    }
+
   });
 
   overlay.addEventListener("click", closeSidebar);
+
 }
 
 
@@ -96,13 +116,17 @@ if (toggle && overlay) {
 // ===============================
 
 function closeSidebar() {
+
   if (!sidebar) return;
 
   sidebar.classList.remove("active");
+
   overlay.classList.remove("active");
+
   toggle.setAttribute("aria-expanded", "false");
 
   closeAllSubmenus();
+
 }
 
 
@@ -111,11 +135,42 @@ function closeSidebar() {
 // ===============================
 
 function closeAllSubmenus() {
-  document.querySelectorAll(".has-sub.open").forEach(item => {
+
+  if (!sidebar) return;
+
+  sidebar.querySelectorAll(".has-sub.open").forEach(item => {
+
     item.classList.remove("open");
-    item.querySelector(".sub-toggle")?.setAttribute("aria-expanded", "false");
+
+    item
+      .querySelector(".sub-toggle")
+      ?.setAttribute("aria-expanded", "false");
+
   });
+
 }
+
+
+// ===============================
+// CLIQUE FORA FECHA MENU
+// ===============================
+
+document.addEventListener("click", (e) => {
+
+  if (!sidebar || !toggle) return;
+
+  const clickedOutside =
+    !sidebar.contains(e.target) &&
+    !toggle.contains(e.target);
+
+  if (
+    clickedOutside &&
+    sidebar.classList.contains("active")
+  ) {
+    closeSidebar();
+  }
+
+});
 
 
 // ===============================
@@ -123,9 +178,11 @@ function closeAllSubmenus() {
 // ===============================
 
 document.addEventListener("keydown", (e) => {
+
   if (e.key === "Escape") {
     closeSidebar();
   }
+
 });
 
 
@@ -136,21 +193,33 @@ document.addEventListener("keydown", (e) => {
 const reveals = document.querySelectorAll(".reveal");
 
 function revealOnScroll() {
+
   const windowHeight = window.innerHeight;
 
   reveals.forEach((el, index) => {
-    const elementTop = el.getBoundingClientRect().top;
+
+    const elementTop =
+      el.getBoundingClientRect().top;
 
     if (elementTop < windowHeight - 100) {
+
       setTimeout(() => {
         el.classList.add("active");
       }, index * 100);
+
     }
+
   });
+
 }
 
-// eventos de scroll
+
+// ===============================
+// EVENTOS
+// ===============================
+
 window.addEventListener("load", revealOnScroll);
+
 window.addEventListener("scroll", revealOnScroll);
 
 
@@ -158,4 +227,6 @@ window.addEventListener("scroll", revealOnScroll);
 // DEBUG
 // ===============================
 
-console.log("🚀 Sistema atualizado carregado (sidebar dinâmica + menu + reveal)");
+console.log(
+  "🚀 Sidebar dinâmica carregada com sucesso"
+);

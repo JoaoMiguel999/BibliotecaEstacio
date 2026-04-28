@@ -6,10 +6,11 @@
 @import url('../global/components.css');
 @import url('../global/footer.css');
 @import url('../global/botaopdf.css');
+@import url('../global/responsive.css');
 
 
 /* =========================
-   HERO — wifi
+   HERO
 ========================= */
 .hero {
   position: relative;
@@ -69,6 +70,7 @@
   padding: clamp(16px, 5vw, 40px);
 }
 
+/* caixa branca com sombra — engloba tudo */
 .section-destaques {
   background: #fff;
   padding: 24px;
@@ -78,13 +80,13 @@
 
 
 /* =========================
-   PDF WRAPPER (FUNDO PRETO MANTIDO)
+   PDF WRAPPER
 ========================= */
 .pdf-wrapper {
   margin-top: 20px;
   border-radius: 16px;
   overflow: hidden;
-  background: #1e1e1e; /* fundo escuro mantido */
+  background: #1e1e1e;
   display: flex;
   flex-direction: column;
 }
@@ -101,7 +103,7 @@
   padding: 16px;
   min-height: 60vh;
   max-height: 70vh;
-  background: #2a2a2a; /* área interna escura */
+  background: #2a2a2a;
   width: 100%;
   box-sizing: border-box;
 }
@@ -115,7 +117,7 @@
 
 
 /* =========================
-   CONTROLES PDF (BOTÕES NOVOS)
+   CONTROLES PDF
 ========================= */
 .pdf-controls {
   display: flex;
@@ -127,7 +129,6 @@
   flex-wrap: wrap;
 }
 
-/* grupos */
 .pdf-nav,
 .pdf-zoom {
   display: flex;
@@ -137,29 +138,25 @@
 
 
 /* =========================
-   BOTÕES (ESTILO MODERNO)
+   BOTÕES DE CONTROLE
 ========================= */
 .btn-control {
   width: 42px;
   height: 42px;
   border: none;
   border-radius: 10px;
-
-  background: #1f2937 !important;
+  background: #1f2937;
   color: #fff;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 18px;
   cursor: pointer;
-
   transition: all 0.25s ease;
 }
 
 .btn-control:hover {
-  background: #2563eb !important;
+  background: #2563eb;
   transform: scale(1.08);
 }
 
@@ -169,8 +166,6 @@
   transform: none;
 }
 
-
-/* textos */
 .pdf-info {
   font-size: 14px;
   color: #ccc;
@@ -186,7 +181,7 @@
 
 
 /* =========================
-   AÇÕES (BOTÕES PRINCIPAIS)
+   AÇÕES — dentro da section branca
 ========================= */
 .acoes {
   margin-top: 20px;
@@ -210,6 +205,7 @@
   gap: 8px;
   min-width: 180px;
   transition: 0.25s ease;
+  cursor: pointer;
 }
 
 .btn-visualizar {
@@ -257,46 +253,32 @@
   position: relative;
 }
 
-.modal iframe {
+.modal-iframe {
   width: 100%;
   height: 100%;
   border: none;
 }
 
-.close-modal {
+.modal-close {
   position: absolute;
   top: 12px;
-  right: 16px;
-  font-size: 30px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.6);
   color: #fff;
-  background: none;
+  font-size: 22px;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  transition: 0.2s;
 }
 
-
-/* =========================
-   RESPONSIVO
-========================= */
-@media (max-width: 768px) {
-
-  .pdf-canvas-wrap {
-    min-height: 55vh;
-    max-height: 60vh;
-    padding: 10px;
-  }
-
-  .acoes {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .acoes > * {
-    width: 100%;
-  }
-
-  .pdf-controls {
-    flex-direction: column;
-    gap: 10px;
-  }
+.modal-close:hover {
+  background: rgba(0,0,0,0.8);
 }

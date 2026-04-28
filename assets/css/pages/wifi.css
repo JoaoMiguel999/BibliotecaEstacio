@@ -6,6 +6,8 @@
 @import url('../global/components.css');
 @import url('../global/footer.css');
 @import url('../global/botaopdf.css');
+@import url('../global/responsive.css');
+
 
 
 /* =========================
@@ -293,28 +295,3 @@
 }
 
 
-/* =========================
-   RESPONSIVO
-========================= */
-@media (max-width: 768px) {
-
-  .pdf-canvas-wrap {
-    min-height: 55vh;
-    max-height: 60vh;
-    padding: 10px;
-  }
-
-  .pdf-controls {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .acoes {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .acoes > * {
-    width: 100%;
-  }
-}

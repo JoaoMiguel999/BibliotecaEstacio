@@ -6,6 +6,7 @@
 @import url('../global/components.css');
 @import url('../global/footer.css');
 @import url('../global/botaopdf.css');
+@import url('../global/responsive.css');
 
 
 /* =========================
@@ -282,66 +283,3 @@
 }
 
 
-/* =========================
-   FIX REAL DO MODAL MOBILE
-========================= */
-@media (max-width: 768px) {
-
-  /* remove qualquer padding errado */
-  .modal {
-    padding: 0;
-  }
-
-  /* 🔥 botão sempre acima de tudo */
-  .modal-close {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-
-    width: 42px;
-    height: 42px;
-
-    font-size: 22px;
-
-    z-index: 99999;
-
-    background: rgba(0,0,0,0.75);
-    border-radius: 12px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* 🔥 empurra o PDF pra baixo do botão */
-  .modal-iframe {
-    margin-top: 60px;
-    height: calc(100vh - 60px);
-  }
-
-}
-@media (max-width: 768px) {
-
-  .pdf-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .pdf-nav,
-  .pdf-zoom {
-    justify-content: center;
-    width: 100%;
-  }
-
-  .btn-control {
-    flex: 1;
-    max-width: 60px;
-  }
-
-  .pdf-info,
-  .pdf-zoom-level {
-    text-align: center;
-    min-width: auto;
-  }
-}

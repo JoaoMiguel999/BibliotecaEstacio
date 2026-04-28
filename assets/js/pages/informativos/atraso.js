@@ -1,313 +1,226 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ===============================
+// INJECT COMPONENTS
+// ===============================
+function injectComponent(containerId, url, callback) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  fetch(url)
+    .then(res => res.text())
+    .then(html => {
+      container.innerHTML = html;
+      if (callback) callback();
+    })
+    .catch(err => console.warn(err));
+}
 
 
-  // ===============================
-  // SIDEBAR (EVENT DELEGATION)
-  // ===============================
-  function initSidebar() {
+// ===============================
+// SIDEBAR
+// ===============================
+function initSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const toggle  = document.getElementById("menuToggle");
+  const overlay = document.getElementById("overlay");
 
-    if (window.__sidebarInitialized) return;
-    window.__sidebarInitialized = true;
+  if (!sidebar || !toggle || !overlay) return;
 
-    document.addEventListener("click", (e) => {
+  const abrir = () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
 
-      const sidebar    = document.getElementById("sidebar");
-      const overlay    = document.getElementById("overlay");
+  const fechar = () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+  };
 
-      if (!sidebar || !overlay) return;
+  toggle.onclick = () => {
+    sidebar.classList.contains("active") ? fechar() : abrir();
+  };
 
-      const menuToggle = e.target.closest("#menuToggle");
-      const overlayHit = e.target.closest("#overlay");
-      const subBtn     = e.target.closest(".sub-toggle");
+  overlay.onclick = fechar;
 
-      if (menuToggle) {
-        const isActive = sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
-        document.body.style.overflow = isActive ? "hidden" : "";
-      }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fechar();
+  });
 
-      if (overlayHit) {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-        document.body.style.overflow = "";
-      }
+  // SUBMENUS
+  const subToggles = sidebar.querySelectorAll(".sub-toggle");
 
-      if (subBtn) {
-        e.preventDefault();
-        const parent = subBtn.closest(".has-sub");
-        if (!parent) return;
+  subToggles.forEach(btn => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-        document.querySelectorAll(".has-sub.open").forEach(item => {
-          if (item !== parent) item.classList.remove("open");
-        });
+      const parent = btn.closest(".has-sub");
+      if (!parent) return;
 
-        parent.classList.toggle("open");
-        subBtn.setAttribute("aria-expanded", parent.classList.contains("open"));
-      }
-    });
-  }
+      const isOpen = parent.classList.contains("open");
 
+      sidebar.querySelectorAll(".has-sub.open").forEach(item => {
+        if (item !== parent) item.classList.remove("open");
+      });
 
-  // ===============================
-  // INCLUDES (SIDEBAR + FOOTER)
-  // Página em: html/pages/informativos/
-  // Componentes em: html/components/
-  // ===============================
-  function loadIncludes() {
-
-    const pairs = [
-      { id: "sidebar-container", path: "../../../components/sidebar.html" },
-      { id: "footer-container",  path: "../../../components/footer.html"  }
-    ];
-
-    pairs.forEach(({ id, path }) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      fetch(path)
-        .then(r => {
-          if (!r.ok) throw new Error(`${path} → ${r.status}`);
-          return r.text();
-        })
-        .then(html => { el.innerHTML = html; })
-        .catch(err => console.warn("⚠️ Include não carregado:", err.message));
-    });
-  }
+      parent.classList.toggle("open", !isOpen);
+    };
+  });
+}
 
 
-  // ===============================
-  // MODAL
-  // ===============================
-  function initModal(callbacks) {
+// ===============================
+// MODAL
+// ===============================
+function initModal() {
+  const modal    = document.getElementById("modalPDF");
+  const openBtn  = document.getElementById("abrirModal");
+  const closeBtn = document.getElementById("fecharModal");
 
-    const modal = document.getElementById("modalPDF");
-    const open  = document.getElementById("abrirModal");
-    const close = document.getElementById("fecharModal");
+  if (!modal || !openBtn || !closeBtn) return;
 
-    if (!modal || !open || !close) return;
+  openBtn.onclick = () => {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
 
-    open.addEventListener("click", () => {
-      modal.classList.add("active");
-      document.body.style.overflow = "hidden";
-      callbacks?.onOpen?.();
-    });
+  closeBtn.onclick = () => {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  };
 
-    const closeModal = () => {
+  modal.onclick = (e) => {
+    if (e.target === modal) {
       modal.classList.remove("active");
       document.body.style.overflow = "";
-      callbacks?.onClose?.();
-    };
-
-    close.addEventListener("click", closeModal);
-
-    // Fechar clicando no fundo (fora de .modal-content)
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    // Fechar com Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
-    });
-  }
-
-
-  // ===============================
-  // PDF ENGINE
-  // CORRIGIDO:
-  // - scaleAuto responsivo (adapta ao container)
-  // - canvas modal só renderiza quando modal está aberto
-  // - renderTask.cancel() evita renders sobrepostos
-  // - disabled nos botões de navegação
-  // ===============================
-  function initPDF() {
-
-    if (typeof pdfjsLib === "undefined") {
-      console.warn("⚠️ PDF.js não carregado");
-      return;
     }
+  };
 
-    const url = "../../../assets/docs/documentosinformativos/pendencia-de-livros.pdf";
-
-    const canvas      = document.getElementById("pdf-canvas");
-    const canvasModal = document.getElementById("pdf-canvas-modal");
-
-    if (!canvas) return;
-
-    const ctx      = canvas.getContext("2d");
-    const ctxModal = canvasModal?.getContext("2d");
-
-    const container      = document.querySelector(".pdf-canvas-wrap");
-    const containerModal = document.querySelector(".modal-canvas-wrap");
-
-    const pageNumEl   = document.querySelector("[data-page-num]");
-    const pageCountEl = document.querySelector("[data-page-count]");
-    const zoomLevelEl = document.querySelector("[data-zoom-level]");
-
-    const btnPrev    = document.querySelector("[data-prev]");
-    const btnNext    = document.querySelector("[data-next]");
-    const btnZoomIn  = document.querySelector("[data-zoom-in]");
-    const btnZoomOut = document.querySelector("[data-zoom-out]");
-
-    let pdfDoc      = null;
-    let pageNum     = 1;
-    let scale       = 1.0;
-    let isModalOpen = false;
-    let renderTask  = null;
-
-    // ----------------------------
-    // Calcula escala responsiva
-    // ----------------------------
-    function calcScale(page, wrap) {
-      const containerWidth = (wrap?.clientWidth || window.innerWidth) - 40;
-      const baseWidth      = page.getViewport({ scale: 1 }).width;
-      return (containerWidth / baseWidth) * scale;
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
     }
+  });
+}
 
-    // ----------------------------
-    // Renderiza num canvas
-    // ----------------------------
-    function renderToCanvas(page, targetCanvas, targetCtx, wrap) {
 
-      const finalScale     = calcScale(page, wrap);
-      const dpr            = window.devicePixelRatio || 1;
-      const scaledViewport = page.getViewport({ scale: finalScale * dpr });
+// ===============================
+// PDF.JS
+// ===============================
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-      targetCanvas.width  = scaledViewport.width;
-      targetCanvas.height = scaledViewport.height;
+const PDF_URL =
+  "../../../assets/docs/documentosinformativos/pendencia-de-livros.pdf";
 
-      targetCanvas.style.width  = (scaledViewport.width  / dpr) + "px";
-      targetCanvas.style.height = (scaledViewport.height / dpr) + "px";
+let pdfDoc    = null;
+let pageNum   = 1;
+let scale     = 1.2;
+let rendering = false;
+let pending   = null;
 
-      return page.render({ canvasContext: targetCtx, viewport: scaledViewport });
-    }
+const canvas = document.getElementById("pdf-canvas");
+const ctx    = canvas?.getContext("2d");
 
-    // ----------------------------
-    // Renderiza página principal
-    // ----------------------------
-    function renderPage(num) {
+const elPageNum   = document.querySelector("[data-page-num]");
+const elPageCount = document.querySelector("[data-page-count]");
+const elZoom      = document.querySelector("[data-zoom-level]");
 
-      if (!pdfDoc) return;
+const btnPrev = document.querySelector("[data-prev]");
+const btnNext = document.querySelector("[data-next]");
+const btnIn   = document.querySelector("[data-zoom-in]");
+const btnOut  = document.querySelector("[data-zoom-out]");
 
-      pdfDoc.getPage(num).then(page => {
+function renderPage(num) {
+  if (!pdfDoc) return;
 
-        // Cancela render anterior
-        if (renderTask) renderTask.cancel();
+  rendering = true;
 
-        // Canvas principal
-        renderTask = renderToCanvas(page, canvas, ctx, container);
+  pdfDoc.getPage(num).then(page => {
+    const viewport = page.getViewport({ scale });
 
-        renderTask.promise.catch(err => {
-          if (err?.name !== "RenderingCancelledException") {
-            console.error("Erro ao renderizar:", err);
-          }
-        });
+    canvas.width  = viewport.width;
+    canvas.height = viewport.height;
 
-        // Canvas modal (só se modal estiver aberto)
-        if (isModalOpen && canvasModal && ctxModal) {
-          renderToCanvas(page, canvasModal, ctxModal, containerModal);
-        }
+    const task = page.render({ canvasContext: ctx, viewport });
 
-        // Atualiza UI
-        if (pageNumEl)   pageNumEl.textContent   = num;
-        if (pageCountEl) pageCountEl.textContent = pdfDoc.numPages;
-        if (zoomLevelEl) zoomLevelEl.textContent = Math.round(scale * 100) + "%";
-
-        if (btnPrev) btnPrev.disabled = num <= 1;
-        if (btnNext) btnNext.disabled = num >= pdfDoc.numPages;
-      });
-    }
-
-    // ----------------------------
-    // Carrega o PDF
-    // ----------------------------
-    pdfjsLib.getDocument(url).promise
-      .then(pdf => {
-        pdfDoc = pdf;
-        renderPage(pageNum);
-      })
-      .catch(err => console.error("❌ Erro ao carregar PDF:", err));
-
-    // ----------------------------
-    // Navegação e zoom
-    // ----------------------------
-    document.addEventListener("click", (e) => {
-      if (!pdfDoc) return;
-
-      if (e.target.closest("[data-next]") && pageNum < pdfDoc.numPages) {
-        renderPage(++pageNum);
-      }
-
-      if (e.target.closest("[data-prev]") && pageNum > 1) {
-        renderPage(--pageNum);
-      }
-
-      if (e.target.closest("[data-zoom-in]")) {
-        scale = Math.min(3, +(scale + 0.2).toFixed(1));
-        renderPage(pageNum);
-      }
-
-      if (e.target.closest("[data-zoom-out]")) {
-        scale = Math.max(0.5, +(scale - 0.2).toFixed(1));
-        renderPage(pageNum);
+    task.promise.then(() => {
+      rendering = false;
+      if (pending !== null) {
+        renderPage(pending);
+        pending = null;
       }
     });
 
-    // ----------------------------
-    // Swipe mobile
-    // ----------------------------
-    if (container) {
-      let startX = 0, startY = 0;
+    if (elPageNum)   elPageNum.textContent   = num;
+    if (elPageCount) elPageCount.textContent = pdfDoc.numPages;
+    if (elZoom)      elZoom.textContent      = Math.round(scale * 100) + "%";
 
-      container.addEventListener("touchstart", e => {
-        startX = e.changedTouches[0].screenX;
-        startY = e.changedTouches[0].screenY;
-      }, { passive: true });
+    if (btnPrev) btnPrev.disabled = num <= 1;
+    if (btnNext) btnNext.disabled = num >= pdfDoc.numPages;
+  });
+}
 
-      container.addEventListener("touchend", e => {
-        const dx = e.changedTouches[0].screenX - startX;
-        const dy = e.changedTouches[0].screenY - startY;
+function queue(num) {
+  if (rendering) pending = num;
+  else renderPage(num);
+}
 
-        if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+function loadPDF() {
+  if (!window.pdfjsLib || !canvas) return;
 
-        if (dx < 0 && pdfDoc && pageNum < pdfDoc.numPages) renderPage(++pageNum);
-        else if (dx > 0 && pageNum > 1) renderPage(--pageNum);
-      }, { passive: true });
+  pdfjsLib.getDocument(PDF_URL).promise.then(pdf => {
+    pdfDoc = pdf;
+    if (elPageCount) elPageCount.textContent = pdf.numPages;
+    renderPage(pageNum);
+  });
+}
+
+
+// ===============================
+// CONTROLES PDF
+// ===============================
+function initPDF() {
+  btnNext?.addEventListener("click", () => {
+    if (pdfDoc && pageNum < pdfDoc.numPages) {
+      pageNum++;
+      queue(pageNum);
     }
+  });
 
-    // ----------------------------
-    // Responsivo dinâmico
-    // ----------------------------
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (pdfDoc) renderPage(pageNum);
-      }, 200);
-    });
+  btnPrev?.addEventListener("click", () => {
+    if (pageNum > 1) {
+      pageNum--;
+      queue(pageNum);
+    }
+  });
 
-    // ----------------------------
-    // Retorna callbacks do modal
-    // ----------------------------
-    return {
-      onOpen: () => {
-        isModalOpen = true;
-        if (pdfDoc) renderPage(pageNum);
-      },
-      onClose: () => {
-        isModalOpen = false;
-      }
-    };
-  }
+  btnIn?.addEventListener("click", () => {
+    scale = Math.min(scale + 0.2, 3);
+    queue(pageNum);
+  });
+
+  btnOut?.addEventListener("click", () => {
+    scale = Math.max(scale - 0.2, 0.6);
+    queue(pageNum);
+  });
+
+  loadPDF();
+}
 
 
-  // ===============================
-  // INIT
-  // ===============================
+// ===============================
+// EXECUÇÃO
+// ===============================
+injectComponent("sidebar-container", "../../../components/sidebar.html", () => {
   initSidebar();
-  loadIncludes();
+});
 
-  const pdfCallbacks = initPDF();
-  initModal(pdfCallbacks);
+injectComponent("footer-container", "../../../components/footer.html");
 
+document.addEventListener("DOMContentLoaded", () => {
+  initPDF();
+  initModal();
 });

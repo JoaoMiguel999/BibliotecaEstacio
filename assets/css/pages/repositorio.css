@@ -9,6 +9,8 @@
 @import url('../global/components.css');
 @import url('../global/footer.css');
 @import url('../global/botaopdf.css');
+@import url('../global/responsive.css');
+
 
 
 /* =========================
@@ -381,24 +383,4 @@
     height: 100%;
     border-radius: 0;
   }
-}
-/* =========================
-   FIX BOTÃO FECHAR (MOBILE)
-========================= */
-@media (max-width: 768px) {
-
-  .modal-close {
-    top: 10px;
-    right: 10px;
-    width: 34px;
-    height: 34px;
-    font-size: 18px;
-    z-index: 20;
-  }
-
-  /* 🔥 cria espaço para não sobrepor conteúdo */
-  .modal-content {
-    padding-top: 50px;
-  }
-
 }
