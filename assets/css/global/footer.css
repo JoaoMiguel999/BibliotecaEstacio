@@ -1,3 +1,12 @@
+/* =====================================================
+   footer.css — Rodapé
+   Biblioteca Estácio São Luís
+
+   Requer: base.css
+   @import url('../../css/global/footer.css');
+===================================================== */
+
+
 /* =========================
    FOOTER
 ========================= */
@@ -8,14 +17,17 @@
   margin-top: var(--space-lg);
 }
 
-.footer-inner { max-width: 900px; margin: 0 auto; }
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
 
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: clamp(20px, 5vw, 40px);
   padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid var(--white-border);
 }
 
 .footer-logo-row {
@@ -29,14 +41,16 @@
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.footer-logo-icon i { font-size: 17px; }
+.footer-logo-icon i {
+  font-size: 17px;
+}
 
 .footer-logo-name {
   font-size: clamp(11px, 2vw, 13px);
@@ -46,7 +60,7 @@
 
 .footer-desc {
   font-size: clamp(11.5px, 2vw, 12.5px);
-  color: rgba(255,255,255,0.4);
+  color: var(--white-muted);
   line-height: 1.8;
 }
 
@@ -54,20 +68,29 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.45);
   margin-bottom: 12px;
   font-weight: 600;
 }
 
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 7px; }
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 7px;
+}
+
 .footer-col ul li a {
   font-size: clamp(11.5px, 2vw, 13px);
-  color: rgba(255,255,255,0.5);
+  color: var(--white-soft);
   text-decoration: none;
   transition: color 0.2s;
 }
-.footer-col ul li a:hover { color: #fff; }
+
+.footer-col ul li a:hover {
+  color: #fff;
+}
 
 .footer-bottom-row {
   display: flex;
@@ -77,5 +100,5 @@
   gap: 8px;
   padding-top: 18px;
   font-size: 12px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.25);
 }

@@ -1,108 +1,16 @@
 /* =====================================================
-   responsive.css — Responsividade Global
+   responsive.css — Sobrescritas de Breakpoint
    Biblioteca Estácio São Luís
 
-   USO: adicione ao topo do CSS de cada página:
-   @import url('../../global/responsive.css');
+   ⚠️  Este arquivo contém APENAS ajustes responsivos.
+       Definições originais de componentes ficam em:
+       • components.css  (menu-toggle, aviso-banner, hero-eyebrow, pdf-controls)
+       • layout.css      (sidebar, hero, cards)
+       • footer.css      (rodapé)
 
-   ou se estiver em subpasta (informativos, etc.):
-   @import url('../../../css/global/responsive.css');
+   Requer: base.css + demais globais
+   @import url('../../css/global/responsive.css');
 ===================================================== */
-
-
-/* =====================================================
-   MENU TOGGLE (botão hambúrguer)
-===================================================== */
-.menu-toggle {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1100;
-
-  width: 44px;
-  height: 44px;
-
-  border: none;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
-  color: #fff;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 22px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.menu-toggle:hover {
-  background: rgba(0, 0, 0, 0.75);
-}
-
-
-/* =====================================================
-   AVISO BANNER
-===================================================== */
-.aviso-banner {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  background: #fff8e1;
-  border-left: 4px solid #f59e0b;
-  color: #78350f;
-
-  padding: 14px 20px;
-  font-size: 14px;
-}
-
-.aviso-banner i {
-  font-size: 18px;
-  flex-shrink: 0;
-  color: #f59e0b;
-}
-
-
-/* =====================================================
-   HERO EYEBROW + SUBTITLE
-===================================================== */
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 999px;
-
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-
-  padding: 6px 16px;
-  margin-bottom: 16px;
-}
-
-.hero-eyebrow i {
-  font-size: 15px;
-}
-
-.hero-title-accent {
-  color: #60a5fa;
-}
-
-.hero-subtitle {
-  color: rgba(255,255,255,0.80);
-  font-size: clamp(14px, 2.2vw, 18px);
-  max-width: 600px;
-  margin: 12px auto 0;
-  line-height: 1.6;
-}
 
 
 /* =====================================================
@@ -116,6 +24,21 @@
 
   .section-destaques {
     padding: 20px;
+  }
+}
+
+
+/* =====================================================
+   BREAKPOINT: Tablet médio — 900px
+===================================================== */
+@media (max-width: 900px) {
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-grid > *:first-child {
+    grid-column: 1 / -1;
   }
 }
 
@@ -164,7 +87,6 @@
     border-radius: 0;
   }
 
-  /* Botão fechar fixo acima do iframe */
   .modal-close {
     position: fixed;
     top: 12px;
@@ -189,17 +111,68 @@
 
 
 /* =====================================================
-   BREAKPOINT: Mobile pequeno — 480px
+   BREAKPOINT: Mobile — 600px
 ===================================================== */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 
+  :root {
+    --sidebar-width: min(270px, 82vw);
+  }
+
+  /* Menu toggle */
   .menu-toggle {
     top: 12px;
     left: 12px;
     width: 40px;
     height: 40px;
-    font-size: 20px;
+    font-size: 18px;
   }
+
+  /* Hero */
+  .hero         { height: clamp(260px, 58vh, 380px); }
+  .hero::after  { height: 70px; }
+  .hero-content { padding: 0 16px; }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-outline {
+    width: 100%;
+    justify-content: center;
+    max-width: 280px;
+  }
+
+  /* Aviso banner */
+  .aviso-banner {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  /* Content / destaques */
+  .content          { padding: 16px; margin-top: -16px; }
+  .section-destaques { padding: 16px; }
+
+  /* Cards */
+  .cards-container { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+
+/* =====================================================
+   BREAKPOINT: Mobile pequeno — 480px
+===================================================== */
+@media (max-width: 480px) {
 
   .aviso-banner {
     font-size: 13px;
@@ -254,5 +227,13 @@
 
   .hero-eyebrow {
     display: none;
+  }
+
+  .hero-content h2 {
+    font-size: 22px;
+  }
+
+  .sidebar {
+    padding: 16px 10px;
   }
 }

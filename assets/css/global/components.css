@@ -1,271 +1,212 @@
+/* =====================================================
+   components.css — Componentes Reutilizáveis
+   Biblioteca Estácio São Luís
+
+   Requer: base.css
+   @import url('../../css/global/components.css');
+===================================================== */
+
+
 /* =========================
-   SIDEBAR
+   MENU TOGGLE (hambúrguer)
+   Definição canônica — não duplicar em outros arquivos.
+   responsive.css só sobrescreve tamanhos nos breakpoints.
 ========================= */
-.sidebar {
-  width: var(--sidebar-width);
-  height: 100vh;
+.menu-toggle {
   position: fixed;
-  top: 0;
-  left: -100%;
-  background: #003893;
-  color: white;
-  padding: 20px 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-}
+  top: 14px;
+  left: 14px;
+  z-index: 1100;
 
-.sidebar.active {
-  left: 0;
-}
+  width: 44px;
+  height: 44px;
 
-.sidebar::-webkit-scrollbar {
-  width: 4px;
-}
+  border: none;
+  border-radius: 11px;
+  background: var(--primary);
+  color: #fff;
 
-.sidebar::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.2);
-  border-radius: 10px;
-}
-
-/* =========================
-   BRAND
-========================= */
-.brand {
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 0 4px;
-  flex-shrink: 0;
-}
-
-.logo-img {
-  width: 64px;
-  margin: 0 auto 8px;
-}
-
-.brand h1 {
-  font-size: 13px;
-  line-height: 1.5;
-  font-weight: 700;
-  color: white;
-}
-
-.brand-divider {
-  width: 36px;
-  height: 2px;
-  background: rgba(255,255,255,0.2);
-  margin: 10px auto 0;
-  border-radius: 2px;
-}
-
-/* =========================
-   NAV
-========================= */
-.nav {
-  flex: 1;
-}
-
-.nav ul {
-  list-style: none;
-}
-
-.nav li {
-  margin-bottom: 2px;
-}
-
-.nav-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.4);
-  padding: 14px 10px 5px;
-  font-weight: 600;
-  display: block;
-}
-
-/* LINKS PRINCIPAIS */
-.nav > ul > li > a {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 13.5px;
-  font-weight: 600;
-  width: 100%;
-  transition: background 0.2s, transform 0.2s;
+  justify-content: center;
+
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.nav > ul > li > a:hover {
-  background: rgba(255,255,255,0.14);
-  transform: translateX(4px);
-}
+.menu-toggle:hover  { background: var(--primary-light); }
+.menu-toggle:active { transform: scale(0.95); }
+
 
 /* =========================
-   MENU LAYOUT
+   AVISO BANNER
 ========================= */
-.menu-left {
+.aviso-banner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  flex: 1;
+
+  background: #eff6ff;
+  border-left: 4px solid var(--primary);
+  color: #1e3a70;
+
+  padding: clamp(10px, 2vw, 14px) clamp(16px, 5vw, 40px);
+  font-size: clamp(12px, 2vw, 13.5px);
+  line-height: 1.5;
+
+  position: relative;
+  z-index: 2;
 }
 
-.menu-left i {
-  font-size: 18px;
-  width: 20px;
-  text-align: center;
+.aviso-banner i {
+  color: var(--primary);
+  font-size: 17px;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
+
 
 /* =========================
-   SUBTOGGLE
+   HERO EYEBROW
+   Definição canônica — não duplicar em outros arquivos.
 ========================= */
-.sub-toggle {
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 100px;
+
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(10px, 2vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+
+  padding: 5px 14px;
+  margin-bottom: 14px;
+}
+
+.hero-eyebrow i {
+  font-size: 14px;
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: clamp(13px, 2vw, 17px);
+  margin-top: 10px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+
+/* =========================
+   PDF CONTROLS
+========================= */
+.pdf-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: white;
-  background: transparent;
-  border: none;
-  width: 100%;
-  cursor: pointer;
-  font-size: 13.5px;
-  font-weight: 600;
-  transition: background 0.2s, transform 0.2s;
+  gap: 12px;
+  padding: 12px 16px;
+
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(10px);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0 0 12px 12px;
+
+  flex-wrap: wrap;
 }
 
-.sub-toggle:hover {
-  background: rgba(255,255,255,0.14);
-  transform: translateX(4px);
-}
-
-.sub-toggle > i.arrow {
-  font-size: 16px;
-  transition: transform 0.3s ease;
-}
-
-/* ROTAÇÃO DO ARROW */
-.has-sub.open .arrow {
-  transform: rotate(180deg);
-}
-
-/* =========================
-   SUBMENU (CORRIGIDO DEFINITIVO)
-========================= */
-.sub {
-  list-style: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  padding-left: 14px;
-}
-
-/* 🔥 CORREÇÃO FINAL IMPORTANTE */
-.has-sub.open .sub {
-  max-height: 1200px; /* garante todos os itens visíveis */
-}
-
-/* LINKS SUBMENU */
-.sub li a {
+.pdf-nav,
+.pdf-zoom {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  color: rgba(255,255,255,0.75);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
 }
 
-.sub li a:hover {
-  background: rgba(255,255,255,0.1);
+.btn-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 36px;
+  min-width: 36px;
+  padding: 0 12px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: linear-gradient(145deg, #2a2a2a, #242424);
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 16px;
+  cursor: pointer;
+
+  transition: all 0.18s ease;
+}
+
+.btn-control:hover {
+  background: linear-gradient(145deg, #333, #2b2b2b);
   color: #fff;
 }
 
-.sub li a i {
-  font-size: 14px;
-  width: 16px;
-  text-align: center;
+.btn-control:active {
+  transform: scale(0.95);
 }
 
-/* =========================
-   MENU ITEM DUPLO (ACESSIBILIDADE)
-========================= */
-.menu-item {
-  display: flex;
-  align-items: stretch;
-  border-radius: 10px;
+.btn-control:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.menu-item:hover {
-  background: rgba(255,255,255,0.14);
-}
-
-.menu-link {
-  flex: 1;
+.pdf-info {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  color: white;
-  text-decoration: none;
-  font-size: 13.5px;
+  gap: 4px;
+}
+
+.pdf-info span {
   font-weight: 600;
+  color: #fff;
 }
 
-.menu-item > .sub-toggle {
-  width: 38px;
-  padding: 10px 8px;
-  justify-content: center;
+.pdf-separator {
+  opacity: 0.4;
 }
 
-/* =========================
-   SIDEBAR FOOTER
-========================= */
-.sidebar-footer {
-  margin-top: 20px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 11px;
-  color: rgba(255,255,255,0.3);
+.pdf-zoom-level {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+
+  min-width: 48px;
   text-align: center;
+
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
 }
+
 
 /* =========================
-   CARDS
+   SECTION DESTAQUES
 ========================= */
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: var(--card);
+.section-destaques {
+  padding: var(--space-md);
   border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 4px 24px rgba(0,56,147,0.07);
-  border: 1px solid #e8eef8;
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0,56,147,0.14);
-}
-
-/* =========================
-   HORÁRIOS
-========================= */
-.horarios-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: 20px;
 }

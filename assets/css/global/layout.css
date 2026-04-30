@@ -1,5 +1,14 @@
+/* =====================================================
+   layout.css — Estrutura, Sidebar, Hero, Cards
+   Biblioteca Estácio São Luís
+
+   Requer: base.css
+   @import url('../../css/global/layout.css');
+===================================================== */
+
+
 /* =========================
-   LAYOUT
+   LAYOUT RAIZ
 ========================= */
 .layout {
   display: flex;
@@ -14,30 +23,6 @@
   min-width: 0;
 }
 
-/* =========================
-   MENU TOGGLE
-========================= */
-.menu-toggle {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-size: 20px;
-  padding: 10px 13px;
-  border-radius: 11px;
-  cursor: pointer;
-  z-index: 1100;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  transition: background 0.2s, transform 0.15s;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  line-height: 1;
-}
-
-.menu-toggle:hover { background: var(--primary-light); }
-.menu-toggle:active { transform: scale(0.95); }
 
 /* =========================
    OVERLAY
@@ -45,14 +30,263 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
   z-index: 999;
 }
 
-.overlay.active { opacity: 1; visibility: visible; }
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  background: var(--primary);
+  color: white;
+  padding: 20px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--white-border);
+  border-radius: 10px;
+}
+
+
+/* =========================
+   BRAND (dentro da sidebar)
+========================= */
+.brand {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 64px;
+  margin: 0 auto 8px;
+}
+
+.brand h1 {
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 700;
+  color: white;
+}
+
+.brand-divider {
+  width: 36px;
+  height: 2px;
+  background: var(--white-border);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+
+/* =========================
+   NAV
+========================= */
+.nav {
+  flex: 1;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.nav li {
+  margin-bottom: 2px;
+}
+
+.nav-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--white-muted);
+  padding: 14px 10px 5px;
+  font-weight: 600;
+  display: block;
+}
+
+/* Links principais */
+.nav > ul > li > a {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  width: 100%;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav > ul > li > a:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(4px);
+}
+
+
+/* =========================
+   MENU LAYOUT (ícone + texto)
+========================= */
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.menu-left i {
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+
+/* =========================
+   SUB-TOGGLE
+========================= */
+.sub-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: white;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.sub-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateX(4px);
+}
+
+.sub-toggle > i.arrow {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.has-sub.open .arrow {
+  transform: rotate(180deg);
+}
+
+
+/* =========================
+   SUBMENU
+========================= */
+.sub {
+  list-style: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding-left: 14px;
+}
+
+.has-sub.open .sub {
+  max-height: 1200px;
+}
+
+.sub li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--white-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sub li a:hover {
+  background: var(--white-border);
+  color: #fff;
+}
+
+.sub li a i {
+  font-size: 14px;
+  width: 16px;
+  text-align: center;
+}
+
+
+/* =========================
+   MENU ITEM DUPLO (acessibilidade)
+========================= */
+.menu-item {
+  display: flex;
+  align-items: stretch;
+  border-radius: 10px;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.menu-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.menu-item > .sub-toggle {
+  width: 38px;
+  padding: 10px 8px;
+  justify-content: center;
+}
+
+
+/* =========================
+   SIDEBAR FOOTER
+========================= */
+.sidebar-footer {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--white-border);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
 
 /* =========================
    HERO
@@ -81,7 +315,7 @@
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .hero-section {
@@ -99,21 +333,6 @@
   width: 100%;
 }
 
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 100px;
-  padding: 5px 14px;
-  font-size: clamp(10px, 2vw, 12px);
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 14px;
-}
-
 .hero-content h2 {
   color: white;
   font-family: 'Playfair Display', serif;
@@ -122,16 +341,8 @@
   line-height: 1.2;
 }
 
-.hero-title-accent { color: #7fb3ff; }
-
-.hero-subtitle {
-  color: rgba(255,255,255,0.65);
-  font-size: clamp(13px, 2vw, 17px);
-  margin-top: 10px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.7;
+.hero-title-accent {
+  color: #7fb3ff;
 }
 
 .hero-ctas {
@@ -163,7 +374,7 @@
   background: var(--primary);
   color: #fff;
   border: none;
-  box-shadow: 0 4px 18px rgba(0,56,147,0.4);
+  box-shadow: 0 4px 18px rgba(0, 56, 147, 0.4);
 }
 
 .btn-hero-primary:hover {
@@ -172,49 +383,61 @@
 }
 
 .btn-hero-outline {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid var(--white-fade);
 }
 
 .btn-hero-outline:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.4);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* =========================
-   AVISO BANNER
-========================= */
-.aviso-banner {
-  background: #eff6ff;
-  border-left: 4px solid var(--primary);
-  padding: clamp(10px, 2vw, 14px) clamp(16px, 5vw, 40px);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: clamp(12px, 2vw, 13.5px);
-  color: #1e3a70;
-  position: relative;
-  z-index: 2;
-  line-height: 1.5;
-}
-
-.aviso-banner i {
-  color: var(--primary);
-  font-size: 17px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
 
 /* =========================
    CONTENT
 ========================= */
 .content {
   margin-top: clamp(-20px, -4vw, -80px);
-  padding: clamp(16px, 5vw, 40px);
+  padding: var(--space-md);
   position: relative;
   z-index: 2;
 }
+
+
+/* =========================
+   CARDS
+========================= */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 4px 24px rgba(0, 56, 147, 0.07);
+  border: 1px solid var(--border);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 56, 147, 0.14);
+}
+
+
+/* =========================
+   HORÁRIOS
+========================= */
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+}
+
 
 /* =========================
    SCROLL REVEAL
@@ -228,70 +451,4 @@
 .reveal.visible {
   opacity: 1;
   transform: none;
-}
-
-/* =========================
-   TABLET (≤ 900px)
-========================= */
-@media (max-width: 900px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .footer-grid > *:first-child {
-    grid-column: 1 / -1;
-  }
-}
-
-/* =========================
-   MOBILE (≤ 600px)
-========================= */
-@media (max-width: 600px) {
-  :root { --sidebar-width: min(270px, 82vw); }
-
-  .menu-toggle {
-    top: 12px;
-    left: 12px;
-    font-size: 18px;
-    padding: 9px 12px;
-  }
-
-  .hero { height: clamp(260px, 58vh, 380px); }
-  .hero::after { height: 70px; }
-  .hero-content { padding: 0 16px; }
-
-  .hero-ctas {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-hero-primary,
-  .btn-hero-outline {
-    width: 100%;
-    justify-content: center;
-    max-width: 280px;
-  }
-
-  .aviso-banner { padding: 10px 16px; font-size: 12px; }
-
-  .content { padding: 16px; margin-top: -16px; }
-
-  .section-destaques { padding: 16px; }
-
-  .cards-container { grid-template-columns: 1fr; }
-
-  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
-
-  .footer-bottom-row {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-/* =========================
-   MUITO PEQUENO (≤ 380px)
-========================= */
-@media (max-width: 380px) {
-  .hero-content h2 { font-size: 22px; }
-  .sidebar { padding: 16px 10px; }
 }
