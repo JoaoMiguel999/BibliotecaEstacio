@@ -1,169 +1,45 @@
-/* =========================
-   IMPORTS GLOBAIS
-   Arquivo em: assets/css/pages/repositorio.css
-   Global em:  assets/css/global/
-   → caminho relativo: ../global/
-========================= */
-@import url('../global/base.css');
-@import url('../global/layout.css');
-@import url('../global/components.css');
-@import url('../global/footer.css');
-@import url('../global/botaopdf.css');
-@import url('../global/responsive.css');
-@import url('../global/pdfviwer.css');
-
-/* =========================
-   HERO
-========================= */
-.hero {
-  position: relative;
-  height: clamp(280px, 60vh, 620px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
-  transform: scale(1.04);
-  transition: transform 8s ease-out;
-}
-
-.hero:hover .hero-bg {
-  transform: scale(1);
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 15, 30, 0.5) 0%,
-    rgba(10, 15, 30, 0.72) 60%,
-    rgba(10, 15, 30, 0.88) 100%
-  );
-}
-
-.hero-section {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 24px 20px;
-  max-width: 700px;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 5px 13px;
-  border-radius: 999px;
-  margin-bottom: 20px;
-}
-
-.hero-content h2 {
-  color: #fff;
-  font-size: clamp(26px, 5.5vw, 50px);
-  font-weight: 700;
-  line-height: 1.12;
-  margin: 0 0 16px;
-  letter-spacing: -0.01em;
-}
-
-.hero-title-accent {
-  color: #93c5fd;
-}
-
-.hero-subtitle {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: clamp(14px, 1.8vw, 17px);
-  max-width: 540px;
-  margin: 0 auto;
-  line-height: 1.65;
-}
+/* ========================================
+   PDF VIEWER — GLOBAL RESPONSIVO v3
+   Alinhado com pdf-viewer.js v3 (full fit)
+   Classes esperadas pelo JS:
+     .pdf-canvas-wrap        → container viewer
+     .pdf-canvas-wrap-modal  → container modal
+     #pdf-canvas             → canvas viewer
+     #pdf-canvas-modal       → canvas modal
+     #modalPDF               → modal overlay
+     #abrirModal             → botão abrir
+     #fecharModal            → botão fechar
+     .modal / .modal.active  → estado do modal
+     .pdf-loading            → estado de loading
+     .pdf-error              → mensagem de erro
+     [data-prev/next]        → nav viewer
+     [data-zoom-in/out]      → zoom viewer
+     [data-prev/next-modal]  → nav modal
+     [data-zoom-in/out-modal]→ zoom modal
+     [data-page-num/count]   → info viewer
+     [data-zoom-level]       → zoom viewer
+     [data-page-num/count-modal] → info modal
+     [data-zoom-level-modal] → zoom modal
+======================================== */
 
 
 /* =========================
-   ANIMAÇÃO REVEAL
-========================= */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-  will-change: transform, opacity;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* =========================
-   CONTEÚDO
-========================= */
-.content {
-  padding: clamp(20px, 5vw, 48px);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.content-full {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: clamp(16px, 5vw, 40px);
-}
-
-.section-destaques {
-  background: #fff;
-  padding: 28px 32px;
-  border-radius: 20px;
-  border: 0.5px solid #e8ecf1;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
-}
-
-.section-destaques h2 {
-  font-size: clamp(17px, 2.8vw, 24px);
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 10px;
-  letter-spacing: -0.01em;
-}
-
-.section-destaques p {
-  color: #475569;
-  line-height: 1.72;
-  margin: 0 0 4px;
-  font-size: 15px;
-}
-
-
-/* =========================
-   PDF WRAPPER
+   WRAPPER PRINCIPAL
 ========================= */
 .pdf-wrapper {
-  margin-top: 22px;
+  width: 100%;
+  background: #16181f;
   border-radius: 18px;
   overflow: hidden;
-  background: #16181f;
   display: flex;
   flex-direction: column;
   border: 0.5px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Barra de título do viewer */
+
+/* =========================
+   TITLEBAR
+========================= */
 .pdf-titlebar {
   display: flex;
   align-items: center;
@@ -171,6 +47,7 @@
   padding: 11px 16px;
   background: #1e2130;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
 }
 
 .pdf-titlebar-icon {
@@ -219,74 +96,84 @@
 
 .pdf-titlebar-btn:hover {
   background: rgba(255, 255, 255, 0.11);
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 
 /* =========================
-   ÁREA DO CANVAS
+   ÁREA DO CANVAS — VIEWER
+   O JS v3 usa calcFitScale que lê
+   clientWidth e clientHeight do container
+   para calcular o fit automático.
+   Por isso o container PRECISA ter altura
+   definida e overflow: hidden (não auto).
+   Scroll não é necessário — o canvas é
+   redimensionado para caber exatamente.
 ========================= */
 .pdf-canvas-wrap {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  overflow: auto;
+  align-items: center;           /* centraliza vertical — full fit */
+  overflow: hidden;              /* JS dimensiona o canvas para caber */
   padding: 20px;
   min-height: 60vh;
   max-height: 70vh;
+  height: 65vh;                  /* altura fixa que o calcFitScale lê */
   background: #1e2130;
   width: 100%;
   box-sizing: border-box;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.12) transparent;
+  position: relative;            /* ancora o spinner ::after */
 }
 
-.pdf-canvas-wrap::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
 
-.pdf-canvas-wrap::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.pdf-canvas-wrap::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 99px;
-}
-
-#pdf-canvas {
+/* =========================
+   CANVAS
+========================= */
+#pdf-canvas,
+#pdf-canvas-modal {
   display: block;
   max-width: 100%;
+  max-height: 100%;
   border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 12px 40px rgba(0,0,0,0.5);
   background: #fff;
+  box-shadow:
+    0 2px 8px  rgba(0, 0, 0, 0.25),
+    0 12px 40px rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease;
 }
 
-/* Loading state */
-.pdf-canvas-wrap.pdf-loading #pdf-canvas {
-  opacity: 0.35;
+
+/* =========================
+   LOADING
+   O JS adiciona .pdf-loading no container.
+   O spinner é o ::after do container.
+========================= */
+.pdf-canvas-wrap.pdf-loading #pdf-canvas,
+.pdf-canvas-wrap-modal.pdf-loading #pdf-canvas-modal {
+  opacity: 0.3;
 }
 
-.pdf-canvas-wrap.pdf-loading::after {
+.pdf-canvas-wrap.pdf-loading::after,
+.pdf-canvas-wrap-modal.pdf-loading::after {
   content: '';
   position: absolute;
-  width: 28px;
-  height: 28px;
-  border: 2px solid rgba(255,255,255,0.08);
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
   border-top-color: #3b82f6;
   border-radius: 50%;
-  animation: pdf-spin 0.7s linear infinite;
+  animation: pdfSpin 0.7s linear infinite;
+  pointer-events: none;
 }
 
-@keyframes pdf-spin {
+@keyframes pdfSpin {
   to { transform: rotate(360deg); }
 }
 
-/* Mensagem de erro */
+
+/* =========================
+   ERRO
+========================= */
 .pdf-error {
   color: #f87171;
   font-size: 14px;
@@ -301,7 +188,7 @@
 ========================= */
 .pdf-progress {
   height: 2px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -316,7 +203,7 @@
 
 
 /* =========================
-   CONTROLES PDF
+   CONTROLES
 ========================= */
 .pdf-controls {
   display: flex;
@@ -326,6 +213,7 @@
   padding: 12px 16px;
   background: #16181f;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .pdf-nav,
@@ -335,6 +223,7 @@
   gap: 8px;
 }
 
+/* Botão padrão — usado com [data-prev], [data-next] etc. */
 .btn-control {
   width: 38px;
   height: 38px;
@@ -366,6 +255,15 @@
   transform: none !important;
 }
 
+/* Variante menor — controles dentro da modal-titlebar */
+.btn-control--sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+/* Indicador de página */
 .pdf-info {
   display: flex;
   align-items: center;
@@ -382,10 +280,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+.pdf-info--sm span {
+  font-size: 12px;
+}
+
 .pdf-separator {
   color: rgba(255, 255, 255, 0.22);
 }
 
+/* Indicador de zoom */
 .pdf-zoom-level {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
@@ -397,9 +300,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+.pdf-zoom-level--sm {
+  font-size: 11px;
+  min-width: 40px;
+  padding: 3px 8px;
+}
+
 
 /* =========================
-   AÇÕES
+   AÇÕES (download / tela cheia)
 ========================= */
 .acoes {
   margin-top: 22px;
@@ -430,27 +339,25 @@
 
 .btn-visualizar {
   background: #16a34a;
-  box-shadow: 0 1px 2px rgba(22,163,74,0.2), 0 4px 12px rgba(22,163,74,0.25);
+  box-shadow: 0 1px 2px rgba(22, 163, 74, 0.2), 0 4px 12px rgba(22, 163, 74, 0.25);
 }
 
 .btn-download {
   background: #1d4ed8;
-  box-shadow: 0 1px 2px rgba(29,78,216,0.2), 0 4px 12px rgba(29,78,216,0.25);
+  box-shadow: 0 1px 2px rgba(29, 78, 216, 0.2), 0 4px 12px rgba(29, 78, 216, 0.25);
 }
 
-.btn-download:visited {
-  color: #fff;
-}
+.btn-download:visited { color: #fff; }
 
 .btn-visualizar:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(22,163,74,0.2), 0 8px 20px rgba(22,163,74,0.32);
+  box-shadow: 0 2px 4px rgba(22, 163, 74, 0.2), 0 8px 20px rgba(22, 163, 74, 0.32);
   opacity: 0.94;
 }
 
 .btn-download:hover {
   transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(29,78,216,0.2), 0 8px 20px rgba(29,78,216,0.32);
+  box-shadow: 0 2px 4px rgba(29, 78, 216, 0.2), 0 8px 20px rgba(29, 78, 216, 0.32);
   opacity: 0.94;
 }
 
@@ -462,6 +369,9 @@
 
 /* =========================
    MODAL
+   O JS adiciona/remove .active.
+   A entrada usa transform no .modal-content
+   para o efeito de slide-up suave.
 ========================= */
 .modal {
   position: fixed;
@@ -500,29 +410,52 @@
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
 }
 
+/* Animação de entrada — JS adiciona .active no .modal,
+   o CSS aplica o transform no .modal-content filho */
 .modal.active .modal-content {
   transform: translateY(0) scale(1);
 }
 
-/* Barra de título do modal */
+
+/* =========================
+   TITLEBAR DO MODAL
+   Controles de nav/zoom ficam aqui,
+   liberando 100% da área do canvas.
+========================= */
 .modal-titlebar {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: #1e2130;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .modal-titlebar-title {
   flex: 1;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.62);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.modal-titlebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.modal-nav-group,
+.modal-zoom-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .modal-close {
@@ -546,52 +479,90 @@
   color: #f87171;
 }
 
-/* Canvas area do modal — igual ao viewer mas sem height fixo */
+
+/* =========================
+   ÁREA DO CANVAS — MODAL
+   O JS v3 usa calcFitScale com o
+   clientWidth e clientHeight deste container.
+   Precisa ter dimensões reais quando o modal
+   abre — por isso o setTimeout(300) no JS.
+   overflow: hidden + flex centralizado =
+   canvas sempre cabe sem scroll.
+========================= */
 .pdf-canvas-wrap-modal {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  overflow: auto;
+  align-items: center;           /* full fit: centraliza vertical */
+  overflow: hidden;
   padding: 20px;
-  flex: 1;
+  flex: 1;                       /* ocupa todo o espaço restante do modal */
   background: #1e2130;
   box-sizing: border-box;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.12) transparent;
+  position: relative;            /* ancora o spinner ::after */
 }
 
-.pdf-canvas-wrap-modal::-webkit-scrollbar { width: 5px; height: 5px; }
-.pdf-canvas-wrap-modal::-webkit-scrollbar-track { background: transparent; }
-.pdf-canvas-wrap-modal::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 99px;
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+
+  .pdf-canvas-wrap {
+    height: 58vh;
+    min-height: 50vh;
+    max-height: 62vh;
+    padding: 12px;
+  }
+
+  .pdf-canvas-wrap-modal {
+    padding: 12px;
+  }
+
+  .pdf-controls {
+    justify-content: center;
+    padding: 10px 12px;
+  }
+
+  .acoes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes > * {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .modal {
+    padding: 0;
+  }
+
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+  }
+
+  .modal-titlebar-title {
+    display: none;
+  }
+
+  .modal-titlebar-controls {
+    flex: 1;
+    justify-content: center;
+  }
 }
 
-#pdf-canvas-modal {
-  display: block;
-  max-width: 100%;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 12px 40px rgba(0,0,0,0.5);
-  background: #fff;
-  transition: opacity 0.3s ease;
-}
+@media (max-width: 480px) {
+  .pdf-info span,
+  .pdf-zoom-level {
+    font-size: 12px;
+  }
 
-.pdf-canvas-wrap-modal.pdf-loading #pdf-canvas-modal {
-  opacity: 0.35;
+  .btn-control {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
 }
-
-/* Controles do modal — reutiliza .pdf-controls, .pdf-nav etc. */
-.modal-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #16181f;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
-

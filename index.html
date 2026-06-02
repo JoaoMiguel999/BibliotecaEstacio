@@ -4,203 +4,491 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Biblioteca | Estácio São Luís</title>
 
+  <!-- ICONS -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="./assets/css/pages/inicio.css" />
 </head>
 
-<body>
+<body data-base="./">
 
-<!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
-  <i class="ri-menu-line"></i>
-</button>
+  <!-- MENU -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+    <i class="ri-menu-line"></i>
+  </button>
 
-<!-- OVERLAY -->
-<div class="overlay" id="overlay"></div>
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR (INJETADA VIA FETCH) -->
-<div id="sidebar-container"></div>
+  <!-- SIDEBAR -->
+  <div id="sidebar-container"></div>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
+  <!-- HERO -->
+  <header class="hero">
 
-  <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
 
-      <div class="hero-eyebrow">
-        <i class="ri-building-4-line"></i>
-        Estácio São Luís — Maranhão
+    <section class="hero-section">
+
+      <div class="hero-content">
+
+        <div class="hero-eyebrow">
+          <i class="ri-building-4-line"></i>
+          Estácio São Luís — Maranhão
+        </div>
+
+        <h2>
+          Biblioteca
+          <span class="hero-title-accent">Universitária</span>
+        </h2>
+
+        <p class="hero-subtitle">
+          Um espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento acadêmico da nossa comunidade.
+        </p>
+
+        <div class="hero-ctas">
+
+          <a href="#servicos" class="btn-hero-primary">
+            <i class="ri-information-line"></i>
+            Conheça a biblioteca
+          </a>
+
+          <a href="#horarios" class="btn-hero-outline">
+            <i class="ri-time-line"></i>
+            Horários
+          </a>
+
+        </div>
+
       </div>
 
-      <h2>
-        Biblioteca <span class="hero-title-accent">Universitária</span>
-      </h2>
+    </section>
 
-      <p class="hero-subtitle">
-        Um espaço dedicado ao conhecimento, à pesquisa e ao desenvolvimento acadêmico da nossa comunidade.
-      </p>
+  </header>
 
-      <div class="hero-ctas">
-        <a href="#sobre" class="btn-hero-primary">
-          <i class="ri-information-line"></i> Conheça a biblioteca
-        </a>
+  <!-- AVISO -->
+  <div class="aviso-banner">
 
-        <a href="#horarios" class="btn-hero-outline">
-          <i class="ri-time-line"></i> Horários
-        </a>
-      </div>
+    <i class="ri-information-line"></i>
+
+    <span>
+      <strong>Aviso:</strong>
+      O empréstimo é exclusivo para alunos e docentes regularmente matriculados.
+    </span>
+
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="content">
+
+      <!-- SOBRE -->
+      <section class="section-destaques reveal" id="sobre">
+
+        <div class="section-header">
+          <i class="ri-book-open-line"></i>
+          <h2>Sobre a Biblioteca</h2>
+        </div>
+
+        <div class="section-line"></div>
+
+        <p>
+          A Biblioteca Estácio São Luís é um espaço dedicado ao conhecimento,
+          pesquisa e desenvolvimento acadêmico.
+          Oferece um ambiente moderno e acessível para estudantes e docentes
+          de todos os cursos.
+        </p>
+
+        <p>
+          Nosso objetivo é proporcionar recursos que auxiliem na formação
+          acadêmica e no crescimento intelectual,
+          com acervo atualizado, bases de dados online e atendimento especializado.
+        </p>
+
+      </section>
+
+      <!-- ESTATÍSTICAS -->
+      <section class="section-stats reveal" id="stats">
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <i class="ri-book-2-line"></i>
+            <span class="stat-number" data-target="15000">0</span>
+            <span class="stat-label">Títulos no acervo</span>
+          </div>
+
+          <div class="stat-card">
+            <i class="ri-file-copy-2-line"></i>
+            <span class="stat-number" data-target="40000">0</span>
+            <span class="stat-label">Volumes disponíveis</span>
+          </div>
+
+          <div class="stat-card">
+            <i class="ri-computer-line"></i>
+            <span class="stat-number" data-target="12">0</span>
+            <span class="stat-label">Bases de dados online</span>
+          </div>
+
+          <div class="stat-card">
+            <i class="ri-group-line"></i>
+            <span class="stat-number" data-target="5000">0</span>
+            <span class="stat-label">Usuários ativos</span>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- SERVIÇOS -->
+      <section class="section-servicos reveal" id="servicos">
+
+        <div class="section-header">
+          <i class="ri-service-line"></i>
+          <h2>Nossos Serviços</h2>
+        </div>
+
+        <div class="section-line"></div>
+
+        <div class="servicos-grid">
+
+          <div class="servico-card">
+            <div class="servico-icon">
+              <i class="ri-book-line"></i>
+            </div>
+
+            <h3>Empréstimo Domiciliar</h3>
+
+            <p>
+              Retire livros e materiais para estudar em casa.
+              Alunos podem retirar até 3 obras por 7 dias.
+            </p>
+          </div>
+
+          <div class="servico-card">
+            <div class="servico-icon">
+              <i class="ri-refresh-line"></i>
+            </div>
+
+            <h3>Renovação Online</h3>
+
+            <p>
+              Renove seus empréstimos pelo portal acadêmico sem precisar comparecer à biblioteca.
+            </p>
+          </div>
+
+          <div class="servico-card">
+            <div class="servico-icon">
+              <i class="ri-search-line"></i>
+            </div>
+
+            <h3>Pesquisa Bibliográfica</h3>
+
+            <p>
+              Nossos bibliotecários auxiliam na localização de referências e fontes para seus trabalhos.
+            </p>
+          </div>
+
+          <div class="servico-card">
+            <div class="servico-icon">
+              <i class="ri-global-line"></i>
+            </div>
+
+            <h3>Acesso a Bases de Dados</h3>
+
+            <p>
+              Acesse periódicos científicos, artigos e e-books por meio das bases de dados conveniadas.
+            </p>
+          </div>
+
+          <div class="servico-card">
+            <div class="servico-icon">
+              <i class="ri-file-text-line"></i>
+            </div>
+
+            <h3>Normalização de Trabalhos</h3>
+
+            <p>
+              Orientação para formatação de TCCs, monografias e artigos conforme as normas ABNT.
+            </p>
+          </div>
+
+          <div class="servico-card">
+            <div class="servico-icon">
+              <i class="ri-computer-line"></i>
+            </div>
+
+            <h3>Cabines de Estudo</h3>
+
+            <p>
+              Espaços individuais e em grupo com acesso à internet para concentração e pesquisa.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- AVISOS -->
+      <section class="section-avisos reveal" id="avisos">
+
+        <div class="section-header">
+          <i class="ri-megaphone-line"></i>
+          <h2>Informações Importantes</h2>
+        </div>
+
+        <div class="section-line"></div>
+
+        <div class="avisos-lista">
+
+          <div class="aviso-item aviso-info">
+
+            <div class="aviso-icone">
+              <i class="ri-information-line"></i>
+            </div>
+
+            <div class="aviso-texto">
+              <strong>Empréstimo</strong>
+
+              <p>
+                Graduação: até 3 obras por 7 dias.
+                Pós-graduação e docentes: até 5 obras por 15 dias.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="aviso-item aviso-alerta">
+
+            <div class="aviso-icone">
+              <i class="ri-error-warning-line"></i>
+            </div>
+
+            <div class="aviso-texto">
+              <strong>Atraso na Devolução</strong>
+
+              <p>
+                O atraso na devolução implica suspensão proporcional ao período de atraso.
+                Consulte o regulamento.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="aviso-item aviso-info">
+
+            <div class="aviso-icone">
+              <i class="ri-smartphone-line"></i>
+            </div>
+
+            <div class="aviso-texto">
+              <strong>Uso do Espaço</strong>
+
+              <p>
+                O uso de celular é permitido no modo silencioso.
+                Refeições são permitidas apenas na área de convivência.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="aviso-item aviso-sucesso">
+
+            <div class="aviso-icone">
+              <i class="ri-global-line"></i>
+            </div>
+
+            <div class="aviso-texto">
+              <strong>Acesso Remoto</strong>
+
+              <p>
+                Alunos e docentes têm acesso às bases de dados online
+                de qualquer lugar com login institucional.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- LINKS -->
+      <section class="section-links reveal" id="links">
+
+        <div class="section-header">
+          <i class="ri-links-line"></i>
+          <h2>Acesso Rápido</h2>
+        </div>
+
+        <div class="section-line"></div>
+
+        <div class="links-grid">
+
+          <a href="./pages/acervo/index.html" class="link-card">
+            <i class="ri-book-shelf-line"></i>
+            <span>Consultar Acervo</span>
+            <i class="ri-arrow-right-line link-arrow"></i>
+          </a>
+
+          <a href="./pages/normas/index.html" class="link-card">
+            <i class="ri-article-line"></i>
+            <span>Normas ABNT</span>
+            <i class="ri-arrow-right-line link-arrow"></i>
+          </a>
+
+          <a href="./html/pages/regulamento.html" class="link-card">
+            <i class="ri-file-list-3-line"></i>
+            <span>Regulamento</span>
+            <i class="ri-arrow-right-line link-arrow"></i>
+          </a>
+
+          <a href="./pages/bases/index.html" class="link-card">
+            <i class="ri-database-2-line"></i>
+            <span>Bases de Dados</span>
+            <i class="ri-arrow-right-line link-arrow"></i>
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- HORÁRIOS -->
+      <section class="section-horarios reveal" id="horarios">
+
+        <div class="section-header">
+          <i class="ri-time-line"></i>
+          <h2>Horários e Contato</h2>
+        </div>
+
+        <div class="section-line"></div>
+
+        <div class="horarios-grid">
+
+          <!-- FUNCIONAMENTO -->
+          <div class="horario-card">
+
+            <div class="card-header">
+              <i class="ri-calendar-check-line"></i>
+              Funcionamento
+            </div>
+
+            <div class="card-body">
+
+              <div class="horario-row">
+                <span>Segunda a Sexta</span>
+                <span>08h00 – 20h00</span>
+              </div>
+
+              <div class="horario-row">
+                <span>Sábado</span>
+                <span>Fechado</span>
+              </div>
+
+              <div class="horario-row">
+                <span>Domingo</span>
+                <span>Fechado</span>
+              </div>
+
+              <div class="horario-row">
+                <span>Feriados</span>
+                <span>Fechado</span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- CONTATO -->
+          <div class="contato-card">
+
+            <div class="card-header">
+              <i class="ri-contacts-line"></i>
+              Contato
+            </div>
+
+            <div class="card-body">
+
+              <!-- WHATSAPP -->
+              <a
+                href="https://wa.me/5598991150375"
+                target="_blank"
+                class="contato-item whatsapp-link"
+              >
+                <i class="ri-whatsapp-line"></i>
+
+                <div>
+                  <strong>WhatsApp</strong>
+                  <p>(98) 99115-0375 / 98918-0375</p>
+                </div>
+              </a>
+
+              <!-- LOCALIZAÇÃO -->
+              <div class="contato-item">
+
+                <i class="ri-map-pin-line"></i>
+
+                <div>
+                  <strong>Localização</strong>
+                  <p>Estácio São Luís — MA</p>
+                </div>
+
+              </div>
+
+              <!-- EMAIL -->
+              <a
+                href="mailto:biblioteca.saoluis@estacio.br"
+                class="contato-item"
+              >
+                <i class="ri-mail-line"></i>
+
+                <div>
+                  <strong>E-mail</strong>
+                  <p>biblioteca.saoluis@estacio.br</p>
+                </div>
+              </a>
+
+              <!-- INSTAGRAM -->
+              <a
+                href="https://www.instagram.com/biblioteca.estacio.slz.centro/"
+                target="_blank"
+                class="contato-item"
+              >
+                <i class="ri-instagram-line"></i>
+
+                <div>
+                  <strong>Instagram</strong>
+                  <p>@biblioteca.estacio.slz.centro</p>
+                </div>
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
     </div>
-  </section>
-</header>
 
-<!-- AVISO -->
-<div class="aviso-banner">
-  <i class="ri-information-line"></i>
-  <span>
-    <strong>Aviso:</strong> O empréstimo é exclusivo para alunos e docentes regularmente matriculados.
-  </span>
-</div>
+  </main>
 
-<!-- MAIN -->
-<main class="main">
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
 
-  <div class="content">
-
-    <!-- SOBRE -->
-    <section class="section-destaques reveal" id="sobre">
-
-      <div class="section-header">
-        <i class="ri-book-open-line"></i>
-        <h2>Sobre a Biblioteca</h2>
-      </div>
-
-      <div class="section-line"></div>
-
-      <p>
-        A Biblioteca Estácio São Luís é um espaço dedicado ao conhecimento, pesquisa e desenvolvimento acadêmico.
-        Oferece um ambiente moderno e acessível para estudantes.
-      </p>
-
-      <p>
-        Nosso objetivo é proporcionar recursos que auxiliem na formação acadêmica e no crescimento intelectual.
-      </p>
-
-    </section>
-
-    <!-- HORÁRIOS -->
-    <section class="section-horarios reveal" id="horarios">
-
-      <div class="section-header">
-        <i class="ri-time-line"></i>
-        <h2>Horários e Contato</h2>
-      </div>
-
-      <div class="section-line"></div>
-
-      <div class="horarios-grid">
-
-        <!-- HORÁRIO -->
-        <div class="horario-card">
-
-          <div class="card-header">
-            <i class="ri-calendar-check-line"></i>
-            Funcionamento
-          </div>
-
-          <div class="card-body">
-
-            <div class="horario-row">
-              <span>Segunda a Sexta</span>
-              <span>08h00 – 20h00</span>
-            </div>
-
-            <div class="horario-row">
-              <span>Sábado</span>
-              <span>Fechado</span>
-            </div>
-
-            <div class="horario-row">
-              <span>Domingo</span>
-              <span>Fechado</span>
-            </div>
-
-            <div class="horario-row">
-              <span>Feriados</span>
-              <span>Fechado</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- CONTATO -->
-        <div class="contato-card">
-
-          <div class="card-header">
-            <i class="ri-contacts-line"></i>
-            Contato
-          </div>
-
-          <div class="card-body">
-
-            <div class="contato-item">
-              <i class="ri-phone-line"></i>
-              <div>
-                <strong>Telefone</strong>
-                <p>(98) 99115-0375/</p>
-              </div>
-            </div>
-
-            <div class="contato-item">
-              <i class="ri-map-pin-line"></i>
-              <div>
-                <strong>Localização</strong>
-                <p>Estácio São Luís — MA</p>
-              </div>
-            </div>
-
-            <div class="contato-item">
-              <i class="ri-mail-line"></i>
-              <div>
-                <strong>E-mail</strong>
-                <p>biblioteca.saoluis@estacio.br</p>
-              </div>
-            </div>
-            <div class="contato-item">
-  <i class="ri-instagram-line"></i>
-  <div>
-    <strong>Instagram</strong>
-    <p><a href="https://www.instagram.com/estacio.saoluis.biblioteca/" target="_blank">@estacio.saoluis.biblioteca
-</a></p>
-  </div>
-</div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </div>
-
-</main>
-
-<!-- FOOTER -->
-<div id="footer-container"></div>
-
-<!-- JS (IMPORTANTE: SEM "/" NA FRENTE) -->
-<script src="./assets/js/layout/layout.js"></script>
-<script src="./assets/js/layout/global.js"></script>
-<script src="./assets/js/pages/inicio.js"></script>
+  <!-- JS -->
+  <script src="./assets/js/layout/layout.js"></script>
+  <script src="./assets/js/pages/inicio.js"></script>
 
 </body>
 </html>

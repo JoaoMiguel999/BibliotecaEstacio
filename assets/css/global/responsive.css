@@ -4,12 +4,10 @@
 
    ⚠️  Este arquivo contém APENAS ajustes responsivos.
        Definições originais de componentes ficam em:
-       • components.css  (menu-toggle, aviso-banner, hero-eyebrow, pdf-controls)
-       • layout.css      (sidebar, hero, cards)
-       • footer.css      (rodapé)
+       • components.css
+       • layout.css
+       • footer.css
 
-   Requer: base.css + demais globais
-   @import url('../../css/global/responsive.css');
 ===================================================== */
 
 
@@ -24,6 +22,10 @@
 
   .section-destaques {
     padding: 20px;
+  }
+
+  .modal-content {
+    max-width: 95vw;
   }
 }
 
@@ -40,6 +42,10 @@
   .footer-grid > *:first-child {
     grid-column: 1 / -1;
   }
+
+  .pdf-titlebar-name {
+    max-width: 180px;
+  }
 }
 
 
@@ -48,28 +54,110 @@
 ===================================================== */
 @media (max-width: 768px) {
 
-  /* PDF viewer */
+  /* =====================================================
+     PDF VIEWER
+  ===================================================== */
+
   .pdf-canvas-wrap {
     min-height: 50vh;
     max-height: 60vh;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Controles PDF em coluna */
+  .pdf-canvas-wrap canvas {
+    max-width: 100%;
+    height: auto !important;
+    border-radius: 10px;
+  }
+
+  /* =====================================================
+     CONTROLES PDF — ORGANIZADOS
+  ===================================================== */
+
   .pdf-controls {
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 12px;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 12px 18px;
   }
 
   .pdf-nav,
   .pdf-zoom {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 12px;
     width: 100%;
+    flex-wrap: nowrap;
   }
 
-  /* Botões de ação em coluna */
+  /* =====================================================
+     BOTÕES
+  ===================================================== */
+
+  .btn-control,
+  .btn-control--sm {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* =====================================================
+     INFO PAGINAÇÃO
+  ===================================================== */
+
+  .pdf-info {
+    min-width: 72px;
+    height: 42px;
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* =====================================================
+     ZOOM LEVEL
+  ===================================================== */
+
+  .pdf-zoom-level,
+  .pdf-zoom-level--sm {
+    min-width: 72px;
+    height: 42px;
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .pdf-progress {
+    height: 3px;
+  }
+
+  /* =====================================================
+     AÇÕES
+  ===================================================== */
+
   .acoes {
     flex-direction: column;
     align-items: stretch;
@@ -80,32 +168,55 @@
     justify-content: center;
   }
 
-  /* Modal — ocupa tela toda */
+  /* =====================================================
+     MODAL
+  ===================================================== */
+
+  .modal {
+    padding: 0;
+  }
+
   .modal-content {
     width: 100%;
     height: 100%;
     border-radius: 0;
+    border: none;
+    max-width: none;
   }
 
-  .modal-close {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 99999;
+  .modal-titlebar {
+    padding: 8px 12px;
+    gap: 8px;
   }
 
-  .modal-iframe {
-    margin-top: 60px;
-    height: calc(100% - 60px);
+  .modal-titlebar-title {
+    display: none;
   }
 
-  /* Hero menor */
+  .modal-titlebar-controls {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .pdf-canvas-wrap-modal {
+    padding: 10px;
+  }
+
+  /* =====================================================
+     HERO
+  ===================================================== */
+
   .hero {
     height: clamp(260px, 55vw, 400px);
   }
 
   .hero-subtitle {
     display: none;
+  }
+
+  .section-destaques {
+    padding: 20px;
+    border-radius: 14px;
   }
 }
 
@@ -119,7 +230,10 @@
     --sidebar-width: min(270px, 82vw);
   }
 
-  /* Menu toggle */
+  /* =====================================================
+     MENU
+  ===================================================== */
+
   .menu-toggle {
     top: 12px;
     left: 12px;
@@ -128,10 +242,21 @@
     font-size: 18px;
   }
 
-  /* Hero */
-  .hero         { height: clamp(260px, 58vh, 380px); }
-  .hero::after  { height: 70px; }
-  .hero-content { padding: 0 16px; }
+  /* =====================================================
+     HERO
+  ===================================================== */
+
+  .hero {
+    height: clamp(260px, 58vh, 380px);
+  }
+
+  .hero::after {
+    height: 70px;
+  }
+
+  .hero-content {
+    padding: 0 16px;
+  }
 
   .hero-ctas {
     flex-direction: column;
@@ -146,25 +271,88 @@
     max-width: 280px;
   }
 
-  /* Aviso banner */
+  /* =====================================================
+     AVISO
+  ===================================================== */
+
   .aviso-banner {
     padding: 10px 16px;
     font-size: 12px;
   }
 
-  /* Content / destaques */
-  .content          { padding: 16px; margin-top: -16px; }
-  .section-destaques { padding: 16px; }
+  /* =====================================================
+     CONTENT
+  ===================================================== */
 
-  /* Cards */
-  .cards-container { grid-template-columns: 1fr; }
+  .content {
+    padding: 16px;
+  }
 
-  /* Footer */
-  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+  .section-destaques {
+    padding: 16px;
+  }
+
+  /* =====================================================
+     CARDS
+  ===================================================== */
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  /* =====================================================
+     FOOTER
+  ===================================================== */
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 
   .footer-bottom-row {
     flex-direction: column;
     text-align: center;
+  }
+
+  /* =====================================================
+     TITLEBAR PDF
+  ===================================================== */
+
+  .pdf-titlebar {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .pdf-titlebar-name {
+    font-size: 12px;
+    max-width: 120px;
+  }
+
+  .pdf-titlebar-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  /* =====================================================
+     CONTROLES PDF
+  ===================================================== */
+
+  .btn-control,
+  .btn-control--sm {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  .pdf-info,
+  .pdf-zoom-level,
+  .pdf-zoom-level--sm {
+    min-width: 62px;
+    height: 38px;
+    font-size: 13px;
+    padding: 0 10px;
   }
 }
 
@@ -195,10 +383,39 @@
     padding: 8px;
   }
 
-  .btn-control {
-    width: 38px;
-    height: 38px;
-    font-size: 16px;
+  .pdf-canvas-wrap-modal {
+    padding: 8px;
+  }
+
+  /* =====================================================
+     CONTROLES MAIS COMPACTOS
+  ===================================================== */
+
+  .pdf-controls {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .pdf-nav,
+  .pdf-zoom {
+    gap: 10px;
+  }
+
+  .btn-control,
+  .btn-control--sm {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .pdf-info,
+  .pdf-zoom-level,
+  .pdf-zoom-level--sm {
+    min-width: 56px;
+    height: 36px;
+    font-size: 12px;
+    border-radius: 10px;
   }
 
   .btn-visualizar,
@@ -206,6 +423,10 @@
     padding: 11px 16px;
     font-size: 14px;
     min-width: unset;
+  }
+
+  .modal-zoom-group {
+    display: none;
   }
 }
 
@@ -217,12 +438,17 @@
 
   .pdf-controls {
     padding: 10px 8px;
+    gap: 10px;
+  }
+
+  .pdf-nav,
+  .pdf-zoom {
     gap: 8px;
   }
 
   .pdf-info,
   .pdf-zoom-level {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .hero-eyebrow {
@@ -235,5 +461,67 @@
 
   .sidebar {
     padding: 16px 10px;
+  }
+
+  .pdf-progress {
+    display: none;
+  }
+
+  .pdf-titlebar-name {
+    display: none;
+  }
+
+  .btn-control,
+  .btn-control--sm {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .pdf-info,
+  .pdf-zoom-level,
+  .pdf-zoom-level--sm {
+    min-width: 52px;
+    height: 34px;
+    padding: 0 8px;
+  }
+}
+
+
+/* =====================================================
+   UTILITÁRIOS RESPONSIVOS GERAIS
+===================================================== */
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+
+  .aviso-banner {
+    background: #1e2130;
+    color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.07);
   }
 }

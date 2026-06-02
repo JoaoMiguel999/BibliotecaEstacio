@@ -1,21 +1,38 @@
 // ===============================
+// SCROLL REVEAL
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const revealEls = document.querySelectorAll(".reveal");
+
+  if (revealEls.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealEls.forEach(el => observer.observe(el));
+  }
+});
+
+
+// ===============================
 // CARREGAMENTO DE COMPONENTES
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
 
   Promise.all([
     loadComponent("/components/sidebar.html", "sidebar-container"),
-    loadComponent("/components/footer.html", "footer-container")
-  ]).then(() => {
-    // garante que o HTML já foi injetado no DOM
-    setTimeout(() => {
-      initSidebar();
-    }, 50);
+    loadComponent("/components/footer.html",  "footer-container")
+  ]).then(([sidebarOk]) => {
+    if (sidebarOk) initSidebar();
   });
 
 });
 
-  
+
 // ===============================
 // FUNÇÃO: CARREGAR COMPONENTES
 // ===============================
@@ -71,13 +88,16 @@ function initSidebar() {
 
       const isOpen = parent.classList.contains("open");
 
-      // fecha outros submenus
+      // Fecha outros submenus abertos (comportamento acordeão)
       sidebar.querySelectorAll(".has-sub.open").forEach(item => {
-        if (item !== parent) item.classList.remove("open");
+        if (item !== parent) {
+          item.classList.remove("open");
+          const otherBtn = item.querySelector(".sub-toggle");
+          if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
+        }
       });
 
       parent.classList.toggle("open");
-
       btn.setAttribute("aria-expanded", String(!isOpen));
     });
   });
@@ -98,11 +118,11 @@ function initSidebar() {
   });
 
 
-  // overlay fecha sidebar
+  // Overlay fecha sidebar
   overlay.addEventListener("click", closeSidebar);
 
 
-  // clique fora fecha sidebar
+  // Clique fora fecha sidebar
   document.addEventListener("click", (e) => {
     if (
       sidebar.classList.contains("active") &&
@@ -114,9 +134,13 @@ function initSidebar() {
   });
 
 
-  // tecla ESC fecha
+  // Tecla ESC fecha sidebar (cede prioridade ao modal PDF)
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeSidebar();
+    if (e.key === "Escape") {
+      const modalPDF = document.getElementById("modalPDF");
+      if (modalPDF?.classList.contains("active")) return;
+      closeSidebar();
+    }
   });
 
 
@@ -133,8 +157,12 @@ function initSidebar() {
   function closeAllSubmenus() {
     sidebar.querySelectorAll(".has-sub.open").forEach(item => {
       item.classList.remove("open");
+      const btn = item.querySelector(".sub-toggle");
+      if (btn) btn.setAttribute("aria-expanded", "false");
     });
   }
 
   console.log("🚀 Sidebar inicializada com sucesso");
 }
+
+console.log("🚀 Global JS carregado");

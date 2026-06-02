@@ -1,232 +1,93 @@
-// ===============================
-// ELEMENTOS PRINCIPAIS
-// ===============================
+// ======================================================
+// Acessibilidade.js — Biblioteca Estácio São Luís
+// Contém apenas lógica exclusiva desta página.
+// Sidebar e scroll reveal já são gerenciados pelo global.js.
+// ======================================================
 
-const toggle = document.getElementById("menuToggle");
-const overlay = document.getElementById("overlay");
+document.addEventListener("DOMContentLoaded", () => {
 
-let sidebar = null;
+  // ======================================================
+  // REVEAL COM STAGGER NOS CARDS
+  // O global.js adiciona a classe "visible" nos .reveal,
+  // mas sem delay entre elementos. Aqui aplicamos
+  // transitionDelay individual para que os cards apareçam
+  // em sequência ao invés de todos juntos.
+  // ======================================================
+
+  document.querySelectorAll(".reveal").forEach((el, index) => {
+    el.style.transitionDelay = `${index * 80}ms`;
+  });
 
 
-// ===============================
-// ESPERA SIDEBAR SER CARREGADA
-// ===============================
+  // ======================================================
+  // PARALLAX NO HERO
+  // Atua em backgroundPositionY diretamente no .hero,
+  // onde o background-image está declarado no CSS.
+  // ======================================================
 
-const waitSidebar = setInterval(() => {
+  const hero = document.querySelector(".hero");
 
-  sidebar = document.querySelector(".sidebar");
-
-  if (sidebar) {
-    clearInterval(waitSidebar);
-    initSidebar();
+  if (hero) {
+    window.addEventListener("scroll", () => {
+      hero.style.backgroundPositionY =
+        `calc(center + ${window.scrollY * 0.3}px)`;
+    }, { passive: true });
   }
 
-}, 100);
 
+  // ======================================================
+  // SMOOTH SCROLL — ÂNCORAS
+  // ======================================================
 
-// ===============================
-// INICIALIZA SIDEBAR
-// ===============================
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
-function initSidebar() {
+    anchor.addEventListener("click", (e) => {
 
-  // pega apenas botões da sidebar
-  const subToggles = sidebar.querySelectorAll(".sub-toggle");
+      const targetId = anchor.getAttribute("href");
 
-  // ===============================
-  // SUBMENUS
-  // ===============================
+      if (!targetId || targetId === "#") return;
 
-  subToggles.forEach(btn => {
+      const target = document.querySelector(targetId);
 
-    btn.addEventListener("click", (e) => {
+      if (!target) return;
 
       e.preventDefault();
-      e.stopPropagation();
 
-      const parent = btn.closest(".has-sub");
-
-      if (!parent) return;
-
-      const isOpen = parent.classList.contains("open");
-
-      // fecha outros submenus
-      sidebar.querySelectorAll(".has-sub.open").forEach(item => {
-
-        if (item !== parent) {
-
-          item.classList.remove("open");
-
-          item
-            .querySelector(".sub-toggle")
-            ?.setAttribute("aria-expanded", "false");
-        }
-
-      });
-
-      // abre atual
-      parent.classList.toggle("open");
-
-      btn.setAttribute(
-        "aria-expanded",
-        String(!isOpen)
-      );
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
 
     });
 
   });
 
-}
 
+  // ======================================================
+  // HOVER 3D NOS CARDS
+  // ======================================================
 
-// ===============================
-// ABRIR / FECHAR MENU
-// ===============================
+  document.querySelectorAll(".card").forEach((card) => {
 
-if (toggle && overlay) {
+    card.addEventListener("mousemove", (e) => {
 
-  toggle.addEventListener("click", (e) => {
+      const rect    = card.getBoundingClientRect();
+      const rotateY = ((e.clientX - rect.left)  / rect.width  - 0.5) * 8;
+      const rotateX = ((e.clientY - rect.top)   / rect.height - 0.5) * -8;
 
-    e.stopPropagation();
+      card.style.transform = `
+        perspective(800px)
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        translateY(-6px)
+      `;
 
-    if (!sidebar) return;
+    });
 
-    const isActive = sidebar.classList.toggle("active");
-
-    overlay.classList.toggle("active");
-
-    toggle.setAttribute(
-      "aria-expanded",
-      String(isActive)
-    );
-
-    if (!isActive) {
-      closeAllSubmenus();
-    }
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
 
   });
 
-  overlay.addEventListener("click", closeSidebar);
 
-}
-
-
-// ===============================
-// FECHAR SIDEBAR
-// ===============================
-
-function closeSidebar() {
-
-  if (!sidebar) return;
-
-  sidebar.classList.remove("active");
-
-  overlay.classList.remove("active");
-
-  toggle.setAttribute("aria-expanded", "false");
-
-  closeAllSubmenus();
-
-}
-
-
-// ===============================
-// FECHAR SUBMENUS
-// ===============================
-
-function closeAllSubmenus() {
-
-  if (!sidebar) return;
-
-  sidebar.querySelectorAll(".has-sub.open").forEach(item => {
-
-    item.classList.remove("open");
-
-    item
-      .querySelector(".sub-toggle")
-      ?.setAttribute("aria-expanded", "false");
-
-  });
-
-}
-
-
-// ===============================
-// CLIQUE FORA FECHA MENU
-// ===============================
-
-document.addEventListener("click", (e) => {
-
-  if (!sidebar || !toggle) return;
-
-  const clickedOutside =
-    !sidebar.contains(e.target) &&
-    !toggle.contains(e.target);
-
-  if (
-    clickedOutside &&
-    sidebar.classList.contains("active")
-  ) {
-    closeSidebar();
-  }
+  console.log("🚀 Acessibilidade.js carregado");
 
 });
-
-
-// ===============================
-// ESC FECHA MENU
-// ===============================
-
-document.addEventListener("keydown", (e) => {
-
-  if (e.key === "Escape") {
-    closeSidebar();
-  }
-
-});
-
-
-// ===============================
-// REVEAL (ANIMAÇÃO AO SCROLL)
-// ===============================
-
-const reveals = document.querySelectorAll(".reveal");
-
-function revealOnScroll() {
-
-  const windowHeight = window.innerHeight;
-
-  reveals.forEach((el, index) => {
-
-    const elementTop =
-      el.getBoundingClientRect().top;
-
-    if (elementTop < windowHeight - 100) {
-
-      setTimeout(() => {
-        el.classList.add("active");
-      }, index * 100);
-
-    }
-
-  });
-
-}
-
-
-// ===============================
-// EVENTOS
-// ===============================
-
-window.addEventListener("load", revealOnScroll);
-
-window.addEventListener("scroll", revealOnScroll);
-
-
-// ===============================
-// DEBUG
-// ===============================
-
-console.log(
-  "🚀 Sidebar dinâmica carregada com sucesso"
-);

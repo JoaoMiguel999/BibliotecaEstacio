@@ -4,21 +4,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Consulta de Acervo | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="Consulta de Acervo - Biblioteca Estácio São Luís">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Biblioteca Estácio São Luís">
 
-  <meta name="description" content="Consulta de acervo da Biblioteca Estácio São Luís">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
-  <!-- Remix Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
-  <!-- CSS -->
+  <!-- CSS DA PÁGINA -->
   <link rel="stylesheet" href="../../../assets/css/pages/informativos/consultadeacervo.css" />
 </head>
 
 <body>
 
-<!-- MENU -->
+<!-- BOTÃO MENU -->
 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
   <i class="ri-menu-line"></i>
 </button>
@@ -26,7 +25,7 @@
 <!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR GLOBAL -->
 <div id="sidebar-container"></div>
 
 <!-- HERO -->
@@ -35,16 +34,14 @@
   <div class="hero-overlay"></div>
 
   <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-content reveal">
 
       <div class="hero-eyebrow">
         <i class="ri-book-open-line"></i>
         Biblioteca — Acervo
       </div>
 
-      <h1>
-        Consulta de <span class="hero-title-accent">Acervo</span>
-      </h1>
+      <h2>Consulta de <span class="hero-title-accent">Acervo</span></h2>
 
       <p class="hero-subtitle">
         Consulte livros, materiais disponíveis e informações sobre o acervo da biblioteca.
@@ -54,142 +51,168 @@
   </section>
 </header>
 
+<!-- AVISO -->
+<div class="aviso-banner reveal">
+  <i class="ri-information-line"></i>
+  <span><strong>Aviso:</strong> Uso exclusivo para alunos e docentes.</span>
+</div>
+
 <!-- CONTEÚDO -->
 <main class="content">
+  <section class="section-destaques reveal">
 
-  <section class="section-destaques">
-
-    <h2>Consulta de Acervo</h2>
-
+    <h2>Sobre a Consulta de Acervo</h2>
     <p>
       Acesse o acervo da biblioteca para verificar disponibilidade de livros, autores e materiais acadêmicos.
+      Utilize as orientações abaixo para consultar e localizar os materiais disponíveis.
     </p>
 
-    <!-- PDF -->
+    <!-- PDF VIEWER -->
     <div class="pdf-wrapper">
 
-      <div class="pdf-canvas-wrap">
-        <canvas id="pdf-canvas"></canvas>
+      <!-- Barra de título do viewer -->
+      <div class="pdf-titlebar">
+        <div class="pdf-titlebar-icon">
+          <i class="ri-file-pdf-2-line"></i>
+        </div>
+        <span class="pdf-titlebar-name">consultadeacervo.pdf</span>
+        <div class="pdf-titlebar-actions">
+          <button class="pdf-titlebar-btn"
+                  title="Baixar"
+                  onclick="document.querySelector('.btn-download').click()">
+            <i class="ri-download-2-line"></i>
+          </button>
+          <button class="pdf-titlebar-btn" id="abrirModal" title="Tela cheia">
+            <i class="ri-fullscreen-line"></i>
+          </button>
+        </div>
       </div>
 
+      <!-- Canvas -->
+      <div class="pdf-canvas-wrap">
+        <canvas
+          id="pdf-canvas"
+          data-pdf-url="../../../assets/docs/documentosinformativos/Cartaz-Consulta%20ao%20Pergamum.pdf"
+        ></canvas>
+      </div>
+
+      <!-- Barra de progresso de leitura -->
+      <div class="pdf-progress">
+        <div class="pdf-progress-bar" id="pdf-progress-bar"></div>
+      </div>
+
+      <!-- Controles -->
       <div class="pdf-controls">
 
         <div class="pdf-nav">
-          <button class="btn-control" data-prev>
+          <button class="btn-control" data-prev title="Página anterior" disabled>
             <i class="ri-arrow-left-s-line"></i>
           </button>
 
           <span class="pdf-info">
-            <span data-page-num>1</span> / <span data-page-count>1</span>
+            <span data-page-num>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count>–</span>
           </span>
 
-          <button class="btn-control" data-next>
+          <button class="btn-control" data-next title="Próxima página">
             <i class="ri-arrow-right-s-line"></i>
           </button>
         </div>
 
         <div class="pdf-zoom">
-          <button class="btn-control" data-zoom-out>
+          <button class="btn-control" data-zoom-out title="Diminuir zoom">
             <i class="ri-subtract-line"></i>
           </button>
 
-          <span class="pdf-zoom-level" data-zoom-level>100%</span>
+          <span class="pdf-zoom-level" data-zoom-level>50%</span>
 
-          <button class="btn-control" data-zoom-in>
+          <button class="btn-control" data-zoom-in title="Aumentar zoom">
             <i class="ri-add-line"></i>
           </button>
         </div>
 
       </div>
-
     </div>
 
     <!-- AÇÕES -->
     <div class="acoes">
-
-      <button class="btn-visualizar" id="abrirModal">
-        Tela cheia
-      </button>
-
-      <a href="/assets/docs/documentosinformativos/Cartaz-Consulta%20ao%20Pergamum.pdf"
+      <a href="../../../assets/docs/documentosinformativos/Cartaz-Consulta%20ao%20Pergamum.pdf"
          download
-         target="_blank"
          class="btn-download">
+        <i class="ri-download-2-line"></i>
         Baixar PDF
       </a>
-
     </div>
 
   </section>
-
 </main>
 
-<!-- MODAL -->
-<div class="modal" id="modalPDF">
-
-  <button class="modal-close" id="fecharModal">
-    <i class="ri-close-line"></i>
-  </button>
-
+<!-- MODAL — TELA CHEIA -->
+<div class="modal" id="modalPDF" role="dialog" aria-modal="true" aria-label="Visualização em tela cheia">
   <div class="modal-content">
 
-    <div class="pdf-wrapper modal-pdf">
+    <!-- Barra de título do modal -->
+    <div class="modal-titlebar">
+      <i class="ri-file-pdf-2-line" style="font-size:15px; color:#f87171; flex-shrink:0;"></i>
+      <span class="modal-titlebar-title">consultadeacervo.pdf — visualização completa</span>
 
-      <div class="pdf-canvas-wrap">
-        <canvas id="pdf-canvas-modal"></canvas>
-      </div>
+      <div class="modal-titlebar-controls">
 
-      <div class="pdf-controls">
-
-        <div class="pdf-nav">
-          <button class="btn-control" data-prev-modal>
+        <div class="modal-nav-group">
+          <button class="btn-control btn-control--sm" data-prev-modal title="Página anterior" disabled>
             <i class="ri-arrow-left-s-line"></i>
           </button>
 
-          <span class="pdf-info">
-            <span data-page-num-modal>1</span> /
-            <span data-page-count-modal>1</span>
+          <span class="pdf-info pdf-info--sm">
+            <span data-page-num-modal>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count-modal>–</span>
           </span>
 
-          <button class="btn-control" data-next-modal>
+          <button class="btn-control btn-control--sm" data-next-modal title="Próxima página">
             <i class="ri-arrow-right-s-line"></i>
           </button>
         </div>
 
-        <div class="pdf-zoom">
-          <button class="btn-control" data-zoom-out-modal>
+        <div class="modal-zoom-group">
+          <button class="btn-control btn-control--sm" data-zoom-out-modal title="Diminuir zoom">
             <i class="ri-subtract-line"></i>
           </button>
-
-          <span data-zoom-level-modal>100%</span>
-
-          <button class="btn-control" data-zoom-in-modal>
+          <span class="pdf-zoom-level pdf-zoom-level--sm" data-zoom-level-modal>100%</span>
+          <button class="btn-control btn-control--sm" data-zoom-in-modal title="Aumentar zoom">
             <i class="ri-add-line"></i>
           </button>
         </div>
 
       </div>
 
+      <button class="modal-close" id="fecharModal" title="Fechar (Esc)">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <!-- Canvas do modal -->
+    <div class="pdf-canvas-wrap-modal">
+      <canvas id="pdf-canvas-modal"></canvas>
     </div>
 
   </div>
-
 </div>
-
-<!-- FOOTER -->
-<div id="footer-container"></div>
 
 <!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 </script>
 
-<!-- JS -->
-<script src="/assets/js/layout/layout.js" defer></script>
-<script src="/assets/js/layout/global.js" defer></script>
+<!-- FOOTER -->
+<div id="footer-container"></div>
+
+<!-- GLOBAIS -->
+<script src="../../../assets/js/layout/layout.js"></script>
+<script src="../../../assets/js/layout/pdf-viewer.js" defer></script>
 <script src="../../../assets/js/pages/informativos/consultadeacervo.js" defer></script>
 
 </body>

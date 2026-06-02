@@ -7,6 +7,7 @@
 @import url('../../global/footer.css');
 @import url('../../global/botaopdf.css');
 @import url('../../global/responsive.css');
+@import url('../../global/pdfviwer.css');
 
 
 /* =========================
@@ -18,12 +19,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url("/assets/img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+  background: url("../../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+  transform: scale(1.02);
 }
 
 .hero-overlay {
@@ -48,13 +51,12 @@
 
 
 /* =========================
-   ANIMAÇÃO REVEAL
+   REVEAL ANIMATION
 ========================= */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s ease;
-  will-change: transform, opacity;
 }
 
 .reveal.active {
@@ -62,15 +64,16 @@
   transform: translateY(0);
 }
 
-
 /* =========================
-   CONTEÚDO
+   CONTENT (Ajustado para dar folga sem encolher a tela)
 ========================= */
-.content {
-  padding: clamp(16px, 5vw, 40px);
+.content,
+.content-full {
+  padding: clamp(20px, 5vw, 40px); /* Garante a folga dinâmica nas laterais e topo */
+  width: 100%;
+  box-sizing: border-box; /* Impede que o padding quebre a largura de 100% */
 }
 
-/* caixa branca com sombra — engloba tudo */
 .section-destaques {
   background: #fff;
   padding: 24px;
@@ -93,7 +96,7 @@
 
 
 /* =========================
-   ÁREA DO PDF
+   PDF AREA
 ========================= */
 .pdf-canvas-wrap {
   display: flex;
@@ -105,13 +108,15 @@
   max-height: 70vh;
   background: #2a2a2a;
   width: 100%;
-  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 #pdf-canvas {
   display: block;
   max-width: 100%;
   height: auto;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   border-radius: 6px;
 }
 
@@ -123,9 +128,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  padding: 14px 16px;
+  gap: 12px;
+  padding: 12px 16px;
   background: #111;
+  color: #fff;
   flex-wrap: wrap;
 }
 
@@ -166,22 +172,15 @@
   transform: none;
 }
 
-.pdf-info {
-  font-size: 14px;
-  color: #ccc;
-  font-weight: 500;
-}
-
+.pdf-info,
 .pdf-zoom-level {
-  font-size: 13px;
-  color: #ccc;
-  min-width: 55px;
-  text-align: center;
+  font-size: 14px;
+  color: #ddd;
 }
 
 
 /* =========================
-   AÇÕES — dentro da section branca
+   BOTÕES AÇÕES
 ========================= */
 .acoes {
   margin-top: 20px;
@@ -204,8 +203,8 @@
   justify-content: center;
   gap: 8px;
   min-width: 180px;
-  transition: 0.25s ease;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .btn-visualizar {
@@ -218,8 +217,7 @@
 
 .btn-visualizar:hover,
 .btn-download:hover {
-  transform: translateY(-2px) scale(1.02);
-  opacity: 0.95;
+  transform: translateY(-2px);
 }
 
 
@@ -229,14 +227,15 @@
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.92);
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
   visibility: hidden;
-  transition: 0.3s;
+  transition: .3s ease;
   z-index: 2000;
+  padding: 16px;
 }
 
 .modal.active {
@@ -244,41 +243,152 @@
   visibility: visible;
 }
 
+
+/* =========================
+   MODAL CONTENT
+========================= */
 .modal-content {
-  width: 95%;
-  height: 95%;
-  background: #000;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-}
-
-.modal-iframe {
   width: 100%;
-  height: 100%;
-  border: none;
+  max-width: 1500px;
+  height: 95vh;
+  background: #0f172a;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.06);
 }
 
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(0,0,0,0.6);
+
+/* =========================
+   TITLEBAR MODAL
+========================= */
+.modal-titlebar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 18px;
+  background: linear-gradient(to bottom, #111827, #0f172a);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-wrap: wrap;
+}
+
+
+/* =========================
+   TÍTULO
+========================= */
+.modal-titlebar-title {
   color: #fff;
-  font-size: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 120px;
+}
+
+
+/* =========================
+   CONTROLES MODAL
+========================= */
+.modal-titlebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+
+/* =========================
+   GRUPOS
+========================= */
+.modal-nav-group,
+.modal-zoom-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+/* =========================
+   BOTÕES SMALL
+========================= */
+.btn-control--sm {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+
+/* =========================
+   INFO SMALL
+========================= */
+.pdf-info--sm,
+.pdf-zoom-level--sm {
+  min-width: 56px;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.05);
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+
+/* =========================
+   BOTÃO FECHAR
+========================= */
+.modal-close {
+  width: 42px;
+  height: 42px;
   border: none;
-  cursor: pointer;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  backdrop-filter: blur(6px);
-  transition: 0.2s;
+  font-size: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .2s ease, transform .2s ease;
 }
 
 .modal-close:hover {
-  background: rgba(0,0,0,0.8);
+  background: #ef4444;
+  transform: scale(1.06);
 }
+
+
+/* =========================
+   ÁREA PDF MODAL
+========================= */
+.pdf-canvas-wrap-modal {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
+  scroll-behavior: smooth;
+}
+
+
+/* =========================
+   CANVAS MODAL
+========================= */
+#pdf-canvas-modal {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.45);
+  max-width: 100%;
+  height: auto;
+}
+
+

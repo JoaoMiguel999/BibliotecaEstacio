@@ -59,15 +59,15 @@
         <!-- PDF VIEWER -->
         <div class="pdf-wrapper">
 
-            <!-- CANVAS -->
-            <div class="pdf-canvas-wrap">
-                <canvas id="pdf-canvas"></canvas>
-            </div>
+            <div class="pdf-wrapper">
+      <div class="pdf-canvas-wrap">
+        <canvas id="pdf-canvas"
+          data-pdf-url="../../assets/docs/manual-estacio.pdf">
+        </canvas>
+      </div>
 
-            <!-- CONTROLES (SEU PADRÃO GLOBAL) -->
             <div class="pdf-controls">
 
-                <!-- NAVEGAÇÃO -->
                 <div class="pdf-nav">
                     <button class="btn-control" data-prev>
                         <i class="ri-arrow-left-s-line"></i>
@@ -84,7 +84,6 @@
                     </button>
                 </div>
 
-                <!-- ZOOM -->
                 <div class="pdf-zoom">
                     <button class="btn-control" data-zoom-out>
                         <i class="ri-subtract-line"></i>
@@ -118,16 +117,53 @@
 
 <!-- MODAL -->
 <div class="modal" id="modalPDF">
+
     <button class="modal-close" id="fecharModal">
         <i class="ri-close-line"></i>
     </button>
 
-    <iframe
-        id="pdf-iframe"
-        src="../../assets/docs/manual-estacio.pdf"
-        class="modal-iframe"
-        title="Manual de Normalização de TCC">
-    </iframe>
+    <div class="modal-content">
+
+        <!-- Canvas do modal -->
+        <div class="pdf-canvas-wrap-modal">
+            <canvas id="pdf-canvas-modal"></canvas>
+        </div>
+
+        <!-- Controles do modal -->
+        <div class="pdf-controls">
+
+            <div class="pdf-nav">
+                <button class="btn-control" data-prev-modal>
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+
+                <span class="pdf-info">
+                    <span data-page-num-modal>1</span>
+                    <span class="pdf-separator">/</span>
+                    <span data-page-count-modal>1</span>
+                </span>
+
+                <button class="btn-control" data-next-modal>
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
+
+            <div class="pdf-zoom">
+                <button class="btn-control" data-zoom-out-modal>
+                    <i class="ri-subtract-line"></i>
+                </button>
+
+                <span class="pdf-zoom-level" data-zoom-level-modal>100%</span>
+
+                <button class="btn-control" data-zoom-in-modal>
+                    <i class="ri-add-line"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <!-- PDF.js -->
@@ -140,8 +176,10 @@
 <!-- FOOTER -->
 <div id="footer-container"></div>
 
-<!-- JS -->
-<script src="../../assets/js/pages/manualtcc.js" defer></script>
+<!-- GLOBAIS -->
+<script src="../../assets/js/layout/global.js"></script>
+<script src="../../assets/js/layout/layout.js"></script>
+<script src="../../assets/js/layout/pdf-viewer.js" defer></script>
 
 </body>
 </html>

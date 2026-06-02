@@ -4,154 +4,262 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Acessibilidade | Biblioteca Estácio São Luís</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <meta name="description"
+    content="Recursos de acessibilidade da Biblioteca Estácio São Luís com softwares inclusivos, plataformas digitais, equipamentos acessíveis e suporte à comunidade acadêmica." />
 
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/pages/Acessibilidade.css" />
 </head>
 
-<body>
+<body data-base="../../">
 
-<!-- BOTÃO MENU -->
-<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
-  <i class="ri-menu-line"></i>
-</button>
+  <!-- Link de salto para acessibilidade rápida -->
+  <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
 
-<!-- OVERLAY -->
-<div class="overlay" id="overlay"></div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+    <i class="ri-menu-line" aria-hidden="true"></i>
+  </button>
 
-<!-- SIDEBAR (INJETADA VIA FETCH) -->
-<div id="sidebar-container"></div>
+  <div class="overlay" id="overlay"></div>
+  <div id="sidebar-container"></div>
 
-<!-- HERO (SEM ALTERAÇÃO VISUAL) -->
-<header class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
+  <!-- HERO BANNER -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <section class="hero-section">
+        <div class="hero-content reveal">
 
-  <section class="hero-section">
-    <div class="hero-content">
+          <div class="hero-badge">
+            <i class="ri-wheelchair-line" aria-hidden="true"></i>
+            <span>Inclusão & Tecnologia Assistiva</span>
+          </div>
 
-      <div class="hero-eyebrow">
-        <i class="ri-wheelchair-line"></i>
-        Inclusão — Biblioteca
-      </div>
+          <h1 class="hero-title">
+            Acessi<span>bilidade</span>
+          </h1>
 
-      <h2>
-        Acessi<span class="hero-title-accent">bilidade</span>
-      </h2>
+          <p class="hero-subtitle">
+            Recursos, tecnologias e ferramentas inclusivas para garantir acesso pleno ao conhecimento,
+            autonomia e igualdade para toda a comunidade acadêmica da Biblioteca Estácio São Luís.
+          </p>
 
-      <p class="hero-subtitle">
-        Recursos e ferramentas para garantir acesso pleno ao conhecimento para toda a comunidade acadêmica.
-      </p>
+          <div class="hero-buttons">
+            <a href="#recursos" class="btn-primary">
+              <i class="ri-arrow-down-line" aria-hidden="true"></i>
+              Explorar Recursos
+            </a>
+            <a href="#informacoes" class="btn-secondary">
+              <i class="ri-information-line" aria-hidden="true"></i>
+              Saiba Mais
+            </a>
+          </div>
 
+        </div>
+      </section>
     </div>
-  </section>
-</header>
+  </header>
 
-<!-- AVISO -->
-<div class="aviso-banner">
-  <i class="ri-information-line"></i>
-  <span>
-    <strong>Informação:</strong> Todos os recursos de acessibilidade estão disponíveis gratuitamente para alunos e docentes da Estácio São Luís.
-  </span>
-</div>
-
-<!-- MAIN (PADRONIZADO COMO HOME) -->
-<main class="main">
-
-  <div class="content">
-
-    <!-- SEÇÃO PRINCIPAL -->
-    <section class="section-destaques reveal">
-
-      <div class="section-header">
-        <i class="ri-wheelchair-line"></i>
-        <h2>Recursos de Acessibilidade</h2>
-      </div>
-
-      <div class="section-line"></div>
-
-      <p>
-        A Biblioteca Estácio São Luís oferece uma ampla gama de recursos para garantir inclusão e acessibilidade
-        a todos os usuários, independentemente de suas necessidades.
-      </p>
-
-    </section>
-
-    <!-- CARDS -->
-    <section class="section-destaques reveal">
-
-      <div class="cards-container">
-
-        <div class="card">
-          <div class="card-icon-wrap">
-            <i class="ri-computer-line card-icon"></i>
-          </div>
-          <h3>Softwares de Acessibilidade</h3>
-          <p>NVDA, DOSVOX e VLibras auxiliam na leitura de tela e tradução para Libras.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon-wrap">
-            <i class="ri-keyboard-line card-icon"></i>
-          </div>
-          <h3>Equipamentos Inclusivos</h3>
-          <p>Teclado braile, lupa, reglete, sorobã e teclado acessível disponíveis.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon-wrap">
-            <i class="ri-global-line card-icon"></i>
-          </div>
-          <h3>Plataformas Digitais</h3>
-          <p>BV Pearson, Minha Biblioteca e EBSCO com leitura em voz alta integrada.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon-wrap">
-            <i class="ri-hand-coin-line card-icon"></i>
-          </div>
-          <h3>Cartilha de Libras</h3>
-          <p>Conteúdo com conceito, legislação e alfabeto completo em LIBRAS.</p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- INFORMAÇÕES -->
-    <section class="section-info reveal">
-
-      <div class="section-header">
-        <i class="ri-information-line"></i>
-        <h2>Informações</h2>
-      </div>
-
-      <div class="section-line"></div>
-
-      <div class="section-destaques">
+  <!-- BANNER DE AVISO -->
+  <div class="aviso-banner">
+    <div class="container">
+      <div class="aviso-content">
+        <i class="ri-information-line" aria-hidden="true"></i>
         <p>
-          A biblioteca oferece recursos como NVDA, DOSVOX, VLibras, equipamentos acessíveis
-          e plataformas digitais com leitura em voz alta, garantindo inclusão e acessibilidade
-          a toda a comunidade acadêmica da Estácio São Luís.
+          <strong>Informação:</strong>
+          Todos os recursos de acessibilidade estão disponíveis gratuitamente
+          para alunos e docentes da Estácio São Luís.
         </p>
       </div>
-
-    </section>
-
+    </div>
   </div>
 
-</main>
+  <main class="main" id="main-content">
 
-<!-- FOOTER (PADRÃO DA HOME) -->
-<div id="footer-container"></div>
+    <!-- SEÇÃO SOBRE (GRID EQUILIBRADO) -->
+    <section class="section-intro" id="sobre">
+      <div class="container">
+        <div class="intro-grid reveal">
 
-<!-- JS PADRÃO -->
-<script src="../../assets/js/layout/layout.js"></script>
-<script src="../../assets/js/layout/global.js"></script>
-<script src="../../assets/js/pages/Acessibilade.js"></script>
+          <div class="intro-text">
+            <div class="section-header">
+              <i class="ri-wheelchair-line" aria-hidden="true"></i>
+              <h2>Compromisso com a Inclusão</h2>
+            </div>
+            <div class="section-line"></div>
+            <p class="section-description">
+              A Biblioteca Estácio São Luís promove acessibilidade por meio de
+              tecnologias assistivas, plataformas digitais inclusivas e equipamentos adaptados,
+              garantindo uma experiência acadêmica mais acessível, moderna e acolhedora.
+            </p>
+            <p class="section-description">
+              Acreditamos que o acesso ao conhecimento é um direito de todos.
+              Por isso, oferecemos ferramentas, suporte especializado e um ambiente
+              pensado para atender estudantes e docentes com diferentes necessidades.
+            </p>
+          </div>
+
+          <!-- Elemento visual para equilibrar o grid lateral direito -->
+          <div class="intro-visual-card">
+            <div class="visual-badge"><i class="ri-shield-user-line"></i> Espaço Adaptado</div>
+            <h3>Direito ao Conhecimento</h3>
+            <p>Nossa infraestrutura física e digital segue diretrizes regulamentadas para garantir que barreiras sejam eliminadas.</p>
+            <div class="visual-footer-icons">
+              <i class="ri-eye-line" title="Suporte Visual"></i>
+              <i class="ri-deaf-line" title="Suporte Auditivo"></i>
+              <i class="ri-hand-line" title="Mobilidade Reduzida"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO RECURSOS -->
+    <section class="section-cards" id="recursos">
+      <div class="container">
+
+        <div class="section-title-block reveal">
+          <div class="section-header">
+            <i class="ri-apps-line" aria-hidden="true"></i>
+            <h2>Recursos Disponíveis</h2>
+          </div>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="cards-container">
+
+          <article class="card reveal" aria-labelledby="card-title-1">
+            <div class="card-top">
+              <div class="card-icon-wrap">
+                <i class="ri-computer-line card-icon" aria-hidden="true"></i>
+              </div>
+              <span class="card-tag">Tecnologia</span>
+            </div>
+            <h3 id="card-title-1">Softwares de Acessibilidade</h3>
+            <p>
+              Ferramentas como NVDA, DOSVOX e VLibras auxiliam usuários
+              com deficiência visual e auditiva por meio de leitura de tela
+              e tradução para Libras.
+            </p>
+          </article>
+
+          <article class="card reveal" aria-labelledby="card-title-2">
+            <div class="card-top">
+              <div class="card-icon-wrap">
+                <i class="ri-keyboard-line card-icon" aria-hidden="true"></i>
+              </div>
+              <span class="card-tag">Inclusão</span>
+            </div>
+            <h3 id="card-title-2">Equipamentos Inclusivos</h3>
+            <p>
+              Disponibilidade de teclado braile, lupa de ampliação,
+              reglete, sorobã e teclado acessível para apoiar
+              diferentes necessidades acadêmicas.
+            </p>
+          </article>
+
+          <article class="card reveal" aria-labelledby="card-title-3">
+            <div class="card-top">
+              <div class="card-icon-wrap">
+                <i class="ri-global-line card-icon" aria-hidden="true"></i>
+              </div>
+              <span class="card-tag">Digital</span>
+            </div>
+            <h3 id="card-title-3">Plataformas Digitais</h3>
+            <p>
+              Plataformas como BV Pearson, Minha Biblioteca e EBSCO
+              contam com leitura em voz alta e recursos acessíveis integrados.
+            </p>
+          </article>
+
+          <article class="card reveal" aria-labelledby="card-title-4">
+            <div class="card-top">
+              <div class="card-icon-wrap">
+                <i class="ri-hand-heart-line card-icon" aria-hidden="true"></i>
+              </div>
+              <span class="card-tag">Libras</span>
+            </div>
+            <h3 id="card-title-4">Cartilha de Libras</h3>
+            <p>
+              Material educativo com conceitos, legislação,
+              sinais básicos e alfabeto completo em LIBRAS
+              para apoio à comunicação inclusiva.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO INFORMAÇÕES FINAIS -->
+    <section class="section-info" id="informacoes">
+      <div class="container">
+
+        <div class="section-title-block reveal">
+          <div class="section-header">
+            <i class="ri-information-line" aria-hidden="true"></i>
+            <h2>Mais Informações</h2>
+          </div>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="info-box">
+
+          <div class="info-item reveal">
+            <div class="info-icon">
+              <i class="ri-check-line" aria-hidden="true"></i>
+            </div>
+            <div class="info-text-content">
+              <h4>Acesso Gratuito</h4>
+              <p>
+                Todos os recursos podem ser utilizados gratuitamente
+                pela comunidade acadêmica da Estácio São Luís.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item reveal">
+            <div class="info-icon">
+              <i class="ri-user-heart-line" aria-hidden="true"></i>
+            </div>
+            <div class="info-text-content">
+              <h4>Ambiente Inclusivo</h4>
+              <p>
+                A biblioteca busca promover autonomia,
+                igualdade e acessibilidade para todos os usuários.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item reveal">
+            <div class="info-icon">
+              <i class="ri-shield-check-line" aria-hidden="true"></i>
+            </div>
+            <div class="info-text-content">
+              <h4>Suporte Acadêmico</h4>
+              <p>
+                Equipe preparada para orientar no uso das ferramentas
+                e recursos de acessibilidade disponíveis.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="../../assets/js/layout/layout.js"></script>
+  <script src="../../assets/js/layout/global.js"></script>
+  <script src="../../assets/js/pages/Acessibilidade.js"></script>
 
 </body>
 </html>

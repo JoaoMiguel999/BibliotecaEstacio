@@ -2,24 +2,26 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Biblioteca Estácio São Luís</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name="description" content="Manual de Normalização de TCC - Biblioteca Estácio São Luís">
+  <title>Visita Guiada | Biblioteca Estácio São Luís</title>
 
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <meta name="description"
+        content="Visita Guiada - Biblioteca Estácio São Luís">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../../assets/css/pages/informativos/visitaguiada.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="../../../assets/css/pages/informativos/visitaguiada.css">
 </head>
 
 <body>
 
 <!-- MENU -->
-<button class="menu-toggle" id="menuToggle">
-    <i class="ri-menu-line"></i>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+  <i class="ri-menu-line"></i>
 </button>
 
 <div class="overlay" id="overlay"></div>
@@ -33,115 +35,251 @@
   <div class="hero-overlay"></div>
 
   <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-content reveal">
+
       <div class="hero-eyebrow">
         <i class="ri-map-pin-line"></i>
         Biblioteca Estácio São Luís
       </div>
 
-      <h2>Visita <span class="hero-title-accent">Guiada</span></h2>
+      <h2>
+        Visita
+        <span class="hero-title-accent">Guiada</span>
+      </h2>
 
       <p class="hero-subtitle">
         Conheça os espaços, serviços e recursos da biblioteca por meio de uma visita guiada completa e orientada.
       </p>
+
     </div>
   </section>
 </header>
+
+<!-- AVISO -->
+<div class="aviso-banner reveal">
+  <i class="ri-information-line"></i>
+  <span><strong>Aviso:</strong> Uso exclusivo para alunos e docentes.</span>
+</div>
+
 <!-- CONTEÚDO -->
 <main class="content">
 
-  <section class="section-destaques">
+  <section class="section-destaques reveal">
 
     <h2>Visita Guiada à Biblioteca</h2>
+
     <p>
       Participe de uma visita guiada e conheça os espaços, serviços e recursos
       disponíveis na Biblioteca Estácio São Luís.
     </p>
-        <!-- PDF VIEWER -->
-        <div class="pdf-wrapper">
 
-            <!-- CANVAS -->
-            <div class="pdf-canvas-wrap">
-                <canvas id="pdf-canvas"></canvas>
-            </div>
+    <!-- PDF VIEWER -->
+    <div class="pdf-wrapper">
 
-            <!-- CONTROLES (SEU PADRÃO GLOBAL) -->
-            <div class="pdf-controls">
+      <!-- TOPO -->
+      <div class="pdf-titlebar">
 
-                <!-- NAVEGAÇÃO -->
-                <div class="pdf-nav">
-                    <button class="btn-control" data-prev>
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
+        <div class="pdf-titlebar-icon">
+          <i class="ri-file-pdf-2-line"></i>
+        </div>
 
-                    <span class="pdf-info">
-                        <span data-page-num>1</span>
-                        <span class="pdf-separator">/</span>
-                        <span data-page-count>1</span>
-                    </span>
+        <span class="pdf-titlebar-name">
+          Visitaguiada.pdf
+        </span>
 
-                    <button class="btn-control" data-next>
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
+        <div class="pdf-titlebar-actions">
 
-                <!-- ZOOM -->
-                <div class="pdf-zoom">
-                    <button class="btn-control" data-zoom-out>
-                        <i class="ri-subtract-line"></i>
-                    </button>
+          <button class="pdf-titlebar-btn"
+                  title="Baixar"
+                  onclick="document.querySelector('.btn-download').click()">
+            <i class="ri-download-2-line"></i>
+          </button>
 
-                    <span class="pdf-zoom-level" data-zoom-level>100%</span>
-
-                    <button class="btn-control" data-zoom-in>
-                        <i class="ri-add-line"></i>
-                    </button>
-                </div>
-
-            </div>
+          <button class="pdf-titlebar-btn"
+                  id="abrirModal"
+                  title="Tela cheia">
+            <i class="ri-fullscreen-line"></i>
+          </button>
 
         </div>
 
-        <!-- AÇÕES -->
-        <div class="acoes">
-            <button class="btn-visualizar" id="abrirModal">
-                Tela cheia
-            </button>
+      </div>
 
-            <a href="../../../assets/docs/documentosinformativos/Visitaguiada.pdf" download class="btn-download">
-                Baixar PDF
-            </a>
+      <!-- CANVAS -->
+      <div class="pdf-canvas-wrap">
+
+        <canvas
+          id="pdf-canvas"
+          data-pdf-url="../../../assets/docs/documentosinformativos/Visitaguiada.pdf">
+        </canvas>
+
+      </div>
+
+      <!-- Barra de progresso de leitura -->
+      <div class="pdf-progress">
+        <div class="pdf-progress-bar" id="pdf-progress-bar"></div>
+      </div>
+
+      <!-- CONTROLES -->
+      <div class="pdf-controls">
+
+        <div class="pdf-nav">
+
+          <button class="btn-control"
+                  data-prev
+                  title="Página anterior"
+                  disabled>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info">
+            <span data-page-num>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count>–</span>
+          </span>
+
+          <button class="btn-control"
+                  data-next
+                  title="Próxima página">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
         </div>
 
-    </section>
+        <div class="pdf-zoom">
+
+          <button class="btn-control"
+                  data-zoom-out
+                  title="Diminuir zoom">
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span class="pdf-zoom-level"
+                data-zoom-level>
+            50%
+          </span>
+
+          <button class="btn-control"
+                  data-zoom-in
+                  title="Aumentar zoom">
+            <i class="ri-add-line"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+
+      <a href="../../../assets/docs/documentosinformativos/Visitaguiada.pdf"
+         download
+         class="btn-download">
+
+        <i class="ri-download-2-line"></i>
+        Baixar PDF
+
+      </a>
+
+    </div>
+
+  </section>
 
 </main>
 
 <!-- MODAL -->
-<div class="modal" id="modalPDF">
-    <button class="modal-close" id="fecharModal">
-        <i class="ri-close-line"></i>
-    </button>
+<div class="modal"
+     id="modalPDF"
+     role="dialog"
+     aria-modal="true">
 
-    <iframe
-        id="pdf-iframe"
-        src="../../../assets/docs/documentosinformativos/Visitaguiada.pdf"
-        class="modal-iframe"
-        title="Manual de Normalização de TCC">
-    </iframe>
+  <div class="modal-content">
+
+    <div class="modal-titlebar">
+
+      <i class="ri-file-pdf-2-line"
+         style="font-size:15px;color:#f87171;flex-shrink:0;">
+      </i>
+
+      <span class="modal-titlebar-title">
+        Visitaguiada.pdf — visualização completa
+      </span>
+
+      <div class="modal-titlebar-controls">
+
+        <div class="modal-nav-group">
+
+          <button class="btn-control btn-control--sm"
+                  data-prev-modal
+                  disabled>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info pdf-info--sm">
+            <span data-page-num-modal>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count-modal>–</span>
+          </span>
+
+          <button class="btn-control btn-control--sm"
+                  data-next-modal>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+        </div>
+
+        <div class="modal-zoom-group">
+
+          <button class="btn-control btn-control--sm"
+                  data-zoom-out-modal>
+            <i class="ri-subtract-line"></i>
+          </button>
+
+          <span class="pdf-zoom-level pdf-zoom-level--sm"
+                data-zoom-level-modal>
+            100%
+          </span>
+
+          <button class="btn-control btn-control--sm"
+                  data-zoom-in-modal>
+            <i class="ri-add-line"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+      <button class="modal-close"
+              id="fecharModal">
+        <i class="ri-close-line"></i>
+      </button>
+
+    </div>
+
+    <div class="pdf-canvas-wrap-modal">
+      <canvas id="pdf-canvas-modal"></canvas>
+    </div>
+
+  </div>
+
 </div>
 
 <!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 <script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 </script>
 
 <!-- FOOTER -->
 <div id="footer-container"></div>
 
 <!-- JS -->
+<script src="../../../assets/js/layout/layout.js"></script>
+<script src="../../../assets/js/layout/pdf-viewer.js" defer></script>
 <script src="../../../assets/js/pages/informativos/visitaguiada.js" defer></script>
 
 </body>

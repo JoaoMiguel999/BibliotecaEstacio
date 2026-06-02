@@ -1,5 +1,5 @@
 /* =========================
-   IMPORTS GLOBAIS
+   IMPORTS & CONFIGURAÇÕES
 ========================= */
 @import url('../global/base.css');
 @import url('../global/layout.css');
@@ -7,161 +7,406 @@
 @import url('../global/footer.css');
 @import url('../global/responsive.css');
 
-
-/* =========================
-   HERO — imagem desta página
-========================= */
-.hero-bg {
-  background: url("../../img/Biblioteca-cefet-5-antes-1024x575.jpeg") center/cover no-repeat;
+:root {
+  --acess-blue-light: #f4f8fd;
+  --acess-blue-dark:  #0a1931;
+  --text-main:        #334155;
+  --text-muted:       #64748b;
+  --radius-custom:    16px;
+  --shadow-flat:      0 4px 20px rgba(15, 23, 42, 0.05);
+  --shadow-hover:     0 20px 40px rgba(15, 23, 42, 0.1);
+  --transition-pure:  all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-
-/* =========================
-   ESPAÇAMENTO GLOBAL ENTRE SECTIONS
-========================= */
-
-.content section {
-  margin-bottom: 40px;
+/* Link de Salto A11y */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.2s;
 }
+.skip-link:focus { top: 0; }
 
-.content section:last-child {
-  margin-bottom: 0;
-}
-
-
-/* =========================
-   SECTION INFO
-========================= */
-.section-info {
-  margin-top: var(--space-lg);
-  margin-bottom: var(--space-xl);
-}
-
-
-/* =========================
-   REVEAL (ANIMAÇÃO GLOBAL)
-========================= */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-
-/* =========================
-   CARDS (HOVER MELHORADO)
-========================= */
-
-.cards-container .card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
-}
-
-.cards-container .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-
-
-/* =========================
-   AVISO BANNER AJUSTE
-========================= */
-
-.aviso-banner {
-  margin-top: 20px;
-}
-
-
-/* =========================
-   SIDEBAR SUBMENU
-========================= */
-
-/* submenu */
-.sub {
-  list-style: none;
-
-  padding: 0;
-  margin: 6px 0 0;
-
-  max-height: 0;
-  overflow: hidden;
-
-  transition:
-    max-height 0.35s ease,
-    opacity 0.3s ease;
-
-  opacity: 0;
-}
-
-
-/* submenu aberto */
-.has-sub.open .sub {
-  max-height: 1000px;
-  opacity: 1;
-}
-
-
-/* botão principal */
-.sub-toggle {
+/* Container */
+.container {
   width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 
-  border: none;
+/* =========================
+   HERO STYLE
+========================= */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  padding: 9rem 0 7rem;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15), transparent 50%);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 2rem;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title span {
+  color: #60a5fa;
+  position: relative;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  line-height: 1.75;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: var(--radius-custom);
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition-pure);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #1e3a8a;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
   background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
 
-  cursor: pointer;
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #ffffff;
+}
 
+/* =========================
+   AVISO BANNER
+========================= */
+.aviso-banner {
+  transform: translateY(-30px);
+  margin-bottom: -30px;
+}
+
+.aviso-content {
+  background: #ffffff;
+  border-radius: var(--radius-custom);
+  padding: 20px 28px;
+  box-shadow: var(--shadow-flat);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1.25rem;
+  border-left: 4px solid #3b82f6;
 }
 
+.aviso-content i {
+  font-size: 24px;
+  color: #3b82f6;
+}
 
-/* itens submenu */
-.sub li a {
+.aviso-content p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* =========================
+   SECTIONS GLOBAL
+========================= */
+.section-header {
   display: flex;
   align-items: center;
   gap: 12px;
-
-  padding: 12px 18px 12px 42px;
-
-  color: #fff;
-  text-decoration: none;
-
-  border-radius: 10px;
-
-  transition:
-    background 0.25s ease,
-    transform 0.2s ease;
 }
 
-
-/* hover submenu */
-.sub li a:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateX(4px);
+.section-header i {
+  font-size: 24px;
+  color: #1e3a8a;
 }
 
-
-/* ícones submenu */
-.sub li a i {
-  font-size: 17px;
+.section-header h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
 }
 
-
-/* seta */
-.arrow {
-  transition: transform 0.3s ease;
+.section-line {
+  width: 40px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 2px;
+  margin: 12px 0 2.5rem;
 }
 
+/* =========================
+   SOBRE / INTRO
+========================= */
+.section-intro {
+  padding: 6rem 0;
+  background: #ffffff;
+}
 
-/* gira seta */
-.has-sub.open .arrow {
-  transform: rotate(180deg);
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.section-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
+/* Card Visual Lateral Direito */
+.intro-visual-card {
+  background: linear-gradient(180deg, var(--acess-blue-light) 0%, #ffffff 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-custom);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-flat);
+  position: relative;
+}
+
+.visual-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.intro-visual-card h3 {
+  font-size: 20px;
+  color: #0f172a;
+  margin: 0 0 0.75rem;
+}
+
+.intro-visual-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.visual-footer-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.visual-footer-icons i {
+  font-size: 20px;
+  color: #94a3b8;
+  background: #ffffff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+}
+
+/* =========================
+   RECURSOS (CARDS GRID)
+========================= */
+.section-cards {
+  padding: 6rem 0;
+  background: #f8fafc;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-custom);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-flat);
+  transition: var(--transition-pure);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: #cbd5e1;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  background: var(--acess-blue-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 22px;
+}
+
+.card-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+}
+
+.card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* =========================
+   MAIS INFORMAÇÕES
+========================= */
+.section-info {
+  padding: 6rem 0;
+  background: #ffffff;
+}
+
+.info-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-custom);
+  transition: var(--transition-pure);
+}
+
+.info-item:hover {
+  background: var(--acess-blue-light);
+}
+
+.info-icon {
+  width: 40px;
+  height: 40px;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.info-text-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.info-text-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+@media (max-width: 1024px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .info-box { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+@media (max-width: 768px) {
+  .cards-container { grid-template-columns: 1fr; }
+  .hero { padding: 7rem 0 5rem; }
 }
