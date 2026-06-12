@@ -12,6 +12,7 @@
 @import url('../global/responsive.css');
 @import url('../global/pdfviwer.css');
 
+
 /* =========================
    HERO
 ========================= */
@@ -41,7 +42,7 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(10, 15, 30, 0.5) 0%,
+    rgba(10, 15, 30, 0.5)  0%,
     rgba(10, 15, 30, 0.72) 60%,
     rgba(10, 15, 30, 0.88) 100%
   );
@@ -53,32 +54,6 @@
   text-align: center;
   padding: 24px 20px;
   max-width: 700px;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 5px 13px;
-  border-radius: 999px;
-  margin-bottom: 20px;
-}
-
-.hero-content h2 {
-  color: #fff;
-  font-size: clamp(26px, 5.5vw, 50px);
-  font-weight: 700;
-  line-height: 1.12;
-  margin: 0 0 16px;
-  letter-spacing: -0.01em;
 }
 
 .hero-title-accent {
@@ -126,12 +101,18 @@
   padding: clamp(16px, 5vw, 40px);
 }
 
+
+/* =========================
+   SEÇÃO
+========================= */
 .section-destaques {
   background: #fff;
   padding: 28px 32px;
   border-radius: 20px;
   border: 0.5px solid #e8ecf1;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.04),
+    0 8px 24px rgba(0,0,0,0.06);
 }
 
 .section-destaques h2 {
@@ -151,447 +132,54 @@
 
 
 /* =========================
-   PDF WRAPPER
+   FUNDO DO VIEWER — PRETO NEUTRO
+   Sobrescreve os tons azulados do pdfviwer.css
 ========================= */
 .pdf-wrapper {
-  margin-top: 22px;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #16181f;
-  display: flex;
-  flex-direction: column;
-  border: 0.5px solid rgba(255, 255, 255, 0.06);
+  background: #111;
+  margin-top: 20px;
 }
 
-/* Barra de título do viewer */
 .pdf-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 16px;
-  background: #1e2130;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  background: #111;
+  border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
-.pdf-titlebar-icon {
-  width: 28px;
-  height: 28px;
-  background: rgba(220, 60, 50, 0.18);
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  color: #f87171;
-  flex-shrink: 0;
-}
-
-.pdf-titlebar-name {
-  flex: 1;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.78);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pdf-titlebar-actions {
-  display: flex;
-  gap: 5px;
-  flex-shrink: 0;
-}
-
-.pdf-titlebar-btn {
-  width: 30px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  border: none;
-  border-radius: 7px;
-  color: rgba(255, 255, 255, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s;
-}
-
-.pdf-titlebar-btn:hover {
-  background: rgba(255, 255, 255, 0.11);
-  color: rgba(255, 255, 255, 0.85);
-}
-
-
-/* =========================
-   ÁREA DO CANVAS
-========================= */
 .pdf-canvas-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow: auto;
-  padding: 20px;
-  min-height: 60vh;
-  max-height: 70vh;
-  background: #1e2130;
-  width: 100%;
-  box-sizing: border-box;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.12) transparent;
+  background: #2a2a2a;
 }
 
-.pdf-canvas-wrap::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-.pdf-canvas-wrap::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.pdf-canvas-wrap::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 99px;
-}
-
-#pdf-canvas {
-  display: block;
-  max-width: 100%;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 12px 40px rgba(0,0,0,0.5);
-  background: #fff;
-  transition: opacity 0.3s ease;
-}
-
-/* Loading state */
-.pdf-canvas-wrap.pdf-loading #pdf-canvas {
-  opacity: 0.35;
-}
-
-.pdf-canvas-wrap.pdf-loading::after {
-  content: '';
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  border: 2px solid rgba(255,255,255,0.08);
-  border-top-color: #3b82f6;
-  border-radius: 50%;
-  animation: pdf-spin 0.7s linear infinite;
-}
-
-@keyframes pdf-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Mensagem de erro */
-.pdf-error {
-  color: #f87171;
-  font-size: 14px;
-  text-align: center;
-  padding: 32px;
-  margin: 0;
-}
-
-
-/* =========================
-   BARRA DE PROGRESSO DE LEITURA
-========================= */
-.pdf-progress {
-  height: 2px;
-  background: rgba(255,255,255,0.05);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.pdf-progress-bar {
-  height: 100%;
-  background: #3b82f6;
-  border-radius: 0 2px 2px 0;
-  transition: width 0.35s ease;
-  width: 0%;
-}
-
-
-/* =========================
-   CONTROLES PDF
-========================= */
 .pdf-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #16181f;
-  flex-wrap: wrap;
-}
-
-.pdf-nav,
-.pdf-zoom {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-control {
-  width: 38px;
-  height: 38px;
-  border: none;
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s, transform 0.15s;
-}
-
-.btn-control:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: scale(1.06);
-}
-
-.btn-control:active {
-  transform: scale(0.96);
-}
-
-.btn-control:disabled {
-  opacity: 0.25;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-.pdf-info {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 5px 12px;
-  border-radius: 8px;
-}
-
-.pdf-info span {
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  font-variant-numeric: tabular-nums;
-}
-
-.pdf-separator {
-  color: rgba(255, 255, 255, 0.22);
-}
-
-.pdf-zoom-level {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  min-width: 46px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-variant-numeric: tabular-nums;
-}
-
-
-/* =========================
-   AÇÕES
-========================= */
-.acoes {
-  margin-top: 22px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-visualizar,
-.btn-download {
-  padding: 11px 22px;
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  border: none;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-width: 164px;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
-  letter-spacing: 0.01em;
-}
-
-.btn-visualizar {
-  background: #16a34a;
-  box-shadow: 0 1px 2px rgba(22,163,74,0.2), 0 4px 12px rgba(22,163,74,0.25);
-}
-
-.btn-download {
-  background: #1d4ed8;
-  box-shadow: 0 1px 2px rgba(29,78,216,0.2), 0 4px 12px rgba(29,78,216,0.25);
-}
-
-.btn-download:visited {
-  color: #fff;
-}
-
-.btn-visualizar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(22,163,74,0.2), 0 8px 20px rgba(22,163,74,0.32);
-  opacity: 0.94;
-}
-
-.btn-download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(29,78,216,0.2), 0 8px 20px rgba(29,78,216,0.32);
-  opacity: 0.94;
-}
-
-.btn-visualizar:active,
-.btn-download:active {
-  transform: translateY(0) scale(0.98);
-}
-
-
-/* =========================
-   MODAL
-========================= */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 10, 18, 0.92);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
-  z-index: 2000;
-  padding: 16px;
-  box-sizing: border-box;
-  backdrop-filter: blur(4px);
-}
-
-.modal.active {
-  opacity: 1;
-  visibility: visible;
+  background: #111;
 }
 
 .modal-content {
-  position: relative;
-  width: 100%;
-  max-width: 1080px;
-  height: 94vh;
-  background: #16181f;
-  border-radius: 18px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
-  transform: translateY(16px) scale(0.98);
-  transition: transform 0.28s ease;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
+  background: #111;
 }
 
-.modal.active .modal-content {
-  transform: translateY(0) scale(1);
-}
-
-/* Barra de título do modal */
 .modal-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: #1e2130;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
-  flex-shrink: 0;
+  background: #111;
+  border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
-.modal-titlebar-title {
-  flex: 1;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.modal-close {
-  width: 32px;
-  height: 32px;
-  font-size: 17px;
-  color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.06);
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background 0.18s, color 0.18s;
-}
-
-.modal-close:hover {
-  background: rgba(239, 68, 68, 0.18);
-  color: #f87171;
-}
-
-/* Canvas area do modal — igual ao viewer mas sem height fixo */
 .pdf-canvas-wrap-modal {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow: auto;
-  padding: 20px;
-  flex: 1;
-  background: #1e2130;
-  box-sizing: border-box;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.12) transparent;
+  background: #2a2a2a;
 }
 
-.pdf-canvas-wrap-modal::-webkit-scrollbar { width: 5px; height: 5px; }
-.pdf-canvas-wrap-modal::-webkit-scrollbar-track { background: transparent; }
-.pdf-canvas-wrap-modal::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.14);
-  border-radius: 99px;
-}
 
-#pdf-canvas-modal {
-  display: block;
-  max-width: 100%;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 12px 40px rgba(0,0,0,0.5);
-  background: #fff;
-  transition: opacity 0.3s ease;
-}
-
-.pdf-canvas-wrap-modal.pdf-loading #pdf-canvas-modal {
-  opacity: 0.35;
-}
-
-/* Controles do modal — reutiliza .pdf-controls, .pdf-nav etc. */
+/* =========================
+   MODAL CONTROLS
+   Classe alternativa usada nesta página
+   para a barra de controles dentro do modal.
+========================= */
 .modal-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: #16181f;
+  background: #111;
   border-top: 0.5px solid rgba(255, 255, 255, 0.06);
   flex-shrink: 0;
   flex-wrap: wrap;
 }
-

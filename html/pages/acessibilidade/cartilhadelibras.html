@@ -7,22 +7,25 @@
 
   <title>Cartilha de Libras | Biblioteca Estácio São Luís</title>
   <meta name="description" content="Cartilha de Libras - Acessibilidade e inclusão na comunicação">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Biblioteca Estácio São Luís">
 
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="/assets/css/pages/acessibilidade/cartilhadelibras.css" />
 </head>
 
 <body>
 
-<!-- MENU -->
+<!-- BOTÃO MENU -->
 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
   <i class="ri-menu-line"></i>
 </button>
 
+<!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR GLOBAL -->
 <div id="sidebar-container"></div>
 
 <!-- HERO -->
@@ -31,7 +34,7 @@
   <div class="hero-overlay"></div>
 
   <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-content reveal">
 
       <div class="hero-eyebrow">
         <i class="ri-translate-2"></i>
@@ -48,86 +51,151 @@
   </section>
 </header>
 
+<!-- AVISO -->
+<div class="aviso-banner reveal">
+  <i class="ri-information-line"></i>
+  <span><strong>Aviso:</strong> Uso exclusivo para alunos e docentes.</span>
+</div>
+
 <!-- CONTEÚDO -->
 <main class="content">
+  <section class="section-destaques reveal">
 
-    <section class="section-destaques">
+    <h2>Aprendendo Libras</h2>
+    <p>A Libras (Língua Brasileira de Sinais) é essencial para a inclusão de pessoas surdas na comunicação.
+    Nesta cartilha você encontra sinais básicos, alfabeto manual e orientações de uso.</p>
 
-        <h2>Aprendendo Libras</h2>
-        <p>A Libras (Língua Brasileira de Sinais) é essencial para a inclusão de pessoas surdas na comunicação.
-        Nesta cartilha você encontra sinais básicos, alfabeto manual e orientações de uso.</p>
-        
-        <!-- PDF VIEWER -->
-        <div class="pdf-wrapper">
+    <!-- PDF VIEWER -->
+    <div class="pdf-wrapper">
 
-            <!-- CANVAS -->
-            <div class="pdf-canvas-wrap">
-                <canvas id="pdf-canvas"></canvas>
-            </div>
+      <!-- Barra de título do viewer -->
+      <div class="pdf-titlebar">
+        <div class="pdf-titlebar-icon">
+          <i class="ri-file-pdf-2-line"></i>
+        </div>
+        <span class="pdf-titlebar-name">apostiladelibras.pdf</span>
+        <div class="pdf-titlebar-actions">
+          <button class="pdf-titlebar-btn"
+                  title="Baixar"
+                  onclick="document.querySelector('.btn-download').click()">
+            <i class="ri-download-2-line"></i>
+          </button>
+          <button class="pdf-titlebar-btn" id="abrirModal" title="Tela cheia">
+            <i class="ri-fullscreen-line"></i>
+          </button>
+        </div>
+      </div>
 
-            <!-- CONTROLES (SEU PADRÃO GLOBAL) -->
-            <div class="pdf-controls">
+      <!-- Canvas -->
+      <div class="pdf-canvas-wrap">
+        <canvas
+          id="pdf-canvas"
+          data-pdf-url="/assets/docs/documentosacessibilidade/apostiladelibras.pdf"
+        ></canvas>
+      </div>
 
-                <!-- NAVEGAÇÃO -->
-                <div class="pdf-nav">
-                    <button class="btn-control" data-prev>
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
+      <!-- Barra de progresso de leitura -->
+      <div class="pdf-progress">
+        <div class="pdf-progress-bar" id="pdf-progress-bar"></div>
+      </div>
 
-                    <span class="pdf-info">
-                        <span data-page-num>1</span>
-                        <span class="pdf-separator">/</span>
-                        <span data-page-count>1</span>
-                    </span>
+      <!-- Controles -->
+      <div class="pdf-controls">
 
-                    <button class="btn-control" data-next>
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
+        <div class="pdf-nav">
+          <button class="btn-control" data-prev title="Página anterior" disabled>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
 
-                <!-- ZOOM -->
-                <div class="pdf-zoom">
-                    <button class="btn-control" data-zoom-out>
-                        <i class="ri-subtract-line"></i>
-                    </button>
+          <span class="pdf-info">
+            <span data-page-num>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count>–</span>
+          </span>
 
-                    <span class="pdf-zoom-level" data-zoom-level>100%</span>
-
-                    <button class="btn-control" data-zoom-in>
-                        <i class="ri-add-line"></i>
-                    </button>
-                </div>
-
-            </div>
-
+          <button class="btn-control" data-next title="Próxima página">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
         </div>
 
-        <!-- AÇÕES -->
-        <div class="acoes">
-            <button class="btn-visualizar" id="abrirModal">
-                Tela cheia
-            </button>
+        <div class="pdf-zoom">
+          <button class="btn-control" data-zoom-out title="Diminuir zoom">
+            <i class="ri-subtract-line"></i>
+          </button>
 
-      <a href="/assets/docs/documentosacessibilidade/apostiladelibras.pdf" download class="btn-download">
-        <i class="ri-download-2-line"></i> Baixar PDF
+          <span class="pdf-zoom-level" data-zoom-level>50%</span>
+
+          <button class="btn-control" data-zoom-in title="Aumentar zoom">
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+      <a href="/assets/docs/documentosacessibilidade/apostiladelibras.pdf"
+         download
+         class="btn-download">
+        <i class="ri-download-2-line"></i>
+        Baixar PDF
       </a>
     </div>
 
   </section>
-
 </main>
 
-<!-- MODAL -->
-<div class="modal" id="modalPDF">
-  <button class="modal-close" id="fecharModal">
-    <i class="ri-close-line"></i>
-  </button>
+<!-- MODAL — TELA CHEIA -->
+<div class="modal" id="modalPDF" role="dialog" aria-modal="true" aria-label="Visualização em tela cheia">
+  <div class="modal-content">
 
-  <iframe
-    src="/assets/docs/documentosacessibilidade/apostiladelibras.pdf"
-    class="modal-iframe"
-    id="pdf-iframe">
-  </iframe>
+    <!-- Barra de título do modal -->
+    <div class="modal-titlebar">
+      <i class="ri-file-pdf-2-line" style="font-size:15px; color:#f87171; flex-shrink:0;"></i>
+      <span class="modal-titlebar-title">apostiladelibras.pdf — visualização completa</span>
+
+      <div class="modal-titlebar-controls">
+
+        <div class="modal-nav-group">
+          <button class="btn-control btn-control--sm" data-prev-modal title="Página anterior" disabled>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info pdf-info--sm">
+            <span data-page-num-modal>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count-modal>–</span>
+          </span>
+
+          <button class="btn-control btn-control--sm" data-next-modal title="Próxima página">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="modal-zoom-group">
+          <button class="btn-control btn-control--sm" data-zoom-out-modal title="Diminuir zoom">
+            <i class="ri-subtract-line"></i>
+          </button>
+          <span class="pdf-zoom-level pdf-zoom-level--sm" data-zoom-level-modal>100%</span>
+          <button class="btn-control btn-control--sm" data-zoom-in-modal title="Aumentar zoom">
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <button class="modal-close" id="fecharModal" title="Fechar (Esc)">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <!-- Canvas do modal -->
+    <div class="pdf-canvas-wrap-modal">
+      <canvas id="pdf-canvas-modal"></canvas>
+    </div>
+
+  </div>
 </div>
 
 <!-- PDF.js -->
@@ -140,7 +208,9 @@
 <!-- FOOTER -->
 <div id="footer-container"></div>
 
-<script src="/assets/js/pages/acessibilidade/cartilhadelibras.js" defer></script>
+<!-- GLOBAIS -->
+<script src="/assets/js/layout/layout.js"></script>
+<script src="/assets/js/layout/pdf-viewer.js" defer></script>
 
 </body>
 </html>

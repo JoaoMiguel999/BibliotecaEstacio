@@ -2,30 +2,29 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ficha Catalográfica | Biblioteca Estácio São Luís</title>
+  <meta name="description" content="Solicitação e consulta de ficha catalográfica - Biblioteca Estácio São Luís">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Biblioteca Estácio São Luís">
 
-    <title>Ficha Catalográfica | Biblioteca Estácio São Luís</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
-    <meta name="description" content="Solicitação e consulta de ficha catalográfica - Biblioteca Estácio São Luís">
-
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../../assets/css/pages/fichacatalografica.css" />
+  <link rel="stylesheet" href="../../assets/css/pages/fichacatalografica.css" />
 </head>
 
 <body>
 
-<!-- MENU -->
-<button class="menu-toggle" id="menuToggle">
-    <i class="ri-menu-line"></i>
+<!-- BOTÃO MENU -->
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+  <i class="ri-menu-line"></i>
 </button>
 
+<!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR GLOBAL -->
 <div id="sidebar-container"></div>
 
 <!-- HERO -->
@@ -34,7 +33,8 @@
   <div class="hero-overlay"></div>
 
   <section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-content reveal">
+
       <div class="hero-eyebrow">
         <i class="ri-book-2-line"></i>
         Catalogação na Publicação
@@ -45,125 +45,155 @@
       <p class="hero-subtitle">
         Solicite ou consulte a ficha catalográfica do seu TCC conforme normas da ABNT.
       </p>
+
     </div>
   </section>
 </header>
 
+<!-- AVISO -->
+<div class="aviso-banner">
+  <i class="ri-information-line"></i>
+  <span><strong>Aviso:</strong> Uso exclusivo para alunos e docentes.</span>
+</div>
+
 <!-- CONTEÚDO -->
 <main class="content">
+  <section class="section-destaques reveal">
 
-    <section class="section-destaques">
+    <h2>Ficha Catalográfica</h2>
+    <p>Visualize o documento informativo e orientações para solicitação.</p>
 
-        <h2>Ficha Catalográfica</h2>
-        <p>Visualize o documento informativo e orientações para solicitação.</p>
+    <!-- PDF VIEWER -->
+    <div class="pdf-wrapper">
 
-        <!-- PDF VIEWER -->
-        <div class="pdf-wrapper">
+      <!-- Barra de título do viewer -->
+      <div class="pdf-titlebar">
+        <div class="pdf-titlebar-icon">
+          <i class="ri-file-pdf-2-line"></i>
+        </div>
+        <span class="pdf-titlebar-name">Aviso-ficha-catalografica.pdf</span>
+        <div class="pdf-titlebar-actions">
+          <button class="pdf-titlebar-btn"
+                  title="Baixar"
+                  onclick="document.querySelector('.btn-download').click()">
+            <i class="ri-download-2-line"></i>
+          </button>
+          <button class="pdf-titlebar-btn" id="abrirModal" title="Tela cheia">
+            <i class="ri-fullscreen-line"></i>
+          </button>
+        </div>
+      </div>
 
-            <div class="pdf-canvas-wrap">
-                <canvas id="pdf-canvas"
-                    data-pdf-url="../../assets/docs/documentosinformativos/Aviso-ficha-catalografica.pdf">
-                </canvas>
-            </div>
+      <!-- Canvas -->
+      <div class="pdf-canvas-wrap">
+        <canvas
+          id="pdf-canvas"
+          data-pdf-url="../../assets/docs/documentosinformativos/Aviso-ficha-catalografica.pdf"
+        ></canvas>
+      </div>
 
-            <div class="pdf-controls">
+      <!-- Barra de progresso de leitura -->
+      <div class="pdf-progress">
+        <div class="pdf-progress-bar" id="pdf-progress-bar"></div>
+      </div>
 
-                <div class="pdf-nav">
-                    <button class="btn-control" data-prev>
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
+      <!-- Controles -->
+      <div class="pdf-controls">
 
-                    <span class="pdf-info">
-                        <span data-page-num>1</span>
-                        <span>/</span>
-                        <span data-page-count>1</span>
-                    </span>
+        <div class="pdf-nav">
+          <button class="btn-control" data-prev title="Página anterior" disabled>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
 
-                    <button class="btn-control" data-next>
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
+          <span class="pdf-info">
+            <span data-page-num>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count>–</span>
+          </span>
 
-                <div class="pdf-zoom">
-                    <button class="btn-control" data-zoom-out>
-                        <i class="ri-subtract-line"></i>
-                    </button>
-
-                    <span class="pdf-zoom-level" data-zoom-level>100%</span>
-
-                    <button class="btn-control" data-zoom-in>
-                        <i class="ri-add-line"></i>
-                    </button>
-                </div>
-
-            </div>
-
+          <button class="btn-control" data-next title="Próxima página">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
         </div>
 
-        <!-- AÇÕES -->
-        <div class="acoes">
-            <button class="btn-visualizar" id="abrirModal">
-                Tela cheia
-            </button>
+        <div class="pdf-zoom">
+          <button class="btn-control" data-zoom-out title="Diminuir zoom">
+            <i class="ri-subtract-line"></i>
+          </button>
 
-            <a href="../../assets/docs/documentosinformativos/Aviso-ficha-catalografica.pdf"
-               download
-               class="btn-download">
-                Baixar PDF
-            </a>
+          <span class="pdf-zoom-level" data-zoom-level>50%</span>
+
+          <button class="btn-control" data-zoom-in title="Aumentar zoom">
+            <i class="ri-add-line"></i>
+          </button>
         </div>
 
-    </section>
-
-</main>
-
-<!-- MODAL -->
-<div class="modal" id="modalPDF">
-
-    <button class="modal-close" id="fecharModal">
-        <i class="ri-close-line"></i>
-    </button>
-
-    <div class="modal-content">
-
-        <div class="pdf-canvas-wrap-modal">
-            <canvas id="pdf-canvas-modal"></canvas>
-        </div>
-
-        <div class="pdf-controls">
-
-            <div class="pdf-nav">
-                <button class="btn-control" data-prev-modal>
-                    <i class="ri-arrow-left-s-line"></i>
-                </button>
-
-                <span class="pdf-info">
-                    <span data-page-num-modal>1</span>
-                    <span>/</span>
-                    <span data-page-count-modal>1</span>
-                </span>
-
-                <button class="btn-control" data-next-modal>
-                    <i class="ri-arrow-right-s-line"></i>
-                </button>
-            </div>
-
-            <div class="pdf-zoom">
-                <button class="btn-control" data-zoom-out-modal>
-                    <i class="ri-subtract-line"></i>
-                </button>
-
-                <span class="pdf-zoom-level" data-zoom-level-modal>100%</span>
-
-                <button class="btn-control" data-zoom-in-modal>
-                    <i class="ri-add-line"></i>
-                </button>
-            </div>
-
-        </div>
-
+      </div>
     </div>
 
+    <!-- AÇÕES -->
+    <div class="acoes">
+      <a href="../../assets/docs/documentosinformativos/Aviso-ficha-catalografica.pdf"
+         download
+         class="btn-download">
+        <i class="ri-download-2-line"></i>
+        Baixar PDF
+      </a>
+    </div>
+
+  </section>
+</main>
+
+<!-- MODAL — TELA CHEIA -->
+<div class="modal" id="modalPDF" role="dialog" aria-modal="true" aria-label="Visualização em tela cheia">
+  <div class="modal-content">
+
+    <!-- Barra de título do modal -->
+    <div class="modal-titlebar">
+      <i class="ri-file-pdf-2-line" style="font-size:15px; color:#f87171; flex-shrink:0;"></i>
+      <span class="modal-titlebar-title">Aviso-ficha-catalografica.pdf — visualização completa</span>
+
+      <div class="modal-titlebar-controls">
+
+        <div class="modal-nav-group">
+          <button class="btn-control btn-control--sm" data-prev-modal title="Página anterior" disabled>
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+
+          <span class="pdf-info pdf-info--sm">
+            <span data-page-num-modal>1</span>
+            <span class="pdf-separator">/</span>
+            <span data-page-count-modal>–</span>
+          </span>
+
+          <button class="btn-control btn-control--sm" data-next-modal title="Próxima página">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+
+        <div class="modal-zoom-group">
+          <button class="btn-control btn-control--sm" data-zoom-out-modal title="Diminuir zoom">
+            <i class="ri-subtract-line"></i>
+          </button>
+          <span class="pdf-zoom-level pdf-zoom-level--sm" data-zoom-level-modal>100%</span>
+          <button class="btn-control btn-control--sm" data-zoom-in-modal title="Aumentar zoom">
+            <i class="ri-add-line"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <button class="modal-close" id="fecharModal" title="Fechar (Esc)">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <!-- Canvas do modal -->
+    <div class="pdf-canvas-wrap-modal">
+      <canvas id="pdf-canvas-modal"></canvas>
+    </div>
+
+  </div>
 </div>
 
 <!-- PDF.js -->
@@ -176,8 +206,7 @@
 <!-- FOOTER -->
 <div id="footer-container"></div>
 
-<!-- GLOBAIS (sem JS de página) -->
-<script src="../../assets/js/layout/global.js"></script>
+<!-- GLOBAIS -->
 <script src="../../assets/js/layout/layout.js"></script>
 <script src="../../assets/js/layout/pdf-viewer.js" defer></script>
 
